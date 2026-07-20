@@ -31,7 +31,8 @@ services:
     volumes:
       - ../../:/app
       - /app/.venv
-    command: python manage.py runserver 0.0.0.0:8000
+    # Keep anonymous .venv in sync when pyproject/uv.lock change on the host.
+    command: sh -c "uv sync --frozen --no-dev && python manage.py runserver 0.0.0.0:8000"
     depends_on:
       - postgres
 

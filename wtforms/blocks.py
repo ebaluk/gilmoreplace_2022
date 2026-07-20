@@ -35,7 +35,6 @@ class FormFieldBaseBlock(blocks.StructBlock):
 
     class Meta:
         label = None
-        template = "wtforms/blocks/form_field_block.html"
 
 
 class FormFieldWithChoicesBlock(FormFieldBaseBlock):

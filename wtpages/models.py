@@ -43,9 +43,10 @@ from .blocks import (
     EmailLinkBlock, FormLinkBlock, DocumentLinkBlock,
     LogoBlock
 )
+from .headless import NextHeadlessPreviewMixin
 
 
-class LanguageRedirectionPage(Page):
+class LanguageRedirectionPage(NextHeadlessPreviewMixin, Page):
     # parent_page_types = ['wagtailcore.Page']
     # subpage_types = ['pages.StandardPage','pages.StandardIndexPage']
     parent_page_types = []
@@ -138,7 +139,7 @@ class WtBasePageHeroImages(Orderable):
     ]
 
 
-class WtBasePage(Page):
+class WtBasePage(NextHeadlessPreviewMixin, Page):
 
     HERO_TEXT_ALIGN = (
         ('left', _('Left')),
@@ -269,7 +270,7 @@ class WtBasePage(Page):
     ]
 
 
-class URLPage(Page):
+class URLPage(NextHeadlessPreviewMixin, Page):
     class Meta:
         verbose_name = _("URL Page")
     link_external = models.URLField(blank=True, null=True)

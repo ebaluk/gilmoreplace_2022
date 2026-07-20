@@ -76,6 +76,8 @@ OpenAPI / Swagger (drf-spectacular):
 
 Outbound payloads for settings, forms, and page detail are validated with Pydantic models in `gilmoreplace_2022/api/schemas/`.
 
+Admin page preview uses `wagtail-headless-preview` → Next.js Draft Mode (`/api/preview`) and `GET /api/v2/headless/pages/preview/`. There is no Django HTML frontend for public pages.
+
 ## Internationalization
 
 | Next.js path | Wagtail prefix | API locale | Label |

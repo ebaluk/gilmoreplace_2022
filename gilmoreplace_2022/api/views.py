@@ -33,6 +33,7 @@ from .schemas import (
     PageResponse,
     dump_model,
 )
+from .page_urls import page_public_path
 
 Image = get_image_model()
 
@@ -83,14 +84,14 @@ class PageDetailView(APIView):
 
         return self._serialize_page(page, request)
 
-    def _serialize_page(self, page, request):
+    def _serialize_page(self, page, request, *, follow_first_child=True):
         """Build the headless page payload for ``page`` (handles redirect-to-first-child)."""
         specific = page.specific
         content_source = specific
         content_page_id = page.id
         redirect_to_first_child = getattr(specific, "redirect_to_first_child", False)
 
-        if redirect_to_first_child:
+        if follow_first_child and redirect_to_first_child:
             first_child = page.get_children().live().first()
             if first_child:
                 content_source = first_child.specific
@@ -115,7 +116,7 @@ class PageDetailView(APIView):
             "title": page.title,
             "slug": page.slug,
             "content_type": page.content_type.model if page.content_type else "page",
-            "url": page.get_url(request=request),
+            "url": page_public_path(page, request),
             "seo_title": page.seo_title or "",
             "search_description": page.search_description or "",
             "show_in_menus": page.show_in_menus,
@@ -123,7 +124,7 @@ class PageDetailView(APIView):
             "color_theme": getattr(content_source, "color_theme", "default"),
             "show_navbar": getattr(specific, "show_navbar", False),
             "show_in_sitemap": getattr(specific, "show_in_sitemap", True),
-            "redirect_to_first_child": redirect_to_first_child,
+            "redirect_to_first_child": redirect_to_first_child if follow_first_child else False,
             "content_page_id": content_page_id,
             "hero": hero_data,
             "stream_field": stream_data,
@@ -277,7 +278,7 @@ class PageDetailView(APIView):
             "id": parent.id,
             "title": parent.title,
             "slug": parent.slug,
-            "url": parent.url,
+            "url": page_public_path(parent),
         }
 
     def _serialize_children(self, page):
@@ -294,7 +295,7 @@ class PageDetailView(APIView):
                 "id": child.id,
                 "title": child.title,
                 "slug": child.slug,
-                "url": child.url,
+                "url": page_public_path(child),
                 "show_in_menus": child.show_in_menus,
             }
             if is_tower_index and child.content_type.model == "towerpage":
@@ -310,6 +311,57 @@ class PageDetailView(APIView):
                     )
             result.append(item)
         return result
+
+
+class PagePreviewView(PageDetailView):
+    """
+    Draft page payload for Wagtail admin preview (wagtail-headless-preview token).
+
+    GET /api/v2/headless/pages/preview/?content_type=<app.model>&token=<token>
+
+    Requires header ``X-Preview-Secret`` (or ``?secret=``) matching ``PREVIEW_SECRET``.
+    """
+
+    def get(self, request, page_id=None):
+        from django.apps import apps
+        from django.conf import settings
+        from django.core.signing import BadSignature
+
+        from wtpages.headless import NextHeadlessPreviewMixin
+
+        expected = getattr(settings, "PREVIEW_SECRET", "") or ""
+        provided = (
+            request.headers.get("X-Preview-Secret")
+            or request.query_params.get("secret")
+            or ""
+        )
+        if not expected or provided != expected:
+            raise Http404
+
+        content_type = request.query_params.get("content_type")
+        token = request.query_params.get("token")
+        if not content_type or not token or "." not in content_type:
+            raise Http404
+
+        app_label, model_name = content_type.split(".", 1)
+        try:
+            model_class = apps.get_model(app_label, model_name)
+        except LookupError:
+            raise Http404
+
+        if not issubclass(model_class, NextHeadlessPreviewMixin):
+            raise Http404
+
+        try:
+            page = model_class.get_page_from_preview_token(token)
+        except BadSignature:
+            raise Http404
+
+        if page is None:
+            raise Http404
+
+        # Do not swap in live first-child content while editing a parent draft.
+        return self._serialize_page(page, request, follow_first_child=False)
 
 
 class AllPagesView(APIView):
@@ -342,7 +394,7 @@ class AllPagesView(APIView):
                 "id": page.id,
                 "title": page.title,
                 "slug": page.slug,
-                "url": page.get_url(request=request),
+                "url": page_public_path(page, request),
                 "seo_title": page.seo_title or "",
                 "search_description": page.search_description or "",
                 "show_in_menus": page.show_in_menus,
@@ -397,7 +449,7 @@ class NavigationView(APIView):
                 "id": child.id,
                 "title": child.title,
                 "slug": child.slug,
-                "url": child.url,
+                "url": page_public_path(child),
                 "show_navbar": getattr(child_specific, "show_navbar", False),
                 "children": [],
             }
@@ -408,7 +460,7 @@ class NavigationView(APIView):
                         "id": sub.id,
                         "title": sub.title,
                         "slug": sub.slug,
-                        "url": sub.url,
+                        "url": page_public_path(sub),
                         "show_navbar": getattr(sub_specific, "show_navbar", False),
                         "children": [],
                     })
@@ -419,7 +471,7 @@ class NavigationView(APIView):
             "title": page.title,
             "slug": page.slug,
             "content_type": page.content_type.model if page.content_type else "page",
-            "url": page.url,
+            "url": page_public_path(page),
             "show_navbar": show_navbar,
             "children": nav_children,
         }
@@ -476,10 +528,12 @@ class SettingsView(APIView):
         if root_page:
             contact_url = None
             if root_page.contact_page_link_id:
-                contact_url = root_page.contact_page_link.get_url(request=request)
+                contact_url = page_public_path(root_page.contact_page_link, request)
             penthouse_url = None
             if root_page.penthouse_collections_page_id:
-                penthouse_url = root_page.penthouse_collections_page.get_url(request=request)
+                penthouse_url = page_public_path(
+                    root_page.penthouse_collections_page, request
+                )
 
             header_promo_box = None
             if root_page.promo_box_id and root_page.promo_box.visible:
@@ -514,7 +568,7 @@ class SettingsView(APIView):
         for lrp in LanguageRootPage.objects.live():
             language_roots.append({
                 "language_code": lrp.language_code,
-                "url": lrp.get_url(request=request),
+                "url": page_public_path(lrp, request),
                 "label": lrp.lang_translated,
             })
 
@@ -728,7 +782,11 @@ class FormSubmitView(APIView):
         if form.is_valid():
             obj.handle_files_upload(form, request)
             obj.process_form_submission(form, request)
-            thank_you_url = obj.selected_thank_you_page.url if obj.selected_thank_you_page else None
+            thank_you_url = (
+                page_public_path(obj.selected_thank_you_page)
+                if obj.selected_thank_you_page
+                else None
+            )
             payload = {
                 "status": "success",
                 "message_text": obj.thank_you_text,

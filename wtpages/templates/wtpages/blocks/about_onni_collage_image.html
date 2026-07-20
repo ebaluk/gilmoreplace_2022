@@ -1,6 +1,0 @@
-{% load wagtailcore_tags wagtailimages_tags %}
-{% image self.image max-640x640 as img %}
-<div  class="image {{imgtype}}" style="background-image: url({{img.url}});">
-    <p class="img-desc">{{self.title}}</p>
-</div>
-    

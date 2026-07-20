@@ -1,5 +1,0 @@
-{% load wagtailcore_tags wagtailimages_tags %}
-
-<{% if self.link %}a target="_blank" href="{{ self.link }}"{% else %}span{% endif %} data-id="{{ self.logo.id }}" class="logo-block">    
-    {% image self.logo height-200 %}    
-</{% if self.link %}a{% else %}span{% endif %}>

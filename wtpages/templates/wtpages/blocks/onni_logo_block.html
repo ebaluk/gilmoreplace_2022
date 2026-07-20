@@ -1,8 +1,0 @@
-{% load static wagtailcore_tags wtpages_tags %}
-<article class="onni-logo-block text-center themed-{{self.theme.id}} {{self.theme.css_class}}">
-    <a href="https://www.onni.com/" {% if self.new_window %} target="_blank"{% endif %} class="onni-link" title="{{self.title}}">
-        <img src="{% static 'images/onni-logo.svg' %}" alt="{{self.title}}" class="logo">
-    </a>
-</article>
-
-

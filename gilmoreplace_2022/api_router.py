@@ -7,6 +7,7 @@ Custom headless API (``headless_urls``), used by Next.js:
     GET  /api/v2/headless/pages/                          AllPagesView
     GET  /api/v2/headless/pages/<id>/                     PageDetailView
     GET  /api/v2/headless/pages/by-slug/                  PageDetailView (slug+locale)
+    GET  /api/v2/headless/pages/preview/                  PagePreviewView (draft token)
     GET  /api/v2/headless/navigation/                     NavigationView
     GET  /api/v2/headless/settings/                       SettingsView
     GET  /api/v2/headless/themes/                         ThemeView
@@ -30,6 +31,7 @@ from django.urls import re_path
 
 from .api.views import (
     PageDetailView,
+    PagePreviewView,
     AllPagesView,
     NavigationView,
     SettingsView,
@@ -55,6 +57,7 @@ headless_urls = [
     re_path(r'^api/v2/headless/pages/$', AllPagesView.as_view(), name='headless_all_pages'),
     re_path(r'^api/v2/headless/pages/(?P<page_id>\d+)/$', PageDetailView.as_view(), name='headless_page_detail'),
     re_path(r'^api/v2/headless/pages/by-slug/$', PageDetailView.as_view(), name='headless_page_by_slug'),
+    re_path(r'^api/v2/headless/pages/preview/$', PagePreviewView.as_view(), name='headless_page_preview'),
     re_path(r'^api/v2/headless/navigation/$', NavigationView.as_view(), name='headless_navigation'),
     re_path(r'^api/v2/headless/settings/$', SettingsView.as_view(), name='headless_settings'),
     re_path(r'^api/v2/headless/themes/$', ThemeView.as_view(), name='headless_themes'),

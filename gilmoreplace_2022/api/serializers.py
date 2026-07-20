@@ -66,12 +66,13 @@ def resolve_page(page_id):
     if not page_id:
         return None
     from wagtail.models import Page
+    from .page_urls import page_public_path
     try:
         page = Page.objects.get(id=page_id)
         return {
             "id": page.id,
             "title": page.title,
-            "url": page.url,
+            "url": page_public_path(page),
             "slug": page.slug,
         }
     except Page.DoesNotExist:

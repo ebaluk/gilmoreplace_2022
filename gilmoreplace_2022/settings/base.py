@@ -8,7 +8,6 @@ INSTALLED_APPS = [
     'wtpages',
     'wtadmin',
     'wtforms',
-    'vendors.schemaorg',
     'wthomepage',
     'wtfavicon',
     'wtinstagramtokens',
@@ -21,16 +20,12 @@ INSTALLED_APPS = [
 
     'imagefilters',
 
-    'wt404test',
-
     'wtpromobox',
     'inlinepanelsorter',
 
     'vendors',
 
     'wagtail.contrib.sitemaps',
-    # 'wagtail.contrib.wagtailapi',
-    # 'rest_framework',
 
     'wagtail.contrib.forms',
     'wagtail.contrib.redirects',
@@ -42,39 +37,18 @@ INSTALLED_APPS = [
     'wagtail.images',
     'wagtail.search',
     'wagtail.admin',
-    # 'wagtail.contrib.legacy.richtext',
     'wagtail',
-
-
-
 
     'wagtail.contrib.settings',
 
     'wagtail_modeladmin',
+    'wagtail_headless_preview',
 
     'modelcluster',
-    'compressor',
     'taggit',
-
-    # 'wagtailfontawesome',
-    # 'wagalytics',
-
-    'mobileesp',
-
-
 
     'wagtailvideos',
     'wagtailvideos_autoencode',
-    # 'images',
-
-    # 'reportlab',
-
-
-    # 'django_mobile',
-
-    # Uncomment the next line to enable admin documentation:
-    # 'django.contrib.admindocs',
-
 
     'django.contrib.admin',
     'django.contrib.auth',
@@ -109,8 +83,6 @@ MIDDLEWARE = (
     # 'django.middleware.csrf.CsrfViewMiddleware',
     'wtforms.models.DisableCSRF',
 
-
-
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
@@ -118,13 +90,6 @@ MIDDLEWARE = (
 
     'wagtail.contrib.legacy.sitemiddleware.SiteMiddleware',
     'wagtail.contrib.redirects.middleware.RedirectMiddleware',
-
-    'mobileesp.middleware.MobileDetectionMiddleware',
-    # 'django_mobile.middleware.MobileDetectionMiddleware',
-    # 'django_mobile.middleware.SetFlavourMiddleware',
-    'wthomepage.middleware.WtHomepageMiddleware',
-
-
 )
 
 
@@ -133,9 +98,7 @@ ROOT_URLCONF = 'gilmoreplace_2022.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [
-            os.path.join(PROJECT_DIR, 'templates'),
-        ],
+        'DIRS': [],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -144,8 +107,6 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'wagtail.contrib.settings.context_processors.settings',
-                # 'django.template.context_processors.i18n',
-                # 'django_mobile.context_processors.flavour',
             ],
         },
     },
@@ -186,36 +147,12 @@ USE_L10N = True
 USE_TZ = True
 # USE_TZ = False
 
-LIBSASS_SOURCEMAPS = True
-COMPRESS_PRECOMPILERS = (
-    ('text/x-scss', 'django_libsass.SassCompiler'),
-)
-
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/1.8/howto/static-files/
-
-
-# npm install postcss postcss-cli autoprefixer
-COMPRESS_POSTCSS_AUTOPREFIXER_BROWSERSLIST = 'defaults, last 2 versions, not IE 11, maintained node versions'
-
-
-COMPRESS_FILTERS = {
-    'css': [
-        'compressor.filters.css_default.CssAbsoluteFilter',
-        'postcss_autoprefixer_filter.PostCssAutoprefixerFilter',
-        'compressor.filters.cssmin.rCSSMinFilter',
-    ],
-    'js': ['compressor.filters.jsmin.rJSMinFilter'],
-}
-
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.8/howto/static-files/
 
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
-    'compressor.finders.CompressorFinder',
 )
 
 STATICFILES_DIRS = (
@@ -276,6 +213,43 @@ LOGGING = {
 # Wagtail settings
 WAGTAIL_SITE_NAME = "Gilmore Place"
 WAGTAILADMIN_BASE_URL = "http://localhost:8000"
+
+# Browser-facing Next.js origin (admin preview + catch-all redirects).
+# Server-to-server revalidate uses NEXTJS_BASE_URL (may be Docker hostname).
+NEXTJS_PUBLIC_URL = os.environ.get("NEXTJS_PUBLIC_URL", "http://localhost:3000")
+NEXTJS_BASE_URL = os.environ.get("NEXTJS_BASE_URL", NEXTJS_PUBLIC_URL)
+REVALIDATION_SECRET = os.environ.get("REVALIDATION_SECRET", "")
+# Shared secret for draft preview API (Next → Django). Falls back to revalidation secret.
+PREVIEW_SECRET = os.environ.get("PREVIEW_SECRET", "") or REVALIDATION_SECRET
+
+WAGTAIL_HEADLESS_PREVIEW = {
+    "CLIENT_URLS": {
+        "default": NEXTJS_PUBLIC_URL.rstrip("/"),
+    },
+    "SERVE_BASE_URL": NEXTJS_PUBLIC_URL.rstrip("/"),
+    "REDIRECT_ON_PREVIEW": True,
+    "ENFORCE_TRAILING_SLASH": False,
+}
+
+
+def _validate_nextjs_urls():
+    """Warn when browser-facing preview URL looks like an internal Docker hostname."""
+    import warnings
+
+    public = (NEXTJS_PUBLIC_URL or "").rstrip("/")
+    internal_markers = ("://frontend", "://backend", "://nginx")
+    if any(m in public for m in internal_markers):
+        warnings.warn(
+            "NEXTJS_PUBLIC_URL=%r looks like an internal Docker hostname; "
+            "browsers cannot open Wagtail preview links. "
+            "Use a public origin (e.g. http://localhost:3000 or https://your.domain)."
+            % public,
+            UserWarning,
+            stacklevel=2,
+        )
+
+
+_validate_nextjs_urls()
 
 
 # CORS configuration for headless frontend

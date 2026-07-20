@@ -27,6 +27,7 @@ from wagtail.snippets.models import register_snippet
 
 # WT
 from wtadmin.models import WtSettings
+from wtpages.headless import NextHeadlessPreviewMixin
 
 from django.core.mail.backends.smtp import EmailBackend
 
@@ -381,8 +382,6 @@ class WtForm(ClusterableModel):
     use_streamfield = models.BooleanField(default=False, verbose_name=_("Use StreamField for form fields"))
     form_body = StreamField(WTFORMS_BLOCKS, use_json_field=True, blank=True, verbose_name=_("Form fields (StreamField)"))
 
-    template_fields = 'wtforms/form_fields.html'
-    template = 'wtforms/form.html'
 
     name = models.CharField(max_length=255)
     title = models.CharField(blank=True, max_length=255)
@@ -1166,7 +1165,7 @@ class WtFormLinkField(models.Model):
         abstract = True
 
 
-class FormLinkPage(Page):
+class FormLinkPage(NextHeadlessPreviewMixin, Page):
     class Meta:
         verbose_name = _("Form Popup Page")
 

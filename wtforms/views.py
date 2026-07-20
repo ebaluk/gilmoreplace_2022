@@ -15,8 +15,6 @@ from wagtail.models import Page
 from .forms import SelectDateForm
 
 
-from django.http import HttpResponseRedirect
-from django.views import View
 
 from .models import WtForm, get_forms_for_user
 
@@ -118,18 +116,3 @@ def list_submissions(request, page_id):
     })
 
 
-
-class WtFormView(View):
-
-    def get(self, request, *args, **kwargs):
-        obj = WtForm.objects.get(id=self.kwargs['pk'])
-        return obj.serve(request)        
-
-    def post(self, request, *args, **kwargs):
-        obj = WtForm.objects.get(id=self.kwargs['pk'])
-        return obj.serve(request)
-    
-    
-    
-    
-    

@@ -27,13 +27,17 @@ export function normalizeLocale(locale: string): string {
 
 /**
  * GET JSON from the headless API (ISR `revalidate: 60` for Next fetch cache).
+ * Pass `{ cache: "no-store" }` for draft preview (no ISR).
  * @throws Error when the response is not OK
  */
 async function fetchAPI<T>(path: string, options?: RequestInit): Promise<T> {
   const url = `${resolveApiUrl()}${path}`;
+  const cache = options?.cache;
   const res = await fetch(url, {
     ...options,
-    next: { revalidate: 60 },
+    ...(cache === "no-store"
+      ? { cache: "no-store" }
+      : { next: { revalidate: 60 } }),
   });
   if (!res.ok) {
     throw new Error(`API error: ${res.status} ${res.statusText} for ${url}`);
@@ -156,7 +160,25 @@ export function getPageBySlug(
   slug: string,
   locale: string
 ): Promise<import("@/types/page").WagtailPage> {
-  return fetchAPI(`/headless/pages/by-slug/?slug=${slug}&locale=${normalizeLocale(locale)}`);
+  return fetchAPI(`/headless/pages/by-slug/?slug=${encodeURIComponent(slug)}&locale=${normalizeLocale(locale)}`);
+}
+
+/**
+ * Fetch a draft page for Wagtail admin preview.
+ * GET /headless/pages/preview/?content_type=&token=
+ * Sends ``X-Preview-Secret`` from server env (never expose to the browser).
+ */
+export function getPagePreview(
+  contentType: string,
+  token: string
+): Promise<import("@/types/page").WagtailPage> {
+  const qs = new URLSearchParams({ content_type: contentType, token });
+  const secret =
+    process.env.PREVIEW_SECRET || process.env.REVALIDATION_SECRET || "";
+  return fetchAPI(`/headless/pages/preview/?${qs.toString()}`, {
+    cache: "no-store",
+    headers: secret ? { "X-Preview-Secret": secret } : {},
+  });
 }
 
 /** Fetch a page by numeric Wagtail id. GET /headless/pages/<id>/ */

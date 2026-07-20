@@ -1,6 +1,0 @@
-{% load wagtailcore_tags wagtailimages_tags rooms_tags %}
-<article class="text-block room-thumbnails-block page-layout-whole themed-{{self.theme.id}} {{self.theme.css_class}}">
-    <div class="container page-text-wrapper">        
-        {% room_thumbnails parent=self.parent_page boxes_per_row=self.boxes_per_row title=self.title %}                    
-    </div>    
-</article>

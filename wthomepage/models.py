@@ -6,9 +6,10 @@ from wtpages.blocks import (
     PageLinkBlock, ExternalLinkBlock, PhoneLinkBlock, 
     EmailLinkBlock, FormLinkBlock, DocumentLinkBlock,    
 )
+from wtpages.headless import NextHeadlessPreviewMixin
 
 
-class HomePage(Page):
+class HomePage(NextHeadlessPreviewMixin, Page):
     class Meta:
         verbose_name = _("Website Root Page")
         
@@ -59,9 +60,6 @@ class LanguageRootPageFooterSocialLinks(Orderable):
 class LanguageRootPage(StandardPage):
     class Meta:
         verbose_name = _("Language Root Page")
-
-
-    template = 'wthomepage/home_page.html'
 
     is_root_page = True
     

@@ -14,6 +14,8 @@ Real-estate marketing site for Gilmore Place (Onni). Wagtail/Django serves conte
 | `wtpages/`, `wthomepage/`, `towers/`, etc. | Wagtail apps, page models, stream-field blocks |
 | `gilmoreplace-next/` | Next.js frontend consuming `/api/v2/headless/` |
 
+Public HTML is served only by Next.js. Django handles Wagtail admin, headless API, documents/media, and admin preview via `wagtail-headless-preview` (Next Draft Mode).
+
 ## Commands
 
 ### Backend (repo root)

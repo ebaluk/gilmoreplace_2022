@@ -4,7 +4,7 @@ from django.utils.translation import gettext_lazy as _
 
 class PlaceBlock(blocks.StructBlock):    
     class Meta:
-        template='interactivegooglemaps/blocks/place_block.html'
+        pass
     title = blocks.CharBlock(label=_("Title"), icon = 'title')                    
     latitude = blocks.CharBlock()
     longitude = blocks.CharBlock()

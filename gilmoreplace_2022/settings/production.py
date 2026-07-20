@@ -34,9 +34,20 @@ if _csrf_origins:
         origin.strip() for origin in _csrf_origins.split(",") if origin.strip()
     ]
 
-# Host for Next.js frontend (revalidation webhook)
+# Host for Next.js frontend (revalidation webhook / public preview URL)
 NEXTJS_BASE_URL = os.environ.get("NEXTJS_BASE_URL", "http://localhost:3000")
+NEXTJS_PUBLIC_URL = os.environ.get("NEXTJS_PUBLIC_URL", NEXTJS_BASE_URL)
 REVALIDATION_SECRET = os.environ.get("REVALIDATION_SECRET", "change-me-in-production")
+PREVIEW_SECRET = os.environ.get("PREVIEW_SECRET", "") or REVALIDATION_SECRET
+
+WAGTAIL_HEADLESS_PREVIEW = {
+    "CLIENT_URLS": {
+        "default": NEXTJS_PUBLIC_URL.rstrip("/"),
+    },
+    "SERVE_BASE_URL": NEXTJS_PUBLIC_URL.rstrip("/"),
+    "REDIRECT_ON_PREVIEW": True,
+    "ENFORCE_TRAILING_SLASH": False,
+}
 
 REDIS_URL = os.environ.get("REDIS_URL", "")
 if REDIS_URL:

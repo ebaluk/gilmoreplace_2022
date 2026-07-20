@@ -3,6 +3,7 @@
  */
 
 import { dehydrate, HydrationBoundary } from "@tanstack/react-query";
+import { NotFoundPage } from "@/components/NotFoundPage";
 import { PageContent } from "@/components/PageContent";
 import { HeroVideoPreload } from "@/components/layout/HeroVideoPreload";
 import { queryKeys } from "@/lib/api/query-keys";
@@ -18,7 +19,15 @@ interface HomePageProps {
 /** Prefetch empty slug for the language root and render the page shell. */
 export default async function HomePage({ params: { locale } }: HomePageProps) {
   const queryClient = getQueryClient();
-  await prefetchPageData(queryClient, locale, "");
+  const { found } = await prefetchPageData(queryClient, locale, "");
+
+  if (!found) {
+    return (
+      <HydrationBoundary state={dehydrate(queryClient)}>
+        <NotFoundPage locale={locale} />
+      </HydrationBoundary>
+    );
+  }
 
   const page = queryClient.getQueryData<WagtailPage>(
     queryKeys.pages.bySlug(locale, ""),

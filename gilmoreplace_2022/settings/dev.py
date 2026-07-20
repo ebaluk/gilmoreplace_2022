@@ -10,8 +10,6 @@ LOGGING = {}
 #TEMPLATES['OPTIONS']['debug'] = 'DEBUG';
 TEMPLATES[0]['OPTIONS']['debug'] = True
 
-COMPRESS_ENABLED = False
-
 SECRET_KEY = os.environ.get("SECRET_KEY") or "dev-secret-key"
 
 #SECRET_KEY = 'a)jc_j=q0l5=!ibo!_=4^u$-w+!chf+&xe3vu$@a1mus#fnpmd'

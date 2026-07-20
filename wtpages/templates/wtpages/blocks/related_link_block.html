@@ -1,6 +1,0 @@
-{% load wagtailcore_tags %}
-<a href="{% block link %}{% endblock %}"{% if self.new_window %} target="_blank"{% endif %} class="btn {% if 'reverse' == self.link_type %}reverse{% elif 'gold' == self.link_type %}gold{% elif 'link' == self.link_type %}btn-link{% endif %} {% block add_class %}{% endblock %}" {% block add_attr %}{% endblock %}>
-    {{self.title}}
-</a>
-
-

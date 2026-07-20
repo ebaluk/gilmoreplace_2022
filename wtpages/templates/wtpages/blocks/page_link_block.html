@@ -1,3 +1,0 @@
-{% extends 'wtpages/blocks/related_link_block.html' %}
-{% load wagtailcore_tags wtpages_tags %}
-{% block link %}{% if self.link %}{% pageurl self.link %}{% else %}#{% endif %}{% if self.hash %}{% if self.link %}#{% endif %}{{self.hash}}{% endif %}{% endblock %}    

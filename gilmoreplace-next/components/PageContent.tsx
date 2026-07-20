@@ -1,6 +1,5 @@
 "use client";
 
-
 /**
  * Client page shell: useQuery page/settings/nav and render PageRenderer or 404.
  */

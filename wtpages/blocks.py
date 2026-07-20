@@ -86,16 +86,9 @@ class DropdownChooserBlock(blocks.ChooserBlock):
 class FormChoserBlock(DropdownChooserBlock):
     target_model = WtForm
 
-    class Meta:
-        template = 'wtpages/blocks/form_chooser_block.html'
-    # def __init__(self, required=True, help_text=None, **kwargs):
-    #     self.field = forms.ModelChoiceField(queryset=WtForm.objects.all(), to_field_name='id',)
-    #     super().__init__(**kwargs)
 
 
 class BaseRelatedLinkBlock(blocks.StructBlock):
-    class Meta:
-        template = 'wtpages/blocks/related_link_block.html'
 
     LINK_TYPE_CHOICES = (
         ('link',        _("Link")),
@@ -113,21 +106,15 @@ class BaseRelatedLinkBlock(blocks.StructBlock):
 
 
 class ExternalLinkBlock(BaseRelatedLinkBlock):
-    class Meta:
-        template = 'wtpages/blocks/external_link_block.html'
     link = blocks.URLBlock(required=True, label=_("External link"))
 
 
 class ONNILinkBlock(BaseRelatedLinkBlock):
-    class Meta:
-        template = 'wtpages/blocks/onni_link_block.html'
     link = None
     link_type = None
 
 
 class MenuExternalLinkBlock(blocks.StructBlock):
-    class Meta:
-        template = 'wtpages/blocks/menu_external_link_block.html'
     title = blocks.CharBlock(label=_("Title"), icon='title')
     background_image = ImageChooserBlock(
         required=False, label=_("Background Image"))
@@ -138,34 +125,24 @@ class MenuExternalLinkBlock(blocks.StructBlock):
 
 
 class PageLinkBlock(BaseRelatedLinkBlock):
-    class Meta:
-        template = 'wtpages/blocks/page_link_block.html'
     link = blocks.PageChooserBlock(required=False, label=_(
         "Internal Page link (current page if empty)"), )
     hash = blocks.CharBlock(required=False)
 
 
 class PhoneLinkBlock(BaseRelatedLinkBlock):
-    class Meta:
-        template = 'wtpages/blocks/phone_link_block.html'
     link = blocks.CharBlock(required=True, label=_("Phone Link"))
 
 
 class EmailLinkBlock(BaseRelatedLinkBlock):
-    class Meta:
-        template = 'wtpages/blocks/email_link_block.html'
     link = blocks.EmailBlock(required=True, label=_("Email Link"))
 
 
 class FormLinkBlock(BaseRelatedLinkBlock):
-    class Meta:
-        template = 'wtpages/blocks/form_link_block.html'
     link = FormChoserBlock(required=True, label=_("Pop Up Form link"))
 
 
 class DocumentLinkBlock(BaseRelatedLinkBlock):
-    class Meta:
-        template = 'wtpages/blocks/document_link_block.html'
     link = DocumentChooserBlock(required=True, label=_("Document"))
 
 
@@ -186,8 +163,6 @@ class NewRelatedLinksStreamBlock(blocks.StreamBlock):
 
 
 class NewRelatedLinksBlock(blocks.StructBlock):
-    class Meta:
-        template = 'wtpages/blocks/new_related_links_block.html'
     align = blocks.ChoiceBlock(choices=(('text-left', 'Left'), ('text-center', 'Center'),
                                ('text-right', 'Right')), default='text-left', label=_("Align Links"))
     description = blocks.TextBlock(
@@ -196,15 +171,11 @@ class NewRelatedLinksBlock(blocks.StructBlock):
 
 
 class RelatedLinksBlock(blocks.StreamBlock):
-    class Meta:
-        template = 'wtpages/blocks/related_links_block.html'
 
     link = NewRelatedLinksStreamBlock(label=_("Link"))
 
 
 class LogoBlock(blocks.StructBlock):
-    class Meta:
-        template = 'wtpages/blocks/logo_block.html'
     logo = ImageChooserBlock(required=True, label=_("Logo"))
     link = blocks.URLBlock(required=False, label=_("Link"))
 
@@ -219,8 +190,6 @@ class LogoBlock(blocks.StructBlock):
 
 
 class GalleryBlock(blocks.StructBlock):
-    class Meta:
-        template = 'wtpages/blocks/gallery_collections_block.html'
 
     title = blocks.CharBlock(
         classname="full", required=False, label=_("Title"), icon='title')
@@ -248,8 +217,6 @@ class GalleryBlock(blocks.StructBlock):
 
 
 class RawHtmlBlock(blocks.StructBlock):
-    class Meta:
-        template = 'wtpages/blocks/raw_html_block.html'
     text = blocks.TextBlock(required=True, label=_("HTML"), icon='title')
 
 
@@ -300,8 +267,6 @@ class GalleryCollectionsItemBlock(blocks.StructBlock):
 
 
 class GalleryCollectionsBlock(blocks.StructBlock):
-    class Meta:
-        template = 'wtpages/blocks/gallery_collections_block.html'
     title = blocks.CharBlock(
         classname="full", required=False, label=_("Title"), icon='title')
     title_tag = blocks.ChoiceBlock(
@@ -382,8 +347,6 @@ class GalleryCollectionsBlock(blocks.StructBlock):
 
 
 class TextBlock(blocks.StructBlock):
-    class Meta:
-        template = 'wtpages/blocks/text_block.html'
 
     PAGE_LAYOUTS_CHOICES = (
         ('left',        _("Left Text Right Image")),
@@ -473,8 +436,6 @@ class TextBlock(blocks.StructBlock):
 
 
 class CarouselBlock(blocks.StructBlock):
-    class Meta:
-        template = 'wtpages/blocks/carousel_block.html'
 
     TEXT_LAYOUT_CHOICES = (
         ('left', _("Left")),
@@ -508,8 +469,6 @@ class CarouselBlock(blocks.StructBlock):
 
 
 class ImageBlock(blocks.StructBlock):
-    class Meta:
-        template = 'wtpages/blocks/image_block.html'
 
     image = ImageChooserBlock(label=_("Image"))
 
@@ -519,8 +478,6 @@ class VideoChoserBlock(DropdownChooserBlock):
 
 
 class VideoBlock(blocks.StructBlock):
-    class Meta:
-        template = 'wtpages/blocks/video_block.html'
 
     # VIDEO_SIZE_CHOICES = (
     #     ('regular',        _("Regular")),
@@ -552,8 +509,7 @@ class VideoBlock(blocks.StructBlock):
 
 
 class SiteMapBlock(blocks.StructBlock):
-    class Meta:
-        template = 'wtpages/blocks/site_map_block.html'
+    pass
 
 
 class InteractiveMapChoserBlock(DropdownChooserBlock):
@@ -561,8 +517,6 @@ class InteractiveMapChoserBlock(DropdownChooserBlock):
 
 
 class InteractiveMapBlock(blocks.StructBlock):
-    class Meta:
-        template = 'wtpages/blocks/interactive_map_block.html'
     title = blocks.CharBlock(
         classname="full", required=False, label=_("Title"), icon='title')
     mobile_title = blocks.CharBlock(
@@ -579,8 +533,6 @@ class InteractiveMapBlock(blocks.StructBlock):
 
 
 class InteractiveMapTabsBlock(blocks.StructBlock):
-    class Meta:
-        template = 'wtpages/blocks/interactive_map_tabs_block.html'
     maps = blocks.ListBlock(InteractiveMapBlock, label=_("Interactive Maps"))
 
 
@@ -589,8 +541,6 @@ class PlacesChoserBlock(DropdownChooserBlock):
 
 
 class PlacesBlock(blocks.StructBlock):
-    class Meta:
-        template = 'wtpages/blocks/places_block.html'
 
     title = blocks.CharBlock(
         classname="full", required=False, label=_("Title"), icon='title')
@@ -601,8 +551,6 @@ class PlacesBlock(blocks.StructBlock):
 
 
 class ImagesAndTextGalleryItemImage(blocks.StructBlock):
-    class Meta:
-        template = 'wtpages/blocks/images_text_gallery_image_block.html'
 
     DECOR_CHOICES = (
         ('top-left',        _("Top Left Corner")),
@@ -621,16 +569,12 @@ class ImagesAndTextGalleryItemImage(blocks.StructBlock):
 
 
 class ImagesAndTextGalleryItemTextText(blocks.StructBlock):
-    class Meta:
-        template = 'wtpages/blocks/images_text_gallery_text_block.html'
 
     title = blocks.CharBlock(label=_("Title"), icon='title')
     text = blocks.RichTextBlock(label=_("Text"))
 
 
 class ImagesAndTextGalleryItemText(blocks.StructBlock):
-    class Meta:
-        template = 'wtpages/blocks/images_text_gallery_text_image_block.html'
 
     items = blocks.StreamBlock([
         ('image', ImagesAndTextGalleryItemImage(label=_("Image"), icon='title')),
@@ -640,8 +584,6 @@ class ImagesAndTextGalleryItemText(blocks.StructBlock):
 
 
 class ImagesAndTextGalleryItemTextImage(blocks.StructBlock):
-    class Meta:
-        template = 'wtpages/blocks/images_text_gallery_info_block.html'
     items = blocks.StreamBlock([
         ('image', ImagesAndTextGalleryItemImage(label=_("Image"), icon='title')),
         ('text', ImagesAndTextGalleryItemText(
@@ -650,8 +592,6 @@ class ImagesAndTextGalleryItemTextImage(blocks.StructBlock):
 
 
 class ImagesAndTextGalleryRow(blocks.StructBlock):
-    class Meta:
-        template = 'wtpages/blocks/images_text_gallery_row_block.html'
     boxes = blocks.StreamBlock([
         ('image_box', ImagesAndTextGalleryItemImage(
             label=_("Image Box"), icon='title')),
@@ -661,8 +601,6 @@ class ImagesAndTextGalleryRow(blocks.StructBlock):
 
 
 class ImagesAndTextGalleryBlock(blocks.StructBlock):
-    class Meta:
-        template = 'wtpages/blocks/images_text_gallery_block.html'
 
     title = blocks.CharBlock(
         classname="full", required=False, label=_("Title"), icon='title')
@@ -684,30 +622,22 @@ class ImagesAndTextGalleryBlock(blocks.StructBlock):
 
 
 class AboutOnniCollageImage(blocks.StructBlock):
-    class Meta:
-        template = 'wtpages/blocks/about_onni_collage_image.html'
     title = blocks.CharBlock(label=_("Title"), icon='title')
     image = ImageChooserBlock(label=_("Image"))
 
 
 class AboutOnniCollageImageGroup(blocks.StructBlock):
-    class Meta:
-        template = 'wtpages/blocks/about_onni_collage_image_group.html'
     images = blocks.ListBlock(AboutOnniCollageImage(
         label=_("Image")), label=_("Images"), min_num=2, max_num=2)
 
 
 class AboutOnniCollageBlock(blocks.StructBlock):
-    class Meta:
-        template = 'wtpages/blocks/about_onni_collage_block.html'
     title = blocks.CharBlock(label=_("Title"), icon='title')
     image_groups = blocks.ListBlock(AboutOnniCollageImageGroup(
         label=_("Image Group")), label=_("Image Groups"), min_num=3, max_num=3)
 
 
 class SharedBlocksBlock(blocks.StructBlock):
-    class Meta:
-        template = 'wtpages/blocks/shared_blocks_block.html'
     shared_blocks = SnippetChooserBlock('towers.SharedPageBlocks')
 
 
@@ -717,8 +647,6 @@ class FeatuesBlockItemsList(blocks.StructBlock):
 
 
 class FeatuesBlockItems(blocks.StructBlock):
-    class Meta:
-        template = 'wtpages/blocks/features_block_items.html'
     title = blocks.CharBlock(classname="full", label=_("Title"), icon='title')
     # gallerytext = blocks.RichTextBlock(classname="full", label=_("Text"))
     items = blocks.ListBlock(FeatuesBlockItemsList(
@@ -731,8 +659,6 @@ class FeatuesBlockItems(blocks.StructBlock):
 
 
 class FeaturesBlock(blocks.StructBlock):
-    class Meta:
-        template = 'wtpages/blocks/features_block.html'
     title = blocks.CharBlock(
         classname="full", required=False, label=_("Title"), icon='title')
     title_2 = blocks.TextBlock(required=False, label=_(
@@ -745,8 +671,6 @@ class FeaturesBlock(blocks.StructBlock):
 
 
 class TowerPlansBlock(blocks.StructBlock):
-    class Meta:
-        template = 'wtpages/blocks/tower_plans_block.html'
     title = blocks.CharBlock(
         classname="full", required=False, label=_("Title"), icon='title')
     title_2 = blocks.TextBlock(required=False, label=_(
@@ -755,8 +679,6 @@ class TowerPlansBlock(blocks.StructBlock):
 
 
 class TowerViewsBlock(blocks.StructBlock):
-    class Meta:
-        template = 'wtpages/blocks/tower_views_block.html'
     title = blocks.CharBlock(
         classname="full", required=False, label=_("Title"), icon='title')
     title_2 = blocks.TextBlock(required=False, label=_(
@@ -767,15 +689,11 @@ class TowerViewsBlock(blocks.StructBlock):
 
 
 class InfoBlockItems(blocks.StructBlock):
-    class Meta:
-        template = 'wtpages/blocks/info_block_items.html'
     title = blocks.CharBlock(classname="full", label=_("Title"), icon='title')
     text = blocks.RichTextBlock(classname="full", label=_("Text"))
 
 
 class InfoBlock(blocks.StructBlock):
-    class Meta:
-        template = 'wtpages/blocks/info_block.html'
     title = blocks.CharBlock(
         classname="full", required=False, label=_("Title"), icon='title')
     title_2 = blocks.TextBlock(required=False, label=_(
@@ -785,21 +703,15 @@ class InfoBlock(blocks.StructBlock):
 
 
 class OnniLogoBlock(blocks.StructBlock):
-    class Meta:
-        template = 'wtpages/blocks/onni_logo_block.html'
     theme = SnippetChooserBlock(CssTheme, required=False,)
 
 
 class ContactBlockItem(blocks.StructBlock):
-    class Meta:
-        template = 'wtpages/blocks/contact_block_items.html'
     title = blocks.CharBlock(label=_("Title"), icon='title')
     text = blocks.RichTextBlock(required=False, label=_("Text"))
 
 
 class ContactBlock(blocks.StructBlock):
-    class Meta:
-        template = 'wtpages/blocks/contact_block.html'
     # title = blocks.CharBlock(classname="full", required=False, label=_("Title"), icon = 'title')
     # title_2 = blocks.TextBlock(required=False, label=_("More Title Lines"), icon = 'title')
     # theme = SnippetChooserBlock(CssTheme, required=False,)
@@ -807,8 +719,6 @@ class ContactBlock(blocks.StructBlock):
 
 
 class PenthousesBlock(blocks.StructBlock):
-    class Meta:
-        template = 'wtpages/blocks/penthouses_block.html'
     title = blocks.CharBlock(required=False, label=_("Title"), icon='title')
     title_2 = blocks.TextBlock(required=False, label=_(
         "More Title Lines"), icon='title')
@@ -817,8 +727,6 @@ class PenthousesBlock(blocks.StructBlock):
 
 
 class HashBlock(blocks.StructBlock):
-    class Meta:
-        template = 'wtpages/blocks/hash_block.html'
     hash = blocks.CharBlock()
 
 
