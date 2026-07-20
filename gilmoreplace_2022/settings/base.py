@@ -23,8 +23,6 @@ INSTALLED_APPS = [
     'wtpromobox',
     'inlinepanelsorter',
 
-    'vendors',
-
     'wagtail.contrib.sitemaps',
 
     'wagtail.contrib.forms',
@@ -277,11 +275,6 @@ MAIN_MENU_AFFIX = True
 
 RECAPTCHA_SITEKEY = os.environ.get('RECAPTCHA_SITEKEY', '6LcTW10UAAAAAODX0vJJkPy7ijRn3LqkE0rvo1FI')
 RECAPTCHA_SECRET = os.environ.get('RECAPTCHA_SECRET', '6LcTW10UAAAAACXRP1P0FdOZrDMCevNdF6hlyjCd')
-
-
-GA_KEY_FILEPATH = os.path.join(
-    BASE_DIR, 'vendors', 'google_analytics', 'ga.json')
-# GA_VIEW_ID = 'ga:55933424'
 
 GOOGLE_MAP_API_KEY = os.environ.get('GOOGLE_MAP_API_KEY', 'AIzaSyBT3agucwzH4RQvZ0QQEOCzY44P4t9uAFM')
 
