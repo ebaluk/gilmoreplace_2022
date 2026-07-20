@@ -6,8 +6,6 @@
 /media_files
 /Vagrantfile.local
 
-/vendors/*
-/vendors
 
 */settings/local.py
 */settings/__init__.py
