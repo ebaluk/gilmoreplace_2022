@@ -36,4 +36,29 @@ prod_server.env
 !prod_server.env.example
 
 # Ansible
-ansible/logs/ansible-log.log
+ansible/logs/*
+!ansible/logs/.gitkeep
+
+# Python / uv
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+*$py.class
+.Python
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+dist/
+build/
+
+# Local env / DB
+.env
+db.sqlite3
+
+# OS
+.DS_Store
+Thumbs.db
