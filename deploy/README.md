@@ -9,7 +9,7 @@ This repo ships with Docker Compose configs under `deploy/compose/` for local re
 | `prod_server.env` | Server deploy (canonical). Not in git / not rsynced. |
 | `.env.production` | Local / `deploy/compose/prod.yml` only. Not used by Actions or `docker-compose.yaml`. |
 
-GitHub Actions deploy uses secret `DEV_SSH_PRIVATE_KEY` for SSH only; it does not manage app secrets or upload `.env.production`.
+GitHub Actions ([`.github/workflows/ci.yml`](../.github/workflows/ci.yml) — **CI / CD**) runs tests, then on push to `main` (or manual dispatch) deploys with Ansible. Uses secret `DEV_SSH_PRIVATE_KEY` for SSH only; it does not manage app secrets or upload `.env.production`. See [ansible/README.md](../ansible/README.md).
 
 ## Server deploy (DEV: gilmoreplace.ebaluk.store)
 

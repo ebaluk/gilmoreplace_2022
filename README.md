@@ -109,7 +109,9 @@ ansible-galaxy collection install -r requirements.yml
 ansible-playbook deploy.yml -e "filevar=dev" --tags=dev
 ```
 
-**Env files:** server stack uses `prod_server.env` (from `prod_server.env.example`). It is gitignored and excluded from rsync — create/edit secrets on the host. `.env.production` is only for local/`deploy/compose/prod.yml` reference; do not put it (or app secrets) in GitHub Actions. The deploy workflow needs repository secret `DEV_SSH_PRIVATE_KEY` only.
+**Env files:** server stack uses `prod_server.env` (from `prod_server.env.example`). It is gitignored and excluded from rsync — create/edit secrets on the host. `.env.production` is only for local/`deploy/compose/prod.yml` reference; do not put it (or app secrets) in GitHub Actions.
+
+**GitHub:** [`.github/workflows/ci.yml`](.github/workflows/ci.yml) (`CI / CD`) runs backend + frontend tests; on push to `main` (or manual Run workflow) it then deploys via Ansible. Needs repository secret `DEV_SSH_PRIVATE_KEY` only. Details: [ansible/README.md](ansible/README.md).
 
 Scheduled page publish (`go_live_at` / `expire_at`) is handled by Compose service `backend-cron` (see [deploy/README.md](deploy/README.md)).
 

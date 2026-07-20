@@ -15,21 +15,21 @@ Run all commands from this directory (`ansible/`).
 | `requirements.yml` | Galaxy collections (`community.docker`, `ansible.posix`) |
 | `logs/` | Ansible run log (gitignored except `.gitkeep`) |
 
-## GitHub Actions deploy
+## GitHub Actions (CI / CD)
 
-Workflow: [`.github/workflows/deploy-dev.yml`](../.github/workflows/deploy-dev.yml)
+Workflow: [`.github/workflows/ci.yml`](../.github/workflows/ci.yml) (`CI / CD`)
 
-**CI ≠ deploy:** [`ci.yml`](../.github/workflows/ci.yml) only runs tests. This workflow SSHs to DEV and runs Ansible.
+| Job | When |
+|-----|------|
+| `backend` / `frontend` | Every push, PR, and manual run |
+| `deploy` | After green tests on **push to main/master** or **workflow_dispatch** (not on PR) |
 
-Triggers:
-
-- **workflow_dispatch** — choose tags (`dev` / `sync` / `compose` / `bootstrap`)
-- **push** to `main` / `master` — full `--tags=dev`
+Manual run: Actions → **CI / CD** → Run workflow → choose Ansible tags (`dev` / `sync` / `compose` / `bootstrap`).
 
 Required GitHub configuration:
 
 1. Repository secret **`DEV_SSH_PRIVATE_KEY`** — full PEM for `appuser@155.212.224.19` (same key as `~/.ssh/id_beget_ebaluksf` locally). Repository secrets are enough; no need to duplicate under Environment secrets.
-2. Environment **`dev`** — used by the job (optional protection / reviewers).
+2. Environment **`dev`** — used by the deploy job (optional protection / reviewers).
 
 App secrets stay on the server in **`prod_server.env`** (not synced by rsync; not written by Actions). Do **not** store `.env.production` or `SECRET_KEY` / DB passwords as GitHub Secrets — only SSH is needed.
 
@@ -43,6 +43,7 @@ Compose brings up **`backend-cron`** with the stack (Wagtail `publish_scheduled`
 | SSH smoke-test — `Permission denied (publickey)` | Wrong key contents / newlines in the secret |
 | SSH smoke-test — timeout / no route | Firewall: allow SSH from GitHub Actions IPs to `155.212.224.19:22` |
 | Deploy with Ansible (after green smoke-test) | Compose/build on server — check Ansible task output |
+| `couldn't resolve module ... synchronize` | Collections not installed — workflow runs `ansible-galaxy collection install -r requirements.yml` (`ansible.posix`) |
 
 Local deploy still works without Actions:
 
