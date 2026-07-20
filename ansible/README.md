@@ -12,7 +12,7 @@ Run all commands from this directory (`ansible/`).
 | `vars_dev.yml` | DEV host, paths, rsync excludes, compose file |
 | `hosts.ini` | Inventory (`dev_hosts`) |
 | `ansible.cfg` | Inventory + log path |
-| `requirements.yml` | Galaxy collections (`community.docker`) |
+| `requirements.yml` | Galaxy collections (`community.docker`, `ansible.posix`) |
 | `logs/` | Ansible run log (gitignored except `.gitkeep`) |
 
 ## GitHub Actions deploy

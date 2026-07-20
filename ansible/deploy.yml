@@ -8,7 +8,7 @@
 
   tasks:
     - name: Sync project to server
-      ansible.builtin.synchronize:
+      ansible.posix.synchronize:
         src: "{{ deploy_src }}/"
         dest: "{{ deploy_dest }}/"
         delete: false
