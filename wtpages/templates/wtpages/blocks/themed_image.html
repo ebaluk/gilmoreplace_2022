@@ -1,0 +1,17 @@
+{% load wagtailcore_tags wagtailimages_tags  %}
+<div class="img-top image-block themed-{{self.theme.id}} {{self.theme.css_class}}">    
+    <div class="carousel-wrapper image-size-condensed">
+        <div class="carousel slide slideshow">
+            <div class="carousel-inner" role="listbox">
+                <div class="item active">
+                    {% if request.is_phone %}
+                        {% image self.image max-1024x1024 as carouselimagedata %}
+                    {% else %}
+                        {% image self.image max-1980x1980 as carouselimagedata %}
+                    {% endif %}
+                    <div class="carousel-image" style="background-image:url({{ carouselimagedata.url }})"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

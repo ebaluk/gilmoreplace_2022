@@ -1,0 +1,42 @@
+{% load wagtailcore_tags wagtailimages_tags wtpages_tags %}
+
+<article class="text-boxes-block {{add_css_class}} themed-{{self.theme.id}} {{self.theme.css_class}} page-layout-whole">
+
+    {% if self.title %}
+    <div class="container page-text-wrapper">
+        <div class="page-header inside text-center">
+            <div class="title-wrapper">
+                <h2 class="h2 title">{{ self.title }}</h2>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+
+    <div class="container text-center boxes-layout-{{self.boxes_per_row}} cnt-{{self.boxes|length}}">
+        <div>
+            <div class="row" role="listbox">
+                {% for item in self.boxes %}
+                <div class="item col-sm-6">
+                    <div>
+
+                        {% if item.title %}
+                        <{{self.title_tag|default:"h2"}} class="title {{self.title_tag|default:" h2"}}">
+                            {{item.title}}
+                        </{{self.title_tag|default:"h2"}}>
+                        {% endif %}
+
+                        {% if item.text %}
+                        <div class="text {% if item.text_align %} text-{{item.text_align}}{% endif %}">
+                            {{item.text|richtext}}
+                        </div>
+                        {% endif %}
+
+                        {% include_block item.new_links %}
+
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</article>

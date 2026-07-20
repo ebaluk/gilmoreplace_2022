@@ -1,0 +1,28 @@
+{% load wagtailcore_tags wtpages_tags %}
+
+<ul class="menu-boxes active">
+    {% for item in items %}
+    <li class="section-box {% if item.active %} active{% endif %}">
+        <a
+            {% if item.specific.link %}
+                {% if item.specific.external %}target="_blank"{% endif %}
+                class="router-link-exact-active router-link-active"
+                href="{{ item.specific.link }}"
+            {% elif item.specific.form.pk %}	
+                data-wtform="{{ item.specific.form.pk }}"
+                class="wtform-modal-link router-link-exact-active router-link-active"
+                href="#"
+            {% else %}
+                class="router-link-exact-active router-link-active"
+                href="{% pageurl item %}#content"                         
+            {% endif %}
+        >
+            
+                {{item.title}}
+            
+            
+        </a>
+    </li>
+    {% endfor %}
+</ul>		
+

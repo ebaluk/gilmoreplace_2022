@@ -1,0 +1,67 @@
+# Local dev override: use .env.local, no nginx, expose ports directly
+services:
+  postgres:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    env_file:
+      - ../../.env.local
+    environment:
+      - POSTGRES_DB=${DB_NAME:-gilmoreplace_2022}
+      - POSTGRES_USER=${DB_USER:-django}
+      - POSTGRES_PASSWORD=${DB_PASSWORD:-123}
+    volumes:
+      - postgres_data_dev:/var/lib/postgresql/data
+      - ../db/initdb.d:/docker-entrypoint-initdb.d:ro
+      - ../db:/deploy-db:ro
+    # No host port mapping needed; backend connects via service name `postgres`.
+
+  backend:
+    build:
+      context: ../../
+      dockerfile: Dockerfile
+      args:
+        BUILD_ENV: local
+    env_file:
+      - ../../.env.local
+    environment:
+      - DJANGO_SETTINGS_MODULE=gilmoreplace_2022.settings.dev
+      - DISABLE_LOCAL_SETTINGS=1
+    ports:
+      - "8000:8000"
+    volumes:
+      - ../../:/app
+      - /app/.venv
+    command: python manage.py runserver 0.0.0.0:8000
+    depends_on:
+      - postgres
+
+  frontend:
+    build:
+      context: ../../gilmoreplace-next
+      dockerfile: Dockerfile
+      args:
+        # Server-side fetches run inside the container, so use service DNS.
+        WAGTAIL_API_URL: http://backend:8000/api/v2
+        # Browser-side fetches should still hit the host-mapped port.
+        NEXT_PUBLIC_API_URL: http://localhost:8000
+    env_file:
+      - ../../.env.local
+    environment:
+      - NODE_ENV=development
+      - WAGTAIL_API_URL=http://backend:8000/api/v2
+    ports:
+      - "3000:3000"
+    volumes:
+      - ../../gilmoreplace-next:/app
+      - /app/node_modules
+      - /app/.next
+    user: root
+    command: sh -c "rm -rf .next/* .next/.[!.]* .next/..?* 2>/dev/null || true; npm ci && npm run dev"
+
+  nginx:
+    profiles:
+      - production
+
+volumes:
+  postgres_data_dev:
+

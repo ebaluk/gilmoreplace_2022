@@ -1,0 +1,108 @@
+- name: Deploy Gilmore Place to DEV server
+  vars_files:
+    - "vars_{{ filevar }}.yml"
+
+  hosts: "{{ ansible_hosts }}"
+  remote_user: "{{ ansible_user }}"
+  gather_facts: false
+
+  tasks:
+    - name: Sync project to server
+      ansible.builtin.synchronize:
+        src: "{{ deploy_src }}/"
+        dest: "{{ deploy_dest }}/"
+        delete: false
+        rsync_opts: "{{ rsync_excludes }}"
+        use_ssh_args: true
+      delegate_to: localhost
+      tags:
+        - dev
+        - deploy
+        - sync
+
+    - name: Check if prod_server.env exists on server
+      ansible.builtin.stat:
+        path: "{{ deploy_dest }}/prod_server.env"
+      register: prod_server_env
+      tags:
+        - dev
+        - deploy
+        - bootstrap
+
+    - name: Bootstrap prod_server.env from example
+      ansible.builtin.copy:
+        src: "{{ deploy_dest }}/prod_server.env.example"
+        dest: "{{ deploy_dest }}/prod_server.env"
+        remote_src: true
+        mode: "0600"
+      when: not prod_server_env.stat.exists
+      tags:
+        - bootstrap
+
+    - name: Ensure persistent directories exist
+      ansible.builtin.file:
+        path: "{{ deploy_dest }}/{{ item }}"
+        state: directory
+        mode: "0755"
+      loop:
+        - media_files
+        - static
+      tags:
+        - dev
+        - deploy
+        - compose
+
+    # Stale compose metadata can reference image IDs that were pruned locally;
+    # docker_compose_v2 then fails on `compose images` before it can rebuild.
+    - name: Force-remove compose containers (handles broken image refs)
+      ansible.builtin.shell: |
+        docker rm -f gilmoreplace-backend gilmoreplace-frontend gilmoreplace-nginx gilmoreplace-postgres 2>/dev/null || true
+      changed_when: false
+      tags:
+        - dev
+        - deploy
+        - compose
+
+    - name: Tear down compose stack and remove stale local images
+      ansible.builtin.command:
+        argv:
+          - docker
+          - compose
+          - -f
+          - "{{ compose_file }}"
+          - --env-file
+          - prod_server.env
+          - down
+          - --remove-orphans
+          - --rmi
+          - local
+      args:
+        chdir: "{{ deploy_dest }}"
+      register: compose_teardown
+      failed_when: false
+      changed_when: compose_teardown.rc == 0 and compose_teardown.stdout is search('Removed|removing')
+      tags:
+        - dev
+        - deploy
+        - compose
+
+    - name: Build and start Docker Compose stack
+      community.docker.docker_compose_v2:
+        project_src: "{{ deploy_dest }}"
+        files:
+          - "{{ compose_file }}"
+        env_files:
+          - "{{ deploy_dest }}/prod_server.env"
+        state: present
+        build: always
+        pull: missing
+        recreate: always
+      tags:
+        - dev
+        - deploy
+        - compose
+
+# ansible-playbook deploy.yml -e "filevar=dev" --tags=dev
+# ansible-playbook deploy.yml -e "filevar=dev" --tags=sync
+# ansible-playbook deploy.yml -e "filevar=dev" --tags=compose
+# ansible-playbook deploy.yml -e "filevar=dev" --tags=bootstrap

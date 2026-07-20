@@ -1,0 +1,7 @@
+{% load wagtailcore_tags wagtailimages_tags %}
+
+<div class="logo">
+    {% image logo max-240x240 as carouselimagedata %}
+    <div style="background-image: url({{carouselimagedata.url}})"></div>    
+</div>
+                        

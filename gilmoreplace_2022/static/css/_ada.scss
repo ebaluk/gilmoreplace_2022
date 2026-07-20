@@ -1,0 +1,53 @@
+a.skip-to-content{
+	color: transparent;
+    display: block;
+    position: absolute;
+    z-index: 10;
+    top: 80px;
+    text-transform: uppercase;
+    font-size: 18px;
+    font-weight: bold;
+    
+    &:hover{
+    	color: transparent;
+    }
+    &:focus{
+		color: $site-color-white;
+	}    
+}
+
+@media (min-width: 768px){
+	body.homepage{
+		//a.skip-to-content{
+		//	top: 10px;
+		//}
+	}
+}
+
+#maincontent{	
+	position: relative;
+	top: -150px;
+	visibility: hidden;
+}
+
+a {
+    outline: none !important;
+    //text-decoration: underline !important;
+}
+
+header a:focus {
+    outline: dotted 1px invert($header-nav-bg-color) !important;    
+}
+
+footer a:focus {
+    outline: dotted 1px invert($footer-bg) !important;    
+}
+
+
+.modal .close:focus{
+	outline: solid 3px blue !important;
+}
+
+.navbar-brand h1{
+	margin: 0px;
+}

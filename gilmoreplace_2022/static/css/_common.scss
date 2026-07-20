@@ -1,0 +1,16 @@
+@media (max-width: 767px){
+	.btn{
+		white-space: inherit;
+	}	
+}
+
+.btn-primary, .btn-default  {	
+
+    @media (max-width: 768px){
+  		white-space: normal;
+    } 
+    @include transition;   
+}
+
+
+

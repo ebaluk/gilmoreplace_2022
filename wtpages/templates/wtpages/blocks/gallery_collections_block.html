@@ -1,0 +1,59 @@
+{% load wagtailcore_tags wagtailimages_tags wtpages_tags %}
+<article class="gallery-block gallerywithcategoriespage gallery-type-flex">    
+
+    
+    {% if self.title %}                
+        <h2 class="subhead white">{{ self.title }}</h2>                
+    {% endif %}
+
+    <div class="container">
+
+        <div class="page-header-wrapper">		
+            <div class="page-header inside text-center clearfix has-subnav">
+                
+
+                {% if self.show_categories %}   		
+                <ul class="nav navbar-nav page-navbar gallerywc-navbar list">
+                    <li class="active"><a data-cat="all" href="#">All</a></li>
+                    {% for coll in collections %}
+                        <li><a data-cat="{{ coll.id }}" href="#">
+                            {% if coll.title %}
+                                {{ coll.title }}
+                            {% elif coll.collection %}
+                                {{ coll.collection.name }}
+                            {% elif coll.tag %}
+                                {{ coll.tag.name }}    
+                            {% endif %}
+                        </a></li>
+                    {% endfor %}
+                </ul>   		
+                {% endif %}                
+                
+            </div>
+        </div>
+
+        {% if images %}
+        <div class="grid clearfix mode-6 {{add_css}}">
+        
+            {% for _, item in images %}
+                {% image item max-1920x1920 as orig %}
+                <a href="{{ orig.url }}" class="modal-carousel square" 
+                    data-cat='{ {% for cat in item.cats %}{% if not forloop.first %}, {% endif %}"{{ cat.id }}": {{ cat.sort_order }}{% endfor %} }' 
+                    {% if self.show_image_title %}
+				        data-title="{{orig.alt}}"
+			        {% endif %}
+                    rel="{{uid}}" 
+                    data-thumbnail="{{ orig.url }}"                    
+                    data-id="{{ item.id }}">
+                    <span class="image" style="background-image:url({{ orig.url }})"></span>
+                </a>
+            {% endfor %}
+        
+        </div>
+        
+        {% endif %}
+
+
+    </div>
+</article>
+

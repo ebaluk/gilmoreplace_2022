@@ -1,0 +1,6 @@
+{% load wagtailcore_tags %}
+<button class="btn btn-md {% if 'button' == self.link_type %}btn-primary{% else %}btn-{{self.link_type}}{% endif %} wtform-modal-link" data-wtform="{{ self.link.id }}">
+    {{self.title}}
+</button>
+
+

@@ -1,0 +1,261 @@
+article.text-block.about-onni-theme{ 
+    .content{
+        margin-top: 50px;
+    }
+}
+
+article.text-block.thank-you-page-theme{ 
+    .content{
+        margin-top: 50px;
+    }
+}
+
+body.body-penthouses-page-theme{
+    
+}
+
+
+section.penthouses-page-theme{
+    font-family: 'Helvetica-Normal';
+    *{
+        font-family: 'Helvetica-Normal';
+    }
+
+    .text-block{
+        @media (max-width: 1199px){
+            .h1, h1{
+                margin-top: 50px !important;
+            }
+        }
+        .body-text{            
+            &>p{
+                // font-family: "BaileySansITC";         
+                font-family: "circe";
+                font-weight: normal;       
+            }
+        }
+
+        .flexbox {
+            &.orderChanged {
+                .flex-item {
+                    &:first-child {
+                        order: 1;
+                    }
+                    &:last-child {
+                        order: 2;
+                    }
+
+                    @media (min-width: 1200px){
+                        &:first-child {
+                            order: 2;
+                        }
+                        &:last-child {
+                            order: 1;
+                        }   
+                    }
+                }
+            }
+        }
+        
+        
+
+        &.layout-right{
+
+            @media (min-width: 768px){
+                .flex-item {
+                    flex: 0 1 100%;
+                    &:last-of-type {
+                        padding-left: 0;
+                        padding-right: 0;
+                    }
+                }
+            }
+
+            @media (min-width: 1200px){        
+                .flex-item {
+                    flex: 0 1 50%;
+                    &:last-of-type {
+                        padding-left: 70px;
+                    }                
+                }                
+            }
+
+        }
+
+        &.layout-left{
+
+            @media (min-width: 768px){
+                .flex-item {
+                    flex: 0 1 100%;
+                    &:last-of-type {
+                        padding-left: 0;
+                        padding-right: 0;
+                    }
+                }
+            }
+
+            @media (min-width: 1200px){        
+                .flex-item {
+                    flex: 0 1 50%;
+                    &:last-of-type {
+                        padding-right: 70px;
+                    }                
+                }                
+            }
+
+        }
+
+        
+    }
+
+    .tower-views-widget{
+        p{
+            // font-family: "BaileySansITC";
+            
+            font-family: "circe";
+            font-weight: normal;
+        }
+    }
+
+    .h1, h1, h2, h2, .h3, h3, .h4, h4{
+        font-family: 'Cinzel';
+        font-weight: 100 !important;
+        *{
+            font-family: 'Cinzel';
+            font-weight: 100 !important;
+        }
+
+    }
+
+    
+
+    .select-container select{
+        color: $color_gold;
+    }
+
+
+    article.text-block{
+        &.layout-right, &.layout-left{
+            .content .body-text {
+                max-width: unset !important;
+            }
+        }
+    } 
+
+    
+
+    @media (max-width: $grid-float-breakpoint-max) {
+        article .flex-item{
+            text-align: center;
+        }
+        article.text-block{
+
+            & + article.text-block{
+                margin-top: 50px;
+            }
+
+            &.penthouses-page-buttons-theme{
+                .related-links{
+                    margin-top: 0;
+                    padding-top: 0;
+                    flex-direction: column;
+                }
+            }
+        
+            .content{
+                margin: 0;
+                h1, h2, h3, h4{
+                    text-align: center !important;
+                }
+                h1, .h1{
+                    margin-bottom: 43px !important;
+                }
+                .body-text {
+                    text-align: center;
+                    margin-top: 0px !important;
+                    margin-bottom: 0px !important;
+
+                    .related-link{
+
+                    }
+
+                    p{
+                        margin-top: 0;
+                        margin-bottom: 0;
+
+                        & + p{
+                            margin-top: 18px;
+                        }
+                    }
+                }
+            } 
+        
+        } 
+    }
+
+    @media (min-width: $grid-float-breakpoint) {
+        article.penthouses-block{
+            max-width: calc(100% - 40px) !important;
+        }
+        article .content {         
+            margin: 50px 0 0px;
+            
+        }
+        
+    }
+
+    .penthouses-block{
+        margin-top: 50px;
+        @media (min-width: $grid-float-breakpoint) {
+            margin-top: 80px;
+        }
+    }
+
+    
+    .hero-banner{
+        @media (min-width: 1024px){
+            h1, .h1 {
+                font-size: 56px;                
+            }
+        }
+        @media (min-width: $grid-float-breakpoint) {
+            .content{
+                min-width: 520px;
+                
+            }
+        }
+    }
+
+
+
+    .penthouses-logo{
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        @media (min-width: $grid-float-breakpoint) {
+            top: 60px;
+            right: 60px;
+            left: auto;
+            transform: none;    
+        }
+        
+        
+        background-color: transparentize($color_gold, 0.14);
+        border: 4px solid transparentize(#fff, 0.14);
+        width: 150px;
+        &>div{
+            padding-bottom: 100%;        
+            position: relative;
+            img{
+                display: block;
+                position: absolute;            
+                width: calc(100% - 20px);
+                left: 10px;
+                bottom: 10px;
+            }
+        }
+        
+        
+    }
+}

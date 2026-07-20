@@ -1,0 +1,9 @@
+<ol>
+	<li>Login to the Instagram.</li>
+	<li>Open the https://www.instagram.com/developer/clients/manage/ and register new client.</li>
+	<li>Fill out the fields. Set the redirect URL to the <b>http://{{ request.META.HTTP_HOST }}/instagram_config/</b> (please make sure there are no spaces there).</li>
+	<li>Save the client and open it again and copy Client ID and Secret.</li>
+	<li>Open the Admin/Settings/Instagram Tokens and set the Client ID and Client Secret there. Please make sure there are no any spaces there.</li>
+	<li>Click the Save button and wait for the Instagram security settings dialog for this App. You <b>MUST</b> confirm access to your Instagram feeds.</li>
+	<li>When wait for a little bit and you will see the "Success" status there.</li>
+</ol>

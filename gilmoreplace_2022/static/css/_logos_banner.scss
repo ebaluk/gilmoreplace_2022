@@ -1,0 +1,110 @@
+.logos-banner{       
+
+    /* Define the animation */
+    // @keyframes scroll {
+    //     0% {
+    //         transform: translateX(0); /* Start position */
+    //     }
+    //     100% {
+    //         /* Move left by exactly the width of one set of logos (-50% of the total track width, or -100% of the original content width) */
+    //         transform: translateX(-16.6%); 
+    //     }
+    // }       
+    
+    
+    .logo-block{
+        transition-property: opacity !important;
+        display: block;                
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;    
+        padding-left: 4px;
+        padding-right: 4px;        
+        width: (100vw / 2);
+        height: 100px;
+        @media (min-width: 375px){
+            width: (100vw / 3);
+            padding-left: 5px;
+            padding-right: 5px;        
+        }
+        @include breakpoint(medium) {
+            width: (100vw / 4);
+            padding-left: 10px;
+            padding-right: 10px;        
+        }
+        @include breakpoint(large) {
+            height: 100px;
+            width: (100vw / 6);            
+        }
+        @include breakpoint(xlarge) {
+            height: 100px;
+            width: (100vw / 8);            
+        }
+        @include breakpoint(xxlarge) {
+            height: 100px;
+            width: (100vw / 10);            
+        }
+        
+        img{
+            display: block;            
+            width: 100px;
+            height: 100px;
+            object-fit: contain;                        
+        }
+    }
+        
+    
+
+    /* Acts as the viewport, hides anything outside its boundaries */
+    overflow: hidden; 
+    // background-color: #2F3656;
+    padding: 20px 0;
+    white-space: nowrap;
+
+    .logo-track {
+        position: relative;
+        /* The element that will be animated */
+        display: flex;
+        // gap: 20px;
+        width: max-content; /* Ensures the track is wide enough to hold all logos on one line */
+        // &.animation{
+        left: 0;
+        transition: left 5000ms linear;
+        
+        @media (min-width: 375px){  
+            transition-duration: 4000ms;
+        }
+
+        @include breakpoint(medium) {
+            transition-duration: 3500ms;
+        }
+        @include breakpoint(large) {
+            transition-duration: 3000ms;
+        }
+        @include breakpoint(xlarge) {
+            transition-duration: 2500ms;
+        }
+        @include breakpoint(xxlarge) {
+            transition-duration: 2000ms;
+        }
+
+        // }
+        
+        
+        // &.animation {
+        //     transition: left 5000ms linear;
+        //     // animation: scroll 10s linear infinite; /* Apply the animation */    
+        // }
+        
+        // &:hover {
+        //     animation-play-state: paused; /* Pause the scroll on hover */
+        // }
+    }
+}
+
+
+
+
+
+

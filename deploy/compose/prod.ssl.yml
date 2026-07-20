@@ -1,0 +1,27 @@
+services:
+  nginx:
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ../nginx/ssl.conf:/etc/nginx/conf.d/default.conf:ro
+      - ../../static:/app/static:ro
+      - ../../media_files:/app/media_files:ro
+      - certbot_etc:/etc/letsencrypt
+      - certbot_www:/var/www/certbot
+
+  certbot:
+    image: certbot/certbot:latest
+    container_name: gilmoreplace-certbot
+    restart: unless-stopped
+    volumes:
+      - certbot_etc:/etc/letsencrypt
+      - certbot_www:/var/www/certbot
+    entrypoint: /bin/sh
+    # Run renew twice a day (nginx reload is manual or via deploy hook)
+    command: -c "trap exit TERM; while :; do certbot renew --webroot -w /var/www/certbot; sleep 12h & wait $${!}; done"
+
+volumes:
+  certbot_etc:
+  certbot_www:
+

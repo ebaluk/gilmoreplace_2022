@@ -1,0 +1,74 @@
+.modal.wagtail-admin-inline-panel-sorter .wtadmin-sorter-panel{
+	position: relative;			
+ 	z-index: 14;
+}
+
+.modal.wagtail-admin-inline-panel-sorter .modal-dialog, 
+.modal.wagtail-admin-inline-panel-sorter .modal-content,
+.modal.wagtail-admin-inline-panel-sorter .wtadmin-sorter-panel{
+	max-width: none;
+	max-height: none;
+	width: auto;
+	height: auto;
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	bottom: 0px;
+	right: 0px;
+	padding: 0;
+	margin: 0;
+}
+
+.modal.wagtail-admin-inline-panel-sorter .wtadmin-sorter-panel{
+	overflow: auto;
+	top: 75px;
+	text-align: center;
+	padding: 2px;
+}
+
+.modal.wagtail-admin-inline-panel-sorter .wtadmin-sorter-panel .sorter-item{        
+    display: inline-block;
+    vertical-align: top;        
+    width: 160px;
+    height: 160px;    
+    cursor: pointer;
+    position: relative !important;            
+    /*background-color: rgba(255, 0, 0, .36);*/
+    
+    margin: 0px; 
+    padding: 4px; 
+     
+    font-size: 10px; 
+    text-align: center;
+    overflow: hidden;            
+}
+
+.modal.wagtail-admin-inline-panel-sorter .wtadmin-sorter-panel .sorter-item>b{
+	display: block;
+    position: absolute;
+    z-index: 1;
+    left: 4px;
+    top: 4px;
+    right: 4px;
+    bottom: 4px;
+    border: 1px solid #000;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center top;
+}
+
+.modal.wagtail-admin-inline-panel-sorter .wtadmin-sorter-panel .sorter-item>span{
+	display: block;
+    position: absolute;
+    z-index: 2;
+    left: 5px;
+    /* top: 0px; */
+    right: 5px;
+    bottom: 5px;
+    background-color: rgba(255, 255, 255, 0.68);
+    /*text-shadow: 0px 0px 10px rgba(255, 255, 255, 1);*/
+    color: #000;
+    line-height: 1;
+    padding: 4px;
+    font-size: 11px;
+}

@@ -1,0 +1,70 @@
+{% load wagtailcore_tags wagtailimages_tags  wtpages_tags %}
+
+<article class="team-thumbnails-block text-block themed-{{self.theme.id}} {{self.theme.css_class}}">
+    
+
+    
+
+
+    <div class="container ">
+
+        {% if self.title %}    
+            <h2 class="title h1">{{ self.title }}</h2>                                     
+        {% endif %}
+        
+        
+
+        <div class="team-thumbnails">            
+            {% for pp in self.items %}
+                <{% if self.view_more %}button data-target="#{{uid}}" data-slide-to="{{ forloop.counter0 }}" data-idx="{{ forloop.counter0 }}"{% else %}div{% endif %} class="list-item">
+                    <div>                           
+                        {% image pp.photo fill-640x640-c100 as carouselimagedata %}
+                        <div class="photo">
+                            <img src="{{ carouselimagedata.url }}" alt="{{ pp.title }}, {{ pp.position }}" />
+                        </div>
+                        
+                        <div class="name text-uppercase text-left ">{{ pp.name }}</div>
+                        <div class="position text-left">{{ pp.position }}</div>		                                    
+                    </div>
+                </{% if self.view_more %}button{% else %}div{% endif %}>
+            {% endfor %}	                        
+        </div>
+    
+
+    {% if self.view_more %}
+
+    <div
+            id="{{ uid }}"
+            class="carousel slide team-details"
+            data-ride="carousel"
+            data-style="{{carousel_style|default:'carousel'}}"
+            data-interval="false"
+        >
+            <div class="carousel-inner" role="listbox">
+                {% for pp in self.items %}
+                    <div class="themed themed-{{ pp.theme.pk  }} item{% if forloop.first %} active{% endif %}">                        
+                        <div class="container">
+                            <div class="row">                	                	
+                                <div class="col-lg-5 col-md-6 img">
+                                    {% image pp.photo fill-640x640-c100 as carouselimagedata %}
+                                    <div class="photo" style="background-image: url({{ carouselimagedata.url }})"></div>
+                                </div>		                    
+                                <div class="col-lg-7 col-md-6 txt text-left">                   
+                                    <div class="body-text">                        
+                                        <div class="h4 text-uppercase name">{{ pp.name }}</div>
+                                        <div class="position">{{ pp.position }}</div>
+                                        {{ pp.bio_view_more|richtext }}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>        
+    </div>
+    {% endif %}
+</div>
+
+
+
+</article>

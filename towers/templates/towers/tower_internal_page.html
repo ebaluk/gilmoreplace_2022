@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% load i18n wtpages_tags static wagtailcore_tags wagtailimages_tags %}
+
+{% block hero_banner_content_class %}tower{% endblock %}
+{% block hero_banner_content %}
+
+    {% if self.hero_title %}
+        <h1>{{self.hero_title}}</h1>
+    {% endif %}
+    
+    <div class="tower-detail">    
+        <h1 class="number">{{self.get_parent.specific.tower_type.title}}</h1>
+        <h2>Gilmore <br><span>Place</span></h2>
+    </div>
+    
+{% endblock %}

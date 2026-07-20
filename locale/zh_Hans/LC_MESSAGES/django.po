@@ -1,0 +1,1342 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-10-18 00:31-0700\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+#: gilmoreplace_2022/templates/base.html:90
+#: gilmoreplace_2022/templates/base.html:108
+msgid "Register"
+msgstr "请即注册"
+
+#: gilmoreplace_2022/templates/base.html:110
+msgid "Menu"
+msgstr "选单"
+
+#: interactivegooglemaps/blocks.py:8
+#: wtforms/templates/wtforms/admin/list_forms.html:7 wtpages/blocks.py:93
+#: wtpages/blocks.py:111 wtpages/blocks.py:176 wtpages/blocks.py:246
+#: wtpages/blocks.py:253 wtpages/blocks.py:343 wtpages/blocks.py:421
+#: wtpages/blocks.py:460 wtpages/blocks.py:491 wtpages/blocks.py:514
+#: wtpages/blocks.py:544 wtpages/blocks.py:578 wtpages/blocks.py:596
+#: wtpages/blocks.py:607 wtpages/blocks.py:624 wtpages/blocks.py:636
+#: wtpages/blocks.py:645 wtpages/blocks.py:653 wtpages/blocks.py:661
+#: wtpages/blocks.py:668 wtpages/blocks.py:684 wtpages/blocks.py:700
+msgid "Title"
+msgstr ""
+
+#: interactivegooglemaps/models.py:13
+msgid "Places"
+msgstr ""
+
+#: interactivegooglemaps/models.py:26
+msgid "Neighborhood Maps"
+msgstr ""
+
+#: interactivegooglemaps/models.py:29
+msgid "Main Location latitude"
+msgstr ""
+
+#: interactivegooglemaps/models.py:30
+msgid "Main Location longitude"
+msgstr ""
+
+#: interactivegooglemaps/models.py:40 interactivemaps/models.py:74
+#: towers/models.py:41 towers/models.py:69 towers/models.py:85
+#: towers/models.py:216 towers/models.py:237 towers/models.py:265
+#: towers/models.py:300 wtforms/models.py:175 wtforms/models.py:1164
+#: wthomepage/models.py:37 wthomepage/models.py:112 wtpages/csstheme.py:121
+#: wtpages/models.py:250 wtpages/models.py:284
+msgid "Basic"
+msgstr ""
+
+#: interactivegooglemaps/models.py:42
+msgid "Place Groups"
+msgstr ""
+
+#: interactivemaps/models.py:11 wtpages/blocks.py:358 wtpages/blocks.py:423
+#: wtpages/blocks.py:545 wtpages/blocks.py:617 wtpages/blocks.py:662
+#: wtpages/blocks.py:685 wtpages/blocks.py:704 wtpromobox/models.py:25
+msgid "Text"
+msgstr ""
+
+#: interactivemaps/models.py:12
+msgid "Left, %"
+msgstr ""
+
+#: interactivemaps/models.py:13
+msgid "Top, %"
+msgstr ""
+
+#: interactivemaps/models.py:40 wtpages/blocks.py:503
+msgid "Interactive Maps"
+msgstr ""
+
+#: interactivemaps/models.py:76
+msgid "Floor Plan Image Points"
+msgstr ""
+
+#: towers/models.py:24
+msgid "Tower Bedroom Type"
+msgstr ""
+
+#: towers/models.py:25
+msgid "Tower Bedroom Types"
+msgstr ""
+
+#: towers/models.py:28 towers/models.py:56
+msgid "Simplified Chinese Title"
+msgstr ""
+
+#: towers/models.py:29 towers/models.py:57
+msgid "Traditional Chinese Title"
+msgstr ""
+
+#: towers/models.py:52
+msgid "Tower Penthouse Type"
+msgstr ""
+
+#: towers/models.py:53
+msgid "Tower Penthouse Types"
+msgstr ""
+
+#: towers/models.py:117
+msgid "For Penthouses Stream Field Block"
+msgstr ""
+
+#: towers/models.py:205
+msgid "Towers"
+msgstr ""
+
+#: towers/models.py:218
+msgid "Plans"
+msgstr ""
+
+#: towers/models.py:219
+msgid "Views"
+msgstr ""
+
+#: towers/models.py:226
+msgid "Towers Index Page"
+msgstr ""
+
+#: towers/models.py:246
+msgid "Tower Page"
+msgstr ""
+
+#: towers/models.py:252
+msgid "Tower Type"
+msgstr ""
+
+#: towers/models.py:276 towers/models.py:311 wtpages/models.py:198
+msgid "Hero Image"
+msgstr ""
+
+#: towers/models.py:278 towers/models.py:313 wtpages/models.py:203
+msgid "Hero Banner"
+msgstr ""
+
+#: towers/models.py:288
+msgid "Towers Internal Page"
+msgstr ""
+
+#: towers/templates/towers/tags/include/modal.html:14
+msgid "Interiors"
+msgstr "室内"
+
+#: towers/templates/towers/tags/include/modal.html:15
+#: towers/templates/towers/tags/include/modal.html:19
+#: towers/templates/towers/tags/penthouses_widget.html:58
+#: towers/templates/towers/tags/penthouses_widget.html:59
+#: towers/templates/towers/tags/plans_widget.html:46
+#: towers/templates/towers/tags/plans_widget.html:47
+msgid "SF"
+msgstr "平方尺"
+
+#: towers/templates/towers/tags/include/modal.html:18
+msgid "Exteriors"
+msgstr "户外"
+
+#: towers/templates/towers/tags/include/modal.html:29
+msgid "Download PDF"
+msgstr ""
+
+#: towers/templates/towers/tags/penthouses_widget.html:10
+msgid "All"
+msgstr ""
+
+#: towers/templates/towers/tags/penthouses_widget.html:28
+msgid "Tower"
+msgstr "塔"
+
+#: towers/templates/towers/tags/penthouses_widget.html:58
+#: towers/templates/towers/tags/plans_widget.html:46
+msgid "INT"
+msgstr "室内"
+
+#: towers/templates/towers/tags/penthouses_widget.html:59
+#: towers/templates/towers/tags/plans_widget.html:47
+msgid "EXT"
+msgstr "户外"
+
+#: towers/templates/towers/tags/penthouses_widget.html:62
+msgid "Floor Plan"
+msgstr "平面图"
+
+#: towers/templates/towers/tags/penthouses_widget.html:64
+msgid "Contact Us"
+msgstr "联系我们"
+
+#: towers/templates/towers/tags/views_widget.html:19
+#: towers/templates/towers/tags/views_widget.html:21
+msgid "See the view from"
+msgstr "观看各层楼的美景"
+
+#: towers/templates/towers/tags/views_widget.html:26
+msgid "LEVEL"
+msgstr "选择楼层"
+
+#: wtadmin/models.py:68
+msgid "Admin Branding"
+msgstr ""
+
+#: wtadmin/models.py:74
+msgid "Google Analytics"
+msgstr ""
+
+#: wtadmin/models.py:85
+msgid "Email settings"
+msgstr ""
+
+#: wtadmin/templates/wagtailimages/images/ordering.html:5
+#: wtadmin/templates/wagtailimages/images/ordering_by_tag.html:6
+#: wtpages/blocks.py:180 wtpages/blocks.py:430 wtpages/blocks.py:602
+#: wtpages/csstheme.py:124
+msgid "Images"
+msgstr ""
+
+#: wtadmin/templates/wagtailimages/images/ordering.html:54
+msgid "Images - Ordering Mode"
+msgstr ""
+
+#: wtadmin/templates/wagtailimages/images/ordering_by_tag.html:56
+msgid "Images - Order By Tag Mode"
+msgstr ""
+
+#: wtadmin/templates/wagtailimages/images/ordering_by_tag.html:73
+msgid "All Tags"
+msgstr ""
+
+#: wtadmin/templates/wagtailimages/images/ordering_results.html:20
+#, python-format
+msgid "Sorry, no images match \"<em>%(query_string)s</em>\""
+msgstr ""
+
+#: wtadmin/templates/wagtailimages/images/ordering_results.html:26
+msgid "You haven't uploaded any images in this collection."
+msgstr ""
+
+#: wtadmin/templates/wagtailimages/images/ordering_results.html:28
+msgid "Please select a Collection to order images."
+msgstr ""
+
+#: wtadmin/templates/wagtailvideos/videos/edit.html:3
+#, python-format
+msgid "Editing video %(title)s"
+msgstr ""
+
+#: wtadmin/templates/wagtailvideos/videos/edit.html:7
+msgid "Editing"
+msgstr ""
+
+#: wtadmin/templates/wagtailvideos/videos/edit.html:18
+msgid "Save"
+msgstr ""
+
+#: wtadmin/templates/wagtailvideos/videos/edit.html:19
+msgid "Delete video"
+msgstr ""
+
+#: wtadmin/templates/wagtailvideos/videos/edit.html:25
+msgid "Video preview"
+msgstr ""
+
+#: wtadmin/templates/wagtailvideos/videos/edit.html:52
+msgid "Thumbnail"
+msgstr ""
+
+#: wtadmin/templates/wagtailvideos/videos/edit.html:55
+msgid "Filesize"
+msgstr ""
+
+#: wtadmin/templates/wagtailvideos/videos/edit.html:56
+msgid "File not found"
+msgstr ""
+
+#: wtadmin/templates/wagtailvideos/videos/edit.html:58
+msgid "Duration"
+msgstr ""
+
+#: wtforms/edit_handlers.py:33
+msgid "{} submissions"
+msgstr ""
+
+#: wtforms/forms.py:17
+msgid "Alaska"
+msgstr ""
+
+#: wtforms/forms.py:18
+msgid "Alabama"
+msgstr ""
+
+#: wtforms/forms.py:19
+msgid "Arkansas"
+msgstr ""
+
+#: wtforms/forms.py:20
+msgid "American Samoa"
+msgstr ""
+
+#: wtforms/forms.py:21
+msgid "Arizona"
+msgstr ""
+
+#: wtforms/forms.py:22
+msgid "California"
+msgstr ""
+
+#: wtforms/forms.py:23
+msgid "Colorado"
+msgstr ""
+
+#: wtforms/forms.py:24
+msgid "Connecticut"
+msgstr ""
+
+#: wtforms/forms.py:25
+msgid "District of Columbia"
+msgstr ""
+
+#: wtforms/forms.py:26
+msgid "Delaware"
+msgstr ""
+
+#: wtforms/forms.py:27
+msgid "Florida"
+msgstr ""
+
+#: wtforms/forms.py:28
+msgid "Georgia"
+msgstr ""
+
+#: wtforms/forms.py:29
+msgid "Guam"
+msgstr ""
+
+#: wtforms/forms.py:30
+msgid "Hawaii"
+msgstr ""
+
+#: wtforms/forms.py:31
+msgid "Iowa"
+msgstr ""
+
+#: wtforms/forms.py:32
+msgid "Idaho"
+msgstr ""
+
+#: wtforms/forms.py:33
+msgid "Illinois"
+msgstr ""
+
+#: wtforms/forms.py:34
+msgid "Indiana"
+msgstr ""
+
+#: wtforms/forms.py:35
+msgid "Kansas"
+msgstr ""
+
+#: wtforms/forms.py:36
+msgid "Kentucky"
+msgstr ""
+
+#: wtforms/forms.py:37
+msgid "Louisiana"
+msgstr ""
+
+#: wtforms/forms.py:38
+msgid "Massachusetts"
+msgstr ""
+
+#: wtforms/forms.py:39
+msgid "Maryland"
+msgstr ""
+
+#: wtforms/forms.py:40
+msgid "Maine"
+msgstr ""
+
+#: wtforms/forms.py:41
+msgid "Michigan"
+msgstr ""
+
+#: wtforms/forms.py:42
+msgid "Minnesota"
+msgstr ""
+
+#: wtforms/forms.py:43
+msgid "Missouri"
+msgstr ""
+
+#: wtforms/forms.py:44
+msgid "Northern Mariana Islands"
+msgstr ""
+
+#: wtforms/forms.py:45
+msgid "Mississippi"
+msgstr ""
+
+#: wtforms/forms.py:46
+msgid "Montana"
+msgstr ""
+
+#: wtforms/forms.py:47
+msgid "National"
+msgstr ""
+
+#: wtforms/forms.py:48
+msgid "North Carolina"
+msgstr ""
+
+#: wtforms/forms.py:49
+msgid "North Dakota"
+msgstr ""
+
+#: wtforms/forms.py:50
+msgid "Nebraska"
+msgstr ""
+
+#: wtforms/forms.py:51
+msgid "New Hampshire"
+msgstr ""
+
+#: wtforms/forms.py:52
+msgid "New Jersey"
+msgstr ""
+
+#: wtforms/forms.py:53
+msgid "New Mexico"
+msgstr ""
+
+#: wtforms/forms.py:54
+msgid "Nevada"
+msgstr ""
+
+#: wtforms/forms.py:55
+msgid "New York"
+msgstr ""
+
+#: wtforms/forms.py:56
+msgid "Ohio"
+msgstr ""
+
+#: wtforms/forms.py:57
+msgid "Oklahoma"
+msgstr ""
+
+#: wtforms/forms.py:58
+msgid "Oregon"
+msgstr ""
+
+#: wtforms/forms.py:59
+msgid "Pennsylvania"
+msgstr ""
+
+#: wtforms/forms.py:60
+msgid "Puerto Rico"
+msgstr ""
+
+#: wtforms/forms.py:61
+msgid "Rhode Island"
+msgstr ""
+
+#: wtforms/forms.py:62
+msgid "South Carolina"
+msgstr ""
+
+#: wtforms/forms.py:63
+msgid "South Dakota"
+msgstr ""
+
+#: wtforms/forms.py:64
+msgid "Tennessee"
+msgstr ""
+
+#: wtforms/forms.py:65
+msgid "Texas"
+msgstr ""
+
+#: wtforms/forms.py:66
+msgid "Utah"
+msgstr ""
+
+#: wtforms/forms.py:67
+msgid "Virginia"
+msgstr ""
+
+#: wtforms/forms.py:68
+msgid "Virgin Islands"
+msgstr ""
+
+#: wtforms/forms.py:69
+msgid "Vermont"
+msgstr ""
+
+#: wtforms/forms.py:70
+msgid "Washington"
+msgstr ""
+
+#: wtforms/forms.py:71
+msgid "Wisconsin"
+msgstr ""
+
+#: wtforms/forms.py:72
+msgid "West Virginia"
+msgstr ""
+
+#: wtforms/forms.py:73
+msgid "Wyoming"
+msgstr ""
+
+#: wtforms/forms.py:203 wtforms/forms.py:208 wtforms/forms.py:219
+msgid "Please Select"
+msgstr ""
+
+#: wtforms/forms.py:328
+#, python-format
+msgid "There is another field with the label %s, please change one of them."
+msgstr ""
+
+#: wtforms/models.py:71
+msgid "Single line text"
+msgstr ""
+
+#: wtforms/models.py:72
+msgid "Multi-line text"
+msgstr ""
+
+#: wtforms/models.py:73
+msgid "Email"
+msgstr ""
+
+#: wtforms/models.py:74
+msgid "Number"
+msgstr ""
+
+#: wtforms/models.py:75
+msgid "URL"
+msgstr ""
+
+#: wtforms/models.py:76
+msgid "Checkbox"
+msgstr ""
+
+#: wtforms/models.py:77
+msgid "Checkboxes"
+msgstr ""
+
+#: wtforms/models.py:78
+msgid "Drop down"
+msgstr ""
+
+#: wtforms/models.py:79
+msgid "Radio buttons"
+msgstr ""
+
+#: wtforms/models.py:80
+msgid "Date"
+msgstr ""
+
+#: wtforms/models.py:81
+msgid "Time"
+msgstr ""
+
+#: wtforms/models.py:82
+msgid "Date/time"
+msgstr ""
+
+#: wtforms/models.py:83
+msgid "Captcha"
+msgstr ""
+
+#: wtforms/models.py:84
+msgid "File"
+msgstr ""
+
+#: wtforms/models.py:85
+msgid "Fields Group"
+msgstr ""
+
+#: wtforms/models.py:86
+msgid "Section Title H2"
+msgstr ""
+
+#: wtforms/models.py:87
+msgid "Section Title H3"
+msgstr ""
+
+#: wtforms/models.py:194
+msgid "label"
+msgstr ""
+
+#: wtforms/models.py:196
+msgid "The label of the form field"
+msgstr ""
+
+#: wtforms/models.py:199
+msgid "field type"
+msgstr ""
+
+#: wtforms/models.py:200
+msgid "required"
+msgstr ""
+
+#: wtforms/models.py:202
+msgid "choices"
+msgstr ""
+
+#: wtforms/models.py:204
+msgid ""
+"New line separated list of choices. Only applicable in checkboxes, radio and "
+"dropdown."
+msgstr ""
+
+#: wtforms/models.py:212
+msgid "Lasso Question"
+msgstr ""
+
+#: wtforms/models.py:223
+msgid "default value"
+msgstr ""
+
+#: wtforms/models.py:226
+msgid "Default value. New line separated values supported for checkboxes."
+msgstr ""
+
+#: wtforms/models.py:228
+msgid "help text"
+msgstr ""
+
+#: wtforms/models.py:230
+msgid "Add CSS class"
+msgstr ""
+
+#: wtforms/models.py:231
+msgid "Related Input Name"
+msgstr ""
+
+#: wtforms/models.py:232
+msgid "Placeholder"
+msgstr ""
+
+#: wtforms/models.py:333
+msgid "Thank You Page"
+msgstr ""
+
+#: wtforms/models.py:365 wtpages/models.py:143
+msgid "Theme"
+msgstr ""
+
+#: wtforms/models.py:378
+msgid "to address"
+msgstr ""
+
+#: wtforms/models.py:379
+msgid ""
+"Optional - form submissions will be emailed to these addresses. Separate "
+"multiple addresses by comma."
+msgstr ""
+
+#: wtforms/models.py:381
+msgid "from address"
+msgstr ""
+
+#: wtforms/models.py:382
+msgid "subject"
+msgstr ""
+
+#: wtforms/models.py:386
+msgid "Enable reCAPTCHA"
+msgstr ""
+
+#: wtforms/models.py:409
+msgid "Default Thank You Page"
+msgstr ""
+
+#: wtforms/models.py:434
+msgid "Submission date"
+msgstr ""
+
+#: wtforms/models.py:1081
+msgid "submit time"
+msgstr ""
+
+#: wtforms/models.py:1100
+msgid "Wt Form submission"
+msgstr ""
+
+#: wtforms/models.py:1150
+msgid "Form Popup Page"
+msgstr ""
+
+#: wtforms/models.py:1173 wthomepage/models.py:31 wthomepage/models.py:145
+#: wtpages/models.py:216 wtpages/models.py:259 wtpages/models.py:304
+msgid "Common page configuration"
+msgstr ""
+
+#: wtforms/templates/wtforms/admin/confirm_delete.html:3
+#, python-format
+msgid "Delete %(title)s"
+msgstr ""
+
+#: wtforms/templates/wtforms/admin/confirm_delete.html:7
+msgid "Delete"
+msgstr ""
+
+#: wtforms/templates/wtforms/admin/confirm_delete.html:12
+msgid "Are you sure you want to delete this form submission?"
+msgstr ""
+
+#: wtforms/templates/wtforms/admin/confirm_delete.html:16
+msgid "Delete it"
+msgstr ""
+
+#: wtforms/templates/wtforms/admin/edit_handlers/form_responses_panel.html:2
+msgid "Total submissions"
+msgstr ""
+
+#: wtforms/templates/wtforms/admin/edit_handlers/form_responses_panel.html:3
+msgid "Latest submission"
+msgstr ""
+
+#: wtforms/templates/wtforms/admin/index.html:3
+#: wtforms/templates/wtforms/admin/index.html:5 wtforms/wagtail_hooks.py:40
+msgid "Forms"
+msgstr ""
+
+#: wtforms/templates/wtforms/admin/index.html:6 wtpages/models.py:116
+msgid "Pages"
+msgstr ""
+
+#: wtforms/templates/wtforms/admin/index_submissions.html:3
+#, python-format
+msgid "Submissions of %(form_title)s"
+msgstr ""
+
+#: wtforms/templates/wtforms/admin/index_submissions.html:35
+#, python-format
+msgid "Form data <span>%(form_title)s</span>"
+msgstr ""
+
+#: wtforms/templates/wtforms/admin/index_submissions.html:44
+msgid "Filter"
+msgstr ""
+
+#: wtforms/templates/wtforms/admin/index_submissions.html:50
+msgid "Download CSV"
+msgstr ""
+
+#: wtforms/templates/wtforms/admin/index_submissions.html:62
+#, python-format
+msgid "There have been no submissions of the '%(title)s' form."
+msgstr ""
+
+#: wtforms/templates/wtforms/admin/list_forms.html:8
+msgid "Origin"
+msgstr ""
+
+#: wtforms/templates/wtforms/admin/list_submissions.html:12
+msgid "Actions"
+msgstr ""
+
+#: wtforms/templates/wtforms/admin/list_submissions.html:26
+msgid "delete"
+msgstr ""
+
+#: wtforms/templates/wtforms/admin/results_forms.html:7
+msgid "No form pages have been created."
+msgstr ""
+
+#: wtforms/views.py:45
+msgid "Submission deleted."
+msgstr ""
+
+#: wtforms/wagtail_hooks.py:24
+msgid "Submissions"
+msgstr ""
+
+#: wtforms/wagtail_hooks.py:26
+#, python-format
+msgid "View Submissions of this %s"
+msgstr ""
+
+#: wthomepage/models.py:13
+msgid "Website Root Page"
+msgstr ""
+
+#: wthomepage/models.py:44
+msgid "Set any icon listed there https://fontawesome.com/v4.7.0/icons/"
+msgstr ""
+
+#: wthomepage/models.py:58
+msgid "Language Root Page"
+msgstr ""
+
+#: wthomepage/models.py:73
+msgid "Page Not Found Text"
+msgstr ""
+
+#: wthomepage/models.py:76
+msgid "Phone"
+msgstr ""
+
+#: wthomepage/models.py:85 wtpages/blocks.py:146 wtpages/models.py:156
+#: wtpromobox/models.py:31
+msgid "Internal Page Link"
+msgstr ""
+
+#: wthomepage/models.py:86 wtpages/blocks.py:147 wtpromobox/models.py:32
+msgid "External Page Link"
+msgstr ""
+
+#: wthomepage/models.py:87 wtpages/blocks.py:127 wtpages/blocks.py:148
+#: wtpages/models.py:158 wtpromobox/models.py:33
+msgid "Phone Link"
+msgstr ""
+
+#: wthomepage/models.py:88 wtpages/blocks.py:132 wtpages/blocks.py:149
+#: wtpages/models.py:159 wtpromobox/models.py:34
+msgid "Email Link"
+msgstr ""
+
+#: wthomepage/models.py:89 wtpages/blocks.py:150 wtpages/models.py:160
+#: wtpromobox/models.py:35
+msgid "Popup Form"
+msgstr ""
+
+#: wthomepage/models.py:90 wtpages/blocks.py:151 wtpages/models.py:161
+#: wtpromobox/models.py:36
+msgid "Document Link"
+msgstr ""
+
+#: wthomepage/models.py:118
+msgid "Footer Links"
+msgstr ""
+
+#: wthomepage/models.py:122
+msgid "Footer Social Links"
+msgstr ""
+
+#: wthomepage/models.py:128
+msgid "Page Not Found (404)"
+msgstr ""
+
+#: wtinstagramtokens/models.py:27 wtpages/blocks.py:356 wtpages/blocks.py:442
+#: wtpages/blocks.py:462 wtpages/blocks.py:531 wtpages/blocks.py:552
+#: wtpages/blocks.py:562 wtpages/blocks.py:597 wtpages/blocks.py:602
+#: wtpages/blocks.py:705 wtpromobox/models.py:27
+msgid "Image"
+msgstr ""
+
+#: wtinstagramtokens/models.py:40
+msgid "Instagram Token"
+msgstr ""
+
+#: wtinstagramtokens/models.py:126 wtpagemeta/models.py:30
+msgid "Common"
+msgstr ""
+
+#: wtinstagramtokens/models.py:133
+msgid "Instagram Token And Status (read only)"
+msgstr ""
+
+#: wtpagemeta/models.py:13
+msgid "Page Meta"
+msgstr ""
+
+#: wtpagemeta/models.py:19
+msgid "Facebook APP ID"
+msgstr ""
+
+#: wtpages/blocks.py:32 wtpages/blocks.py:416 wtpages/models.py:135
+msgid "Left"
+msgstr ""
+
+#: wtpages/blocks.py:32 wtpages/blocks.py:418 wtpages/models.py:136
+msgid "Right"
+msgstr ""
+
+#: wtpages/blocks.py:32 wtpages/blocks.py:417
+msgid "Center"
+msgstr ""
+
+#: wtpages/blocks.py:34 wtpages/blocks.py:333
+msgid "Left Text Right Image"
+msgstr ""
+
+#: wtpages/blocks.py:35 wtpages/blocks.py:334
+msgid "Right Text Left Image"
+msgstr ""
+
+#: wtpages/blocks.py:36 wtpages/blocks.py:335
+msgid "Only Text"
+msgstr ""
+
+#: wtpages/blocks.py:40 wtpages/blocks.py:86 wtpages/blocks.py:170
+msgid "Link"
+msgstr ""
+
+#: wtpages/blocks.py:41 wtpages/blocks.py:87
+msgid "Button"
+msgstr ""
+
+#: wtpages/blocks.py:42
+msgid "Learn More"
+msgstr ""
+
+#: wtpages/blocks.py:46
+msgid "1 Item"
+msgstr ""
+
+#: wtpages/blocks.py:47
+msgid "2 Items"
+msgstr ""
+
+#: wtpages/blocks.py:48
+msgid "3 Items"
+msgstr ""
+
+#: wtpages/blocks.py:49
+msgid "4 Items"
+msgstr ""
+
+#: wtpages/blocks.py:59
+msgid "Regular"
+msgstr ""
+
+#: wtpages/blocks.py:60
+msgid "Full Screen"
+msgstr ""
+
+#: wtpages/blocks.py:61
+msgid "Condensed"
+msgstr ""
+
+#: wtpages/blocks.py:62
+msgid "Inside Text"
+msgstr ""
+
+#: wtpages/blocks.py:66
+msgid "H1"
+msgstr ""
+
+#: wtpages/blocks.py:67
+msgid "H2"
+msgstr ""
+
+#: wtpages/blocks.py:68
+msgid "H3"
+msgstr ""
+
+#: wtpages/blocks.py:88
+msgid "Inverted Button"
+msgstr ""
+
+#: wtpages/blocks.py:89
+msgid "Gold Button"
+msgstr ""
+
+#: wtpages/blocks.py:94
+msgid "Link Type"
+msgstr ""
+
+#: wtpages/blocks.py:95 wtpages/blocks.py:114
+msgid "Open link in new window"
+msgstr ""
+
+#: wtpages/blocks.py:100 wtpages/blocks.py:115
+msgid "External link"
+msgstr ""
+
+#: wtpages/blocks.py:112
+msgid "Background Image"
+msgstr ""
+
+#: wtpages/blocks.py:113
+msgid "Animation SVG"
+msgstr ""
+
+#: wtpages/blocks.py:120
+msgid "Internal Page link"
+msgstr ""
+
+#: wtpages/blocks.py:137
+msgid "Pop Up Form link"
+msgstr ""
+
+#: wtpages/blocks.py:142
+msgid "Document"
+msgstr ""
+
+#: wtpages/blocks.py:152
+msgid "ONNI Website Link"
+msgstr ""
+
+#: wtpages/blocks.py:156 wtpages/blocks.py:359 wtpages/blocks.py:640
+#: wtpromobox/models.py:65
+msgid "Related Links"
+msgstr ""
+
+#: wtpages/blocks.py:161
+msgid "Align Links"
+msgstr ""
+
+#: wtpages/blocks.py:162
+msgid "Description"
+msgstr ""
+
+#: wtpages/blocks.py:163
+msgid "Links"
+msgstr ""
+
+#: wtpages/blocks.py:177 wtpages/blocks.py:254 wtpages/blocks.py:422
+#: wtpages/blocks.py:579
+msgid "Title Tag"
+msgstr ""
+
+#: wtpages/blocks.py:203
+msgid "HTML"
+msgstr ""
+
+#: wtpages/blocks.py:247
+msgid "Gallery Collection"
+msgstr ""
+
+#: wtpages/blocks.py:248
+msgid "Image Tag"
+msgstr ""
+
+#: wtpages/blocks.py:260
+msgid "Gallery Collections"
+msgstr ""
+
+#: wtpages/blocks.py:339
+msgid "Default"
+msgstr ""
+
+#: wtpages/blocks.py:340
+msgid "Blue Subhead"
+msgstr ""
+
+#: wtpages/blocks.py:344 wtpages/blocks.py:637 wtpages/blocks.py:646
+#: wtpages/blocks.py:654 wtpages/blocks.py:669
+msgid "More Title Lines"
+msgstr ""
+
+#: wtpages/blocks.py:345
+msgid "Title Type"
+msgstr ""
+
+#: wtpages/blocks.py:346 wtpages/blocks.py:424
+msgid "Text Layout"
+msgstr ""
+
+#: wtpages/blocks.py:357
+msgid "Text Align"
+msgstr ""
+
+#: wtpages/blocks.py:425
+msgid "Show Arrows"
+msgstr ""
+
+#: wtpages/blocks.py:426 wtpages/blocks.py:495
+msgid "Full Width"
+msgstr ""
+
+#: wtpages/blocks.py:427
+msgid "Show Tint"
+msgstr ""
+
+#: wtpages/blocks.py:429
+msgid "Image Size"
+msgstr ""
+
+#: wtpages/blocks.py:461 wtpages/blocks.py:717
+msgid "Video"
+msgstr ""
+
+#: wtpages/blocks.py:492
+msgid "Mobile Title"
+msgstr ""
+
+#: wtpages/blocks.py:493
+msgid "Tab Name"
+msgstr ""
+
+#: wtpages/blocks.py:494 wtpages/blocks.py:731
+msgid "Interactive Map"
+msgstr ""
+
+#: wtpages/blocks.py:496
+msgid "Show Legend"
+msgstr ""
+
+#: wtpages/blocks.py:517
+msgid "Neighborhood Map Instance"
+msgstr ""
+
+#: wtpages/blocks.py:526
+msgid "Top Left Corner"
+msgstr ""
+
+#: wtpages/blocks.py:527
+msgid "Top Right Corner"
+msgstr ""
+
+#: wtpages/blocks.py:528
+msgid "Bottom Left Corner"
+msgstr ""
+
+#: wtpages/blocks.py:532
+msgid "Decor Triangle"
+msgstr ""
+
+#: wtpages/blocks.py:553
+msgid "Text Box"
+msgstr ""
+
+#: wtpages/blocks.py:554 wtpages/blocks.py:564 wtpages/blocks.py:626
+#: wtpages/blocks.py:670
+msgid "Items"
+msgstr ""
+
+#: wtpages/blocks.py:563
+msgid "Info Box (Text + Image)"
+msgstr ""
+
+#: wtpages/blocks.py:570
+msgid "Image Box"
+msgstr ""
+
+#: wtpages/blocks.py:571
+msgid "Image & Info Box"
+msgstr ""
+
+#: wtpages/blocks.py:572
+msgid "Boxes"
+msgstr ""
+
+#: wtpages/blocks.py:586
+msgid "Section"
+msgstr ""
+
+#: wtpages/blocks.py:586 wtpages/blocks.py:694
+msgid "Sections"
+msgstr ""
+
+#: wtpages/blocks.py:608
+msgid "Image Group"
+msgstr ""
+
+#: wtpages/blocks.py:608
+msgid "Image Groups"
+msgstr ""
+
+#: wtpages/blocks.py:626
+msgid "Item"
+msgstr ""
+
+#: wtpages/blocks.py:638
+msgid "Featues"
+msgstr ""
+
+#: wtpages/blocks.py:707
+msgid "Form"
+msgstr ""
+
+#: wtpages/blocks.py:709
+msgid "Gallery"
+msgstr ""
+
+#: wtpages/blocks.py:710
+msgid "Gallery (Collections)"
+msgstr ""
+
+#: wtpages/blocks.py:711
+msgid "Text & Images Gallery"
+msgstr ""
+
+#: wtpages/blocks.py:716
+msgid "Carousel"
+msgstr ""
+
+#: wtpages/blocks.py:725
+msgid "ONNI Logo With Link"
+msgstr ""
+
+#: wtpages/blocks.py:726
+msgid "Info"
+msgstr ""
+
+#: wtpages/blocks.py:728
+msgid "Features"
+msgstr ""
+
+#: wtpages/blocks.py:729
+msgid "Shared Blocks"
+msgstr ""
+
+#: wtpages/blocks.py:732
+msgid "Interactive Map Tabs"
+msgstr ""
+
+#: wtpages/blocks.py:734
+msgid "Neighborhood Map"
+msgstr ""
+
+#: wtpages/blocks.py:736
+msgid "Tower Plans"
+msgstr ""
+
+#: wtpages/blocks.py:737
+msgid "Tower Views"
+msgstr ""
+
+#: wtpages/blocks.py:738
+msgid "Penthouses"
+msgstr ""
+
+#: wtpages/blocks.py:740
+msgid "About ONNI Collage"
+msgstr ""
+
+#: wtpages/blocks.py:741
+msgid "Contact"
+msgstr ""
+
+#: wtpages/blocks.py:744
+msgid "Site Map"
+msgstr ""
+
+#: wtpages/blocks.py:745
+msgid "Raw HTML"
+msgstr ""
+
+#: wtpages/csstheme.py:67
+msgid "Css Theme"
+msgstr ""
+
+#: wtpages/csstheme.py:68
+msgid "Css Themes"
+msgstr ""
+
+#: wtpages/csstheme.py:80
+msgid "Css"
+msgstr ""
+
+#: wtpages/csstheme.py:80
+#, python-brace-format
+msgid ""
+"Raw CSS. There are NO validation, please be careful. {theme} should precede "
+"any selector."
+msgstr ""
+
+#: wtpages/models.py:112
+msgid "All Pages JavaScript code"
+msgstr ""
+
+#: wtpages/models.py:117
+msgid "Exclude Pages"
+msgstr ""
+
+#: wtpages/models.py:142
+msgid "SEO keywords"
+msgstr ""
+
+#: wtpages/models.py:150
+msgid "Hero Video"
+msgstr ""
+
+#: wtpages/models.py:154
+msgid "Hero Text"
+msgstr ""
+
+#: wtpages/models.py:157
+msgid "External Link"
+msgstr ""
+
+#: wtpages/models.py:164
+msgid "Half height on mobile"
+msgstr ""
+
+#: wtpages/models.py:222
+msgid "URL Page"
+msgstr ""
+
+#: wtpages/models.py:266
+msgid "Text Page"
+msgstr ""
+
+#: wtpages/templates/wtpages/blocks/interactive_map_block.html:63
+msgid "Pan to view site map"
+msgstr ""
+
+#: wtpromobox/models.py:20
+msgid "Text and Image"
+msgstr ""
+
+#: wtpromobox/models.py:21
+msgid "Image Only"
+msgstr ""
+
+#: wtpromobox/models.py:22
+msgid "Text Only"
+msgstr ""
+
+#: wtpromobox/models.py:61
+msgid "Show On Pages"
+msgstr ""
+
+#: wtsitemap/models.py:7
+msgid "Use Generic Sitemap"
+msgstr ""
+
+#: wtsitemap/models.py:8
+msgid "Use Uploaded Sitemap"
+msgstr ""
+
+#: wtsitemap/models.py:18
+msgid "Sitemap file"
+msgstr ""
+
+#: wtsitemap/models.py:19
+msgid "robots.txt"
+msgstr ""
+
+#~ msgid "Confirm you are not a robot"
+#~ msgstr "确认你不是机器人"

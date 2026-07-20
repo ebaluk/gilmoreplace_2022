@@ -1,0 +1,8 @@
+{% load wagtailcore_tags wagtailimages_tags %}
+
+<div class="image-group">
+    {% cycle 'tall' 'short' as imgtype silent %}
+    {% for block in self.images %}
+        {% include_block block with imgtype=imgtype %}
+    {% endfor %}    
+</div>

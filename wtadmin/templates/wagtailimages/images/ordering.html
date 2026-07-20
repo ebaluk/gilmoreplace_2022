@@ -1,0 +1,77 @@
+{% extends "wagtailadmin/base.html" %}
+{% load wagtailimages_tags static %}
+{% load i18n %}
+
+{% block titletag %}{% trans "Images" %}{% endblock %}
+{% block extra_js %}
+    {{ block.super }}
+    <script>
+        $(function() {
+            $('#collection_chooser_collection_id').change(function() {
+                this.form.submit();
+            })
+        });
+    </script>
+    
+    <script src="{% static 'wagtailadmin/js/modal-workflow.js' %}"></script>
+    <script src="{% static 'wagtailadmin/js/privacy-switch.js' %}"></script>
+    <script src="{% static 'wtadmin/js/Sortable.min.js' %}"></script>
+    
+
+<script type="text/javascript">
+        
+$(function() {
+    var reorderCount = 0;
+    var orderform = $('#image-reorder-form');
+    
+    var imagesSorting = document.getElementById("images-sorting");
+    var sortable = Sortable.create(imagesSorting, {
+      animation: 150, // ms, animation speed moving items when sorting, `0` — without animation
+      handle: "a", // Restricts sort start click/touch to the specified element
+      draggable: "li", // Specifies which items inside the element should be sortable
+      ghostClass: "ghost",
+      onUpdate: function (evt/**Event*/){
+    	  //console.log(sortable.toArray());
+    	  
+    	  // Get CSRF token
+          var CSRFToken = $('input[name="csrfmiddlewaretoken"]', orderform).val();                	  
+          var url = "{% url 'wtadmin_images_sort' %}";
+
+          // Post
+          $.post(url, {csrfmiddlewaretoken: CSRFToken, images: sortable.toArray()}, function(){
+             addMessage('success', '"' + $(evt.item).data('title') + '" has been moved successfully.')
+          });
+      }
+    });
+});
+        
+</script>
+    
+    
+{% endblock %}
+
+{% block content %}
+    {% trans "Images - Ordering Mode" as im_str %}
+    
+    {% include "wagtailadmin/shared/header.html" with title=im_str icon="image" %}
+    
+
+    <div class="nice-padding">
+        {% if collections %}
+            <form class="image-search search-bar" action="{% url 'wtadmin_images_sort_index' %}" method="GET" novalidate>
+                <ul class="fields">
+                    {% include "wagtailadmin/shared/collection_chooser.html" %}
+                </ul>
+            </form>
+        {% endif %}
+
+        <div id="image-results">
+        <form id="image-reorder-form">
+        {% csrf_token %}
+        </form>
+        
+            {% include "wagtailimages/images/ordering_results.html" %}
+        </div>
+    </div>
+    
+{% endblock %}

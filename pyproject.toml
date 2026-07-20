@@ -1,0 +1,35 @@
+[project]
+name = "gilmoreplace-2022"
+version = "0.1.0"
+requires-python = ">=3.12"
+dependencies = [
+    "Django==5.2.15",
+    "wagtail==7.4.2",
+    "wagtail-modeladmin>=2.0.0",
+    "unidecode",
+    "numpy",
+    "psycopg2-binary",
+    "mailchimp_marketing",
+    "pyexcel_ods",
+    "phonenumbers",
+    "django-compressor>=4.6",
+    "django-taggit",
+    "django-libsass",
+    "django-video-encoding",
+    "beautifulsoup4",
+    "wagtail-modelchooser",
+    "gunicorn",
+    "google-analytics-data",
+    "wagtailvideos==7.3.1",
+    "rcssmin",
+    "rjsmin",
+    "timeago",
+    "setuptools",
+    "gevent",
+    "django-cors-headers",
+    "djangorestframework",
+    "requests",
+    "yattag",
+    "pydantic>=2.13.4",
+    "drf-spectacular>=0.30.0",
+]

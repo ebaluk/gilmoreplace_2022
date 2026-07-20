@@ -1,0 +1,80 @@
+{% load wagtailcore_tags wagtailimages_tags wtpages_tags %}
+
+<article class="boxes-block {{add_css_class}} themed-{{self.theme.id}} {{self.theme.css_class}} page-layout-whole">
+        
+        {% if self.title %}
+        <div class="container page-text-wrapper">        
+            <div class="page-header inside text-center">
+                <div class="title-wrapper">
+                    <h2 class="h2 title">{{ self.title }}</h2>                        
+                </div>
+            </div>             
+        </div>    
+        {% endif %}
+
+        <div class="container text-center boxes boxes-layout-{{self.boxes_per_row}} cnt-{{self.boxes|length}}" >
+	
+            <div id="{{uid}}" >
+                <div class="row" role="listbox">
+                    {% for item in self.boxes %}
+                    <{% if item.link %}a href="{{item.link}}" {% else %}div{% endif %} class="box-item item col-md-6 {% if forloop.first %} active{% endif %}">
+                        <div>
+                            
+                            {% if item.image %}
+                            {% if self.image_size == '866x539' %}
+                                {% image item.image fill-866x539-c100 as img %}
+                            {% elif self.image_size == '500x700' %}
+                                {% image item.image fill-500x700-c100 as img %}
+                            {% else %}
+                                {% image item.image fill-866x866-c100 as img %}
+                            {% endif %}        
+                            <div class="image image-size-{{self.image_size}}">
+                                <img src="{{img.url}}" alt="{{img.alt}}">					
+                                {% if item.image_caption %}
+                                    <div class="image-caption text-right">
+                                        {{ item.image_caption }}
+                                    </div>
+                                {%  endif %}
+                            </div>
+                            {%  endif %}
+                            
+                            {% if item.title %}
+                            <{{self.title_tag|default:"h2"}} class="title h2">
+                                {{item.title}}
+                                {% if item.title_2 %}
+                                    <div>
+                                        {{item.title_2}}
+                                    </div>
+                                {% endif %}
+                            </{{self.title_tag|default:"h2"}}>
+                            {% endif %}
+            
+                            {% if item.text %}
+                            <div class="excerpt clearfix">
+                                {{item.text|richtext}}
+                            </div>
+                            {% endif %}
+
+                            <div class="spacer"></div>
+            
+                            {% include_block item.new_links %}
+            
+                        </div>
+                    </{% if item.link %}a{% else %}div{% endif %}>
+                    {% endfor %}
+                </div>
+        
+                
+        
+            </div>
+        
+        </div>	
+</article>
+
+
+
+    
+
+
+
+    

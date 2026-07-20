@@ -1,0 +1,453 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --color-bg: 33 47 61;
+    --color-navy: 18 28 38;
+    --color-grey-light: 91 117 135;
+    --color-aqua-light: 0 208 230;
+    --color-aqua-medium: 0 160 196;
+    --color-purple: 58 54 135;
+    --color-gold: 193 163 64;
+    --color-red: 216 67 67;
+  }
+
+  body {
+    font-family: "nunito-sans", sans-serif;
+  }
+
+  /* Consistent space before the scroll spacer (.transparent) on every page */
+  section.pages {
+    padding-bottom: 60px;
+  }
+
+  /* Hero video: skip the legacy 2s opacity fade so the video appears immediately */
+  .hero-banner.has-video {
+    opacity: 1;
+    animation: none;
+  }
+
+  /* Flex layout images: constrain width, preserve aspect ratio (match Wagtail) */
+  article .flex-item img {
+    max-width: 100%;
+    height: auto;
+    width: auto;
+  }
+
+  article .flex-item .day-night-time-slider img {
+    max-width: unset;
+    height: 100%;
+    width: auto;
+  }
+
+  article.image-block img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  .video-block {
+    cursor: pointer;
+  }
+
+  .video-block video {
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+
+  /* Hero banner: fill section width/height (match Wagtail carousel) */
+  .hero-banner .banner-bg .hero-image {
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+
+  .hero-banner .banner-bg .hero-swiper {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  .hero-banner .banner-bg .hero-swiper .swiper-slide {
+    height: 100%;
+  }
+
+  .hero-banner {
+    overflow: visible;
+  }
+
+  /* Form validation errors */
+  .wtform .errorlist,
+  .wtform .errorlist li {
+    color: rgb(var(--color-red)) !important;
+    list-style: none;
+    padding-left: 0;
+    margin: 0.25em 0 0;
+  }
+
+  form.wtform.has-errors .has-field-error input,
+  form.wtform.has-errors .has-field-error select,
+  form.wtform.has-errors .has-field-error textarea {
+    border-color: rgb(var(--color-red)) !important;
+  }
+
+  .wtform .form-submit-error {
+    color: rgb(var(--color-red));
+    background: transparent;
+    border: none;
+    padding: 0.5em 0;
+  }
+
+  /* Wagtail form grid (replaces Bootstrap .row / .col-sm-* removed with bootstrap.css) */
+  .wtform .row {
+    margin-left: -15px;
+    margin-right: -15px;
+  }
+
+  .wtform .row::before,
+  .wtform .row::after {
+    content: " ";
+    display: table;
+  }
+
+  .wtform .row::after {
+    clear: both;
+  }
+
+  .wtform .form-group,
+  .wtform .col-sm-6,
+  .wtform .col-sm-12 {
+    position: relative;
+    min-height: 1px;
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+
+  .wtform .form-group {
+    margin-bottom: 15px;
+  }
+
+  .wtform .form-group-set,
+  .wtform .form-group-set-default {
+    margin-bottom: 15px;
+  }
+
+  .wtform .clearfix::before,
+  .wtform .clearfix::after {
+    content: " ";
+    display: table;
+  }
+
+  .wtform .clearfix::after {
+    clear: both;
+  }
+
+  @media (min-width: 768px) {
+    .wtform .col-sm-6 {
+      float: left;
+      width: 50%;
+    }
+
+    .wtform .col-sm-12 {
+      float: left;
+      width: 100%;
+    }
+  }
+
+  .wtform h2,
+  .wtform h3 {
+    clear: both;
+    padding-left: 15px;
+    padding-right: 15px;
+    margin-top: 15px;
+    margin-bottom: 15px;
+  }
+
+  .wtform .wt-recaptcha-wrapper {
+    clear: both;
+    float: none;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+
+  .wtform .wt-recaptcha-wrapper > div {
+    display: inline-block;
+  }
+
+  /* Places widget: avoid Bootstrap .collapse { display:none } hiding place lists */
+  .places-widget .places-place {
+    display: none;
+  }
+
+  .places-widget .places-place.is-open {
+    display: block;
+  }
+
+  .places-widget .places-place .list-group-item {
+    color: #fff;
+    background: transparent;
+    border: none;
+    padding: 4px 0;
+    list-style: none;
+  }
+
+  .places-widget .panel-primary {
+    background: transparent;
+    border: none;
+    box-shadow: none;
+  }
+
+  .places-widget .panel-heading {
+    background: transparent;
+    border: none;
+  }
+
+  /* Swiper inside Wagtail carousel-wrapper */
+  .carousel-wrapper .carousel-swiper {
+    position: absolute;
+    z-index: 1;
+    inset: 0;
+    height: 100%;
+  }
+
+  .carousel-wrapper .carousel-swiper .swiper,
+  .carousel-wrapper .carousel-swiper .carousel-swiper__track {
+    height: 100%;
+    overflow: hidden;
+    touch-action: pan-y;
+  }
+
+  .carousel-wrapper .carousel-swiper .swiper-wrapper,
+  .carousel-wrapper .carousel-swiper .carousel-swiper__track {
+    height: 100%;
+  }
+
+  .carousel-wrapper .carousel-swiper .swiper-slide,
+  .carousel-wrapper .carousel-swiper .carousel-swiper__slide {
+    height: 100%;
+    display: block !important;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .carousel-wrapper .carousel-swiper .swiper-slide .carousel-image {
+    z-index: 0;
+  }
+
+  .carousel-wrapper .carousel-swiper .carousel-swiper__button {
+    position: absolute;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: auto;
+    width: 50px;
+    height: 50px;
+    top: auto;
+    bottom: 50px;
+    padding: 0;
+    border: 0;
+    cursor: pointer;
+    opacity: 0.55;
+    background: none;
+    background-color: rgba(0, 208, 230, 0.55);
+    transition: transform 200ms ease, filter 200ms ease, opacity 200ms ease;
+  }
+
+  .carousel-wrapper .carousel-swiper .carousel-swiper__button--prev {
+    left: 15px;
+    right: auto;
+  }
+
+  .carousel-wrapper .carousel-swiper .carousel-swiper__button--next {
+    right: 15px;
+    left: auto;
+  }
+
+  .carousel-wrapper .carousel-swiper .carousel-swiper__button:after {
+    content: " ";
+    display: block;
+    box-sizing: border-box;
+    width: 14px;
+    height: 14px;
+  }
+
+  .carousel-wrapper .carousel-swiper .carousel-swiper__button--prev:after {
+    border-left: 2px solid #fff;
+    border-top: 2px solid #fff;
+    transform: rotate(-45deg);
+    margin-left: 4px;
+  }
+
+  .carousel-wrapper .carousel-swiper .carousel-swiper__button--next:after {
+    border-right: 2px solid #fff;
+    border-top: 2px solid #fff;
+    transform: rotate(45deg);
+    margin-right: 4px;
+  }
+
+  .carousel-wrapper .carousel-swiper .carousel-swiper__button:hover,
+  .carousel-wrapper .carousel-swiper .carousel-swiper__button:focus {
+    opacity: 1;
+    filter: brightness(0.95);
+    transform: scale(1.03);
+  }
+
+  .carousel-wrapper .carousel-swiper .carousel-swiper__button span {
+    display: none;
+  }
+
+  .features-block .accordion-container .accordion-panel {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows 300ms ease;
+  }
+
+  .features-block .accordion-container .accordion-panel.is-open {
+    grid-template-rows: 1fr;
+  }
+
+  .features-block .accordion-container .accordion-panel-inner {
+    min-height: 0;
+    overflow: hidden;
+  }
+
+  .features-block .accordion-container .header .btn-plus svg {
+    transition: transform 300ms ease;
+  }
+
+  .features-block .accordion-container .header .btn-plus svg g {
+    transition: stroke 300ms ease;
+  }
+
+  /* Floor plan overlay close button (pseudo-element X) */
+  .section-plans .overlay .close,
+  .penthouses-widget .overlay .close {
+    display: block;
+    border: none;
+    padding: 0;
+  }
+
+  /* Portaled floor plan overlay sits above fixed nav/filter */
+  body > .section-plans .overlay,
+  body > .penthouses-widget .overlay,
+  body > .portal-modal.section-plans .overlay,
+  body > .portal-modal.penthouses-widget .overlay {
+    z-index: 10000;
+  }
+
+  body > .section-plans .overlay .close,
+  body > .penthouses-widget .overlay .close,
+  body > .portal-modal.section-plans .overlay .close,
+  body > .portal-modal.penthouses-widget .overlay .close {
+    z-index: 10001;
+    top: 0;
+  }
+
+  /*
+   * `.section-plans` carries page section chrome (bg image, min-height).
+   * On the fixed portal root that would cover the page during overlay
+   * fade-out — keep only as a style-scope ancestor, no opaque chrome.
+   */
+  .portal-modal.floorplan-portal.section-plans,
+  .portal-modal.floorplan-portal.penthouses-widget {
+    background: transparent;
+    min-height: 0;
+    padding: 0;
+    width: auto;
+    text-align: left;
+  }
+
+  /*
+   * Match gallery: keep page chrome (nav / filter) in normal stacking under the
+   * body-level portal. Raising section.pages or sinking #filterGroup made the
+   * top bar vanish behind page content while floorplan was open / fading.
+   */
+}
+
+/* Tailwind .grid utility breaks Wagtail gallery float mosaic (mode-6 / mode-lt-6) */
+article.gallery-type-flex .grid.clearfix,
+div.gallery-type-flex .grid.clearfix {
+  display: block;
+  width: 100%;
+}
+
+article.gallery-type-flex .grid.clearfix::before,
+article.gallery-type-flex .grid.clearfix::after,
+div.gallery-type-flex .grid.clearfix::before,
+div.gallery-type-flex .grid.clearfix::after {
+  content: " ";
+  display: table;
+}
+
+article.gallery-type-flex .grid.clearfix::after,
+div.gallery-type-flex .grid.clearfix::after {
+  clear: both;
+}
+
+/* Portal modal shell (shared by promo + floorplan) */
+.portal-modal {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+}
+
+.portal-modal[data-state="open"] {
+  pointer-events: auto;
+}
+
+.portal-modal__backdrop {
+  opacity: 0;
+  transition: opacity 300ms ease;
+}
+
+.portal-modal[data-state="open"] .portal-modal__backdrop {
+  opacity: 1;
+}
+
+/* Unified close button theme (match floor plan overlay) */
+.portal-modal .close {
+  width: 58px;
+  height: 58px;
+  background: #00D0E6;
+  cursor: pointer;
+  border: none;
+  padding: 0;
+  transition: transform 200ms ease, filter 200ms ease;
+}
+
+.portal-modal .close:hover,
+.portal-modal .close:focus {
+  filter: brightness(0.95);
+  transform: scale(1.03);
+}
+
+.portal-modal .close:before,
+.portal-modal .close:after {
+  content: " ";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 2px;
+  height: 60%;
+  background: #fff;
+}
+
+.portal-modal .close:before {
+  transform: translate(-50%, -50%) rotate(45deg);
+}
+
+.portal-modal .close:after {
+  transform: translate(-50%, -50%) rotate(-45deg);
+}

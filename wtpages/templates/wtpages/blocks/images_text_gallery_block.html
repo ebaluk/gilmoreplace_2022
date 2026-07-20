@@ -1,0 +1,7 @@
+{% load wagtailcore_tags %}
+
+<div class="amenities-blocks">
+    {% for section in self.rows %}
+        {% include_block section with rel=rel %}    
+    {% endfor %}
+</div>

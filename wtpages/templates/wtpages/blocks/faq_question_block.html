@@ -1,0 +1,11 @@
+{% load wagtailcore_tags %}
+<div class="item" role="list-item">
+    <a class="question " role="button" data-toggle="collapse" href="#faq-{{uid}}" aria-expanded="false" aria-controls="faq-{{uid}}">
+        {{self.question}}
+    </a>
+    <div class="answer collapse" id="faq-{{uid}}">
+        <div>            
+            {{self.answer|richtext}} 
+        </div>
+    </div>
+</div>

@@ -1,0 +1,26 @@
+{% load wagtailcore_tags wtpages_tags %}
+{% if footer_signup_page_link and self and not self.specific.show_sign_up_form == False %}
+<section class="page-layout-whole subpage signup-widget">	   
+    <div class="container page-text-wrapper">
+        {% if footer_signup_text %}            
+            {{ footer_signup_text|richtext }}
+        {% endif %}
+        <form method="get" action="{% pageurl footer_signup_page_link %}#maincontent">            
+            <div class="form-group">
+                <h2 class="title text-uppercase">{{footer_signup_title|default:"Stay Connected"}}</h2>
+            </div>
+            <div class="form-group">
+                <label class="sr-only" for="name">Full Name</label>
+                <input name="name" type="text" placeholder="Your Full Name" class="form-control" value="">
+            </div>
+            <div class="form-group">
+                <label class="sr-only" for="email">Email Address</label>
+                <input name="email" type="text" placeholder="Your Email Address" class="form-control" value="">
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary btn-book text-uppercase">Sign Up</button>
+            </div>
+        </form>
+    </div>
+</section>
+{% endif %}

@@ -1,0 +1,6 @@
+{% load wagtailcore_tags wagtailimages_tags %}
+
+<article class="image-block themed-{{self.theme.id}} {{self.theme.css_class}}">                            
+    {% image self.image max-1980x1980 as img %}
+    <img src="{{img.url}}" alt="{{img.alt}}" >
+</article>

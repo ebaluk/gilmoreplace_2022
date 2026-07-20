@@ -1,0 +1,11 @@
+{% load static wagtailcore_tags %}
+<article class="contact-block">
+    <div class="container">
+        
+        <div class="content">
+            {% for block in self.items %}                
+                {% include_block block %}
+            {% endfor %}
+        </div>  
+    </div>
+</article>

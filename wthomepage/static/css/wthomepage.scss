@@ -1,0 +1,110 @@
+@import "css/config";
+
+
+
+body.homepage{
+		
+	padding-top: 0px;	
+	&.has-top-image-0{	
+		@media (max-width: $grid-float-breakpoint-max){
+			&>.home-logo{
+				padding-top: 60px;	
+			}			
+			&.has-top-promo-line-1{
+				
+				&>.home-logo{
+					padding-top: 92px;
+				}			
+			}
+		}
+		@media (min-width: $grid-float-breakpoint){
+
+			&>.home-logo{
+				padding-top: 122px;	
+			}
+			
+			&.has-top-promo-line-1{
+				&>.home-logo{
+					padding-top: 154px;	
+				}			 	
+			}
+		}
+	}
+	
+
+	
+
+	.home-logo{		
+		overflow: hidden;		
+		&>div{
+			position: relative;
+
+			&:after{
+				content: " ";
+				display: block;
+				padding-top: 48%;
+			}
+	
+			
+			margin-left: auto;
+			margin-right: auto;
+			
+	
+			.flower, .rays, .main-image{
+				position: absolute;					
+			}
+	
+			.main-image{
+				z-index: 2;
+				top: 15%;
+    			left: 1%;
+    			width: 94%;
+				img{
+					display: block;
+					width: 100%;					
+				}
+				
+			}
+	
+	
+			
+			.flower{
+				z-index: 3;
+				top: 20%;
+				left: 22%;
+				width: 14%;
+				
+				img{
+					display: block;
+					width: 100%;
+					transform: rotate(-42deg);
+					-webkit-transform: rotate(-42deg);
+				}
+			}
+	
+			.rays{
+				z-index: 1;
+				top: 59%;
+				left: 72%;
+				width: 17%;
+				img{
+					display: block;
+					width: 100%;
+				}
+			}
+	
+			&>img{
+				display: block;
+				position: absolute;
+				z-index: 3;
+				width: 95%;
+				top: 0;			
+				left: 2.5%;		
+			}	
+		}
+		
+
+	}
+	
+	
+}		

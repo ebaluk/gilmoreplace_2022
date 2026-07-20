@@ -1,0 +1,33 @@
+{% load wagtailcore_tags wagtailimages_tags %}
+
+<article class="text-block faq-block  page-layout-whole">
+
+    <div class="container page-text-wrapper">
+
+        <div class="row">
+
+            <div class="txt col-xs-12">
+                <div>
+
+                    {% if self.title %}
+                    <div class="page-header insidetext text-center">
+                        <div class="title-wrapper">
+                            <h2 class="title">{{ self.title }}</h2>
+                        </div>
+                    </div>
+                    {% endif %}
+
+                    <div class="body-text {% if self.text_align %} text-{{self.text_align}}{% endif %}">                        
+                        <div class="faq-list item-list" role="list">
+                            {% for item in self.questions %}
+                                {% include_block item %}
+                            {% endfor %}
+                        </div>                        
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</article>

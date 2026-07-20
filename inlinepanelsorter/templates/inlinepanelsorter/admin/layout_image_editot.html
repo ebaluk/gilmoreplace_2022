@@ -1,0 +1,42 @@
+{% load wagtailcore_tags wagtailimages_tags wtpages_tags %}
+
+{% if image %}	
+	{% image image max-1920x1920 as orig %}
+{% endif %}	
+
+<div class="modal fade in" tabindex="-1" data-image-width="{{orig.width}}" data-image-height="{{orig.height}}" id="layout-image-points-modal"	tabindex="-1" role="dialog">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-body">
+				
+				<header class="merged tab-merged">
+					<div class="row nice-padding">
+						<div class="left">
+							<div class="col header-title">
+								<h1 class="icon icon-image">Layout Editor</h1>
+							</div>
+						</div>
+					</div>
+				</header>
+				<button class="button close icon text-replace icon-cross" type="button" data-dismiss="modal">×</button>
+				
+				
+				<div class="points-wrapper">
+					{% if image %}
+           				<img src="{{ orig.url }}" alt="{{ orig.alt }}"/>
+           				<div class="points"></div>
+           			{% else %}
+           			<div class="messages">                
+                    	<ul>                        
+                        	 <li class="error">Please select Layout Image</li>                        
+                    	</ul>                
+            		</div>           				           					
+           			{% endif %}
+           			
+           		</div>		
+				
+			</div>
+		</div>
+	</div>
+</div>
+

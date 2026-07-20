@@ -1,0 +1,89 @@
+{% load i18n wagtailcore_tags wagtailimages_tags  wtpages_tags %}
+
+{% if is_popup %}
+
+  {% if not modal_only %}
+  <div class="text-center">
+    <a
+        class="btn btn-primary btn-lg text-uppercase"
+        href="#"
+        data-toggle="modal"
+        data-target="#wt-modal-form-{{ self.id }}"
+    >{{ self.name }}</a>
+  </div>
+  {% endif %}
+
+  <div class="modal modal-form animate zoomIn {% if not request.is_phone %}vertical-centered{% endif %} js-move-to-body" id="wt-modal-form-{{ self.id }}" tabindex="-1" role="dialog" aria-labelledby="modal-form-label-{{ self.id }}">
+  <div>
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+        	<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <div class="modal-header modal-header-brand">                
+                <div class="navbar-brand" data-placement="bottom"></div>
+                <div class="modal-title text-center" id="modal-form-label-{{ self.id }}">{{ self.title }}</div>
+            </div>
+            <div class="modal-body" >
+{% endif %}
+
+        {# COMMON PART #}
+        
+        
+            {% if not is_popup and self.title %}                
+                
+                <div class="separator"></div>
+                <div class="container-fluid">
+                    <div class="page-header insidetext text-center text-uppercase">
+                        <div class="title-wrapper">
+                            <h2 class="title h2">
+                                <a class="btn-form-collapse" role="button" data-toggle="collapse" href="#form-collapse-{{self.id}}" aria-expanded="false" aria-controls="form-collapse-{{self.id}}">{{ self.title }}<span></span></a>
+                            </h2>
+                        </div>
+                    </div>
+                </div>
+
+                  <div class="collapse" id="form-collapse-{{self.id}}">
+                    
+			    
+            {% endif %}
+
+            <div class="body-text">
+                <div class="container-fluid wtform-text">
+                    {{ self.body|safe }}
+                </div>
+
+            <form
+            	class="wtform themed-{{ self.theme.pk }} {{self.theme.css_class}}"
+            	id="form-{{ self.id }}"
+                action="/wtform/{{ self.id }}/"
+                method="POST"                
+                enctype="multipart/form-data"
+                data-enable-recaptcha="{{self.enable_recaptcha}}"
+            >
+                {% csrf_token %}
+                <div id="form-fields-container" class="form-fields-container">
+                	{% include 'wtforms/form_fields.html' with form=self.get_form %}                	
+                </div>
+                
+                {% if self.enable_recaptcha %}
+				<div class="wt-recaptcha-wrapper form-group{% if self.has_bootstrap_col_class %} col-xs-12{% endif %}">
+                    {% comment %}
+                    <p class="help-block required text-left">{% trans 'Confirm you are not a robot' %}</p>
+                    {% endcomment %}
+					<div class="wt-recaptcha" data-sitekey="{{self.captcha_sitekey|default:self.recaptcha_sitekey}}"></div>
+				</div>  
+                {% endif %}
+                <div class="clearfix"></div>
+				<div class="text-center submit-wrapper"><input type="submit" class="btn reverse" value="{{self.submit_button_title|default:'Submit'}}"></div>
+                
+            </form>
+            </div>            
+            
+        
+        {# END #}
+{% if is_popup %}
+</div></div></div></div></div>
+{% elif self.title %}
+    
+    </div>
+   
+{% endif %}

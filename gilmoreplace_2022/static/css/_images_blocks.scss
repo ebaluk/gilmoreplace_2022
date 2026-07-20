@@ -1,0 +1,81 @@
+.about-onni-block {
+
+    padding-bottom: 150px;
+
+
+    .site-link {
+        text-align: center;
+
+        .subhead {
+            margin-bottom: 40px;
+        }
+    }
+
+
+
+    .image-blocks {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 80px;
+        max-width: 755px;
+        margin-left: auto;
+        margin-right: auto;
+
+        .image-group {
+            width: 100%;
+            height: 100%;
+
+            @include breakpoint(medium) {
+                width: 32.6%;
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+
+                &:nth-of-type(2) {
+                    .tall {
+                        order: 2;
+                    }
+
+                    .short {
+                        order: 1;
+                        margin: 0 0 10px;
+                    }
+                }
+            }
+        }
+
+        .image {
+            width: 100%;
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center center;
+            position: relative;
+
+            &.tall {
+                height: 500px;
+            }
+
+            &.short {
+                height: 245px;
+                margin: 10px 0;
+
+                @include breakpoint(medium) {
+                    margin: 10px 0 0;
+                }
+            }
+
+            .img-desc {
+                position: absolute;
+                bottom: 10px;
+                left: 10px;
+                margin: 0;
+            }
+        }
+
+
+
+    }
+
+}

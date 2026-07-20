@@ -1,0 +1,185 @@
+$interactive-map-layout-point-size: 25px;
+$interactive-map-layout-point-size-mobile: 15px;
+$interactive-map-layout-point-color: #cd9b62;
+$interactive-map-layout-point-border-color: $site-color-white;
+
+.interactive-map-layout {
+    position: relative;
+
+    &>img {
+        display: block;
+        position: absolute;
+        left: 0px;
+        top: 0px;
+        width: 100%;
+    }
+
+    .points {
+        position: absolute;
+        z-index: 2;
+        left: 0px;
+        top: 0px;
+        right: 0;
+        bottom: 0;
+
+        &>i {
+            display: block;
+            text-align: center;
+            font-size: 11px;
+            line-height: ($interactive-map-layout-point-size - 3px);
+
+            position: absolute;
+            cursor: pointer;
+            border: 3px solid $interactive-map-layout-point-border-color;
+            border-radius: $interactive-map-layout-point-size;
+            width: $interactive-map-layout-point-size;
+            height: $interactive-map-layout-point-size;
+
+            @media (max-width: $grid-float-breakpoint-max) {
+                font-size: 9px;
+                line-height: ($interactive-map-layout-point-size-mobile - 3px);
+
+                border-radius: $interactive-map-layout-point-size-mobile;
+                width: $interactive-map-layout-point-size-mobile;
+                height: $interactive-map-layout-point-size-mobile;
+            }
+
+
+
+            background-color: transparentize($interactive-map-layout-point-color, 0.1);
+
+            transform: translateX(-50%) translateY(-50%);
+            -webkit-transform: translateX(-50%) translateY(-50%);
+
+            &:hover,
+            &:focus {
+                background-color: $interactive-map-layout-point-color;
+            }
+        }
+    }
+}
+
+.sitemap-section.site-0{
+    width: 70%;
+    margin: 80px;
+    margin-left: 15%;    
+    margin-right: 15%;
+    position: relative;
+}
+
+.sitemap-section.site-1{
+    width: 70%;
+    margin: 80px;
+    margin-left: 20%;    
+    margin-right: 10%;
+    position: relative;
+}
+
+
+.interactive-map-legend {
+    padding: 20px 25px;
+
+    @include breakpoint(large) {
+        width: 300px;
+        .site-1 & {
+            position: absolute;
+            top: 20%;
+            left: -17%;
+            transform: translateY(-50%);            
+        }
+    }
+
+    .site-0 & {
+        width: 300px;
+        @include breakpoint(large) {
+            position: absolute;
+            top: 55%;
+            right: 0%;
+            transform: translateY(-50%);
+        }
+
+        @include breakpoint(xxlarge) {
+            position: absolute;
+            top: 50%;
+            right: 0%;
+            transform: translateY(-50%);
+        }
+    }
+
+    .subhead {
+        font-size: 24px;
+        line-height: 1.2;
+        position: relative;
+        margin-top: 24px;
+        margin-bottom: 24px;
+
+        &:after {
+            content: "";
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 100%;
+            height: 1px;
+            background: rgba(#fff, 0.2);
+            max-width: 370px;
+        }
+    }
+
+    // ul {
+
+        
+    //     display: flex;
+    //     flex-direction: column;
+    //     flex-wrap: wrap;
+    //     white-space: nowrap;
+    //     align-content: flex-start;
+
+    //     li {
+    //         padding-right: 20px;
+    //     }
+
+    //     @include breakpoint(large) {
+    //         height: 185px;
+    //     }
+    // }
+
+    &.two-columns{
+        ul {
+            display: block;
+            column-count: 1;
+            column-gap: 20px;
+            height: auto;
+
+            li {
+                padding-right: 20px;
+                break-inside: avoid;
+                -webkit-column-break-inside: avoid;
+                page-break-inside: avoid;
+            }
+
+            @include breakpoint(large) {
+                column-count: 2;
+            }
+        }
+    }
+
+    span {
+        font-size: 12px;
+        color: #ffffff;
+        letter-spacing: 0;
+        line-height: 16px;
+    }
+
+    .num {
+        font-weight: bold;
+        margin-right: 10px;
+    }
+
+    .cat {
+        font-weight: 400;
+    }
+
+    /* @media (max-width: 767px) {
+	  display: none;
+	} */
+}

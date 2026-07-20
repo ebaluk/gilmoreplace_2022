@@ -1,0 +1,5 @@
+{% load wagtailcore_tags  %}  
+<li class="list-group-item" data-title="{{self.title}}" data-latitude="{{self.latitude}}" data-longitude="{{self.longitude}}" 
+    {% if self.url %} data-url="{{self.url}}" {% endif %}
+    {% if self.address %} data-address="{{self.address}}" {% endif %}
+>{{self.title}}</li>

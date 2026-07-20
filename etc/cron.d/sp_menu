@@ -1,0 +1,1 @@
+*/10 *   *   *   *   django ( . /home/django/envs/wagtail/bin/activate && cd /home/django/gilmoreplace_2022/ && ./manage.py update_sp_menus && deactivate ) > /dev/null 2>&1

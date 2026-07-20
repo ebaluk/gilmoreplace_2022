@@ -1,0 +1,53 @@
+{% load wagtailcore_tags wtpages_tags %}
+<div class="container-fluid {% if form.errors %}has-errors{% endif %}">
+{% if form.non_field_errors %}
+<div class="alert alert-danger alert-dismissible" role="alert">
+	<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+{% for err in form.non_field_errors %}  
+  <p>{{err}}</p>
+{% endfor %}
+</div>
+{% endif %}
+
+	<div class="form-group-set-default row">                	
+  {% for field in form %}
+  	{% if field.field.is_form_group %}
+  	</div>
+  	<div class="form-group-set row {{ field.field.add_css_class }} num-{{ field.field.num }}">
+  		{% if field.field.show_label %}
+  			<label class="form-group-set-label">{{ field.field.label }}</label>
+  		{% endif %}  		
+	{% elif field.field.is_section_title_h2 %}	  
+		<h2{% if self.has_bootstrap_col_class %} class="col-xs-12"{% endif %}>{{field.field.label}}</h2>
+	{% elif field.field.is_section_title_h3 %}	  
+		<h3{% if self.has_bootstrap_col_class %} class="col-xs-12"{% endif %}>{{field.field.label}}</h3>	
+  	{% else %}	  
+  	<div data-name="{{field.field.clean_name_2}}" {% if field.field.clean_related_input_name %}data-related-field-name="{{field.field.clean_related_input_name}}"{% endif %} class="form-group clearfix {{ field.field.add_css_class }} num-{{ field.field.num }} pk-{{ field.field.pk }} {%if field.field.required %}required{% endif %} widget-{{ field.field.widget | to_class_name }} {{ field.view_attr }} {% if field.errors %}has-field-error{% endif %} {% if field.field.widget|to_class_name == 'checkboxinput' %} checkbox text-left{% endif %}">
+			{% if field.field.widget|to_class_name == 'checkboxinput' %}			
+             <label>				
+				{% if field.field.help_text %}
+					<p style="margin-left: -20px;"><strong>{{field.field.help_text}}</strong></p>				
+				{% endif %}
+             	{{ field }}
+				<span></span>
+             	<div>{{ field.label }}</div>
+             </label>
+		  	{{ field.errors }}
+  		  {% else %}
+	  		  {% if field.field.show_label %}
+	             <div class="">{{ field.label_tag }}</div>
+	          {% endif %}
+	          <div class="">{{ field }}				  
+			  {{ field.errors }}
+			  {% if field.field.help_text %}
+			  	<p class="help-block">{{field.field.help_text}}</p>
+			  {% endif %}
+	          </div>
+  		  {% endif %}
+  	</div>
+  	{% endif %}                    
+  {% endfor %}
+  
+		</div>
+	</div>
+

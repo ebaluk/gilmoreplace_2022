@@ -1,0 +1,109 @@
+{% load static wagtailcore_tags %}
+
+<div class="address">
+    {% if show_logo %}
+    <div class="brand">
+        <a href="/"><img src="{% static 'images/logo.png' %}" alt="{{address.address_name}}"></a>
+    </div>
+    {% endif %}
+    <div class="address-inner">
+        <div class="h2 title">{{address.address_name}}</div>
+        <div class="address-lines">{{address.address|linebreaks}}</div>
+
+        {% if address.google_map_link %}
+            <div class="map">                        
+                <a href="{{address.google_map_link}}" target="_blank">Get Directions</a>
+            </div>
+        {% endif %}
+
+        {% if show_get_map %}
+        {% comment %}
+        <div class="get-map"><a 
+                data-title="{{ address.name }}"             
+                href="#"
+                data-type="google-api-map"                  
+                data-styles="{{ address.map_style }}"                       
+                data-latitude="{{ address.latitude }}" 
+                data-longitude="{{ address.longitude }}"
+                data-map-embed="{{ address.map_code|safe }}"
+                data-info="{{ address.google_map_info }}"
+                data-toggle="modal" 
+                data-target="#formPopup" 
+            >Get Map</a></div>
+            {% endcomment %}
+        {% endif %}
+        
+        {% if address.phone %}
+            <div class="phone">                        
+                {% if phone_html_class %}
+                    <a href="tel:{{address.phone}}" target="_blank">P: {{address.phone}}</a>
+                {% else %}
+                    Tel: <a href="tel:{{address.phone}}" target="_blank">{{address.phone}}</a>
+                {% endif %}
+            </div>
+        {% endif %}
+
+        {% if address.email and show_email %}
+            <div class="email"><a target="_blank" href="mailto:{{address.email}}">E: {{address.email}}</a></div>                        
+        {% endif %}
+
+        
+
+        {% if show_hours %}
+        <div class="restaurant-hours">
+            <div class="title h3">{{request.root_page.hours_title|default:"Hours Of Operation"}}</div>
+            <div class="hours">
+                {% for item in request.root_page.hours.all %}
+                    <div class="hour-item">
+                        {% if item.title %}
+                            <div class="title h4">{{item.title}}</div>
+                        {% endif %}
+                        {% if item.text %}
+                            <div class="t">{{item.text|linebreaks}}</div>
+                        {% endif %}
+                    </div>
+                {% endfor %}                        
+            </div>
+        </div>
+        {% endif %}
+
+        {% if show_more_info %}
+            {% for item in address.more_info_main %}            
+                {% if item.title %}
+                <div class="flex-row">
+                    {% if item.title %}
+                        <div class="h3">{{item.title}}</div>
+                    {% endif %}
+                    <div>{{item.text|richtext}}</div>
+                </div>
+                {% else %}
+                    {{item.text|richtext}}
+                {% endif %}
+            {% endfor %}
+        {% endif %}
+
+        
+
+        {% if show_more_info %}
+            
+            {% if address.more_info_collapsible %}
+                <div class="faq-list item-list" role="list">
+                {% for item in address.more_info_collapsible %}
+                    <div class="item" role="list-item">
+                        <a class="question" role="button" data-toggle="collapse" href="#more-info-{{item.pk}}" aria-expanded="false" aria-controls="more-info-{{item.pk}}">
+                            {{item.title}}
+                        </a>
+                        <div class="answer collapse" id="more-info-{{item.pk}}">
+                            <div>
+                                {{item.text|richtext}}
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+                </div>
+            {% endif %}
+
+        {% endif %}    
+    </div>    
+
+</div>

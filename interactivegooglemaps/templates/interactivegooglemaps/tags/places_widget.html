@@ -1,0 +1,26 @@
+{% load wagtailcore_tags  %}  
+
+{% if self.place_groups.all %}
+    <div class="places-widget google-map" data-latitude="{{self.latitude}}" data-longitude="{{self.longitude}}">        
+        <div class="places-nav map-filter">
+            <div class="panel-group" id="places" role="tablist" aria-multiselectable="true">
+                {% for item in self.place_groups.all %}
+                <div class="panel panel-primary places-category category" data-color="{{item.color}}">
+                    <div class="title panel-heading text-uppercase text-left" role="tab" id="places-group-{{item.id}}" data-toggle="collapse" data-parent="#places" href="#places-group-collapse-{{item.id}}" aria-expanded="{% if forloop.first %}true{% else %}false{% endif %}" aria-controls="places-group-collapse-{{item.id}}">
+                        <div class="icon" style="border-color: {{item.color}};"><div class="box-filled" style="background-color: {{item.color}};"></div></div>
+                        <div class="h3 subhead white">{{item.title}}</div>
+                    </div>
+                    <div id="places-group-collapse-{{item.id}}" aria-expanded="{% if forloop.first %}true{% else %}false{% endif %}" data-color="{{item.color}}" class="places panel-collapse collapse places-place {% if forloop.first %}in{% endif %}" role="tabpanel" aria-labelledby="places-group-{{item.id}}">
+                        <ul>
+                            {% for place in item.places %}
+                                {% include_block place %} 
+                            {% endfor %}                      
+                        </ul>
+                    </div>
+                    </div>
+                {% endfor %}
+            </div>                                
+        </div>
+        <div class="places-map vue-map-container"></div>
+    </div>
+{% endif %}

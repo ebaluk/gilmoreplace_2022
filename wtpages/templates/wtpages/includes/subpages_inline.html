@@ -1,0 +1,4 @@
+{% for page in subpages %}
+	{% if not hide_anchor %}<a class="anchor" id="{{ page.slug }}"></a>{% endif %}
+    {{ page.content }}
+{% endfor %}

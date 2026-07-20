@@ -1,0 +1,197 @@
+header h1 small{
+    font-size: 18px;
+    display: block;
+}
+
+.nav-main {
+    top: 215px;
+}
+
+.listing .title h2 {
+  
+}
+.logo img {
+    max-width: 120px;
+    max-height: 120px;
+}
+.sequence-container-inner{
+}
+li.sequence-member .sequence-member-inner .sequence-type-list .sequence-container-inner{
+    width: 100% !important;
+}
+li.sequence-member .struct-block .sequence-container {
+    width: 97% !important;
+}
+li.sequence-member .struct-block .fields{
+    width: 100% !important;
+}
+
+
+
+
+
+
+
+.field-type-content-block .object fieldset,
+.field-type-content-block  li.sequence-member .struct-block .fields
+{
+  width: 100% !important;
+}
+
+
+.blockname-block_content .sequence-member-inner {
+  padding: 1.5em 0px 1.5em 20px !important;
+}
+
+.blockname-block_content .sequence-member-inner .fields .sequence-container.sequence-type-stream li.sequence-member .struct-block .sequence-container
+{
+  width: 100% !important;
+}
+
+.blockname-block_content .fieldname-text .field-content
+{
+  width: 100% !important;
+}
+
+.blockname-images_set .sequence-container{
+  width: 100% !important;
+}
+
+.blockname-images_set .sequence-member-inner .sequence-type-list .sequence-container-inner{
+  width: 95% !important;
+}
+
+.sequence-member.blockname-images_set .sequence-container.sequence-type-list{
+  border: 1px solid rgba(67, 177, 176, 0.4);
+}
+
+.full input, .full textarea, .full .richtext{
+  padding: 20px !important;
+}
+
+.fields label{
+  font-weight: normal;
+}
+
+
+li.sequence-member .sequence-member-inner {
+  position: relative;
+  padding: 1.5em 30px;
+}
+.sequence-container.sequence-type-stream .sequence-container.sequence-type-stream{
+  width: 83% !important;
+}
+
+.sequence-member.blockname-text .field-content{
+  width: 100% !important;
+}
+/*.sequence-member.blockname-text */
+.collapsible .field-content .input .inEditMode{
+  padding-top: 70px !important;
+}
+.input .richtext.inEditMode{
+  padding-top: 70px !important;
+}
+.hallotoolbar.stream-field{
+/*   margin-top: 70px !important; */
+}
+
+
+@font-face {
+  font-family: 'Glyphicons Halflings';
+  src: url('/static/vendors/bootstrap/fonts/glyphicons-halflings-regular.eot');
+  src: url('/static/vendors/bootstrap/fonts/glyphicons-halflings-regular.eot?#iefix') format('embedded-opentype'),
+      url('/static/vendors/bootstrap/fonts/glyphicons-halflings-regular.woff2') format('woff2'),
+      url('/static/vendors/bootstrap/fonts/glyphicons-halflings-regular.woff') format('woff'),
+      url('/static/vendors/bootstrap/fonts/glyphicons-halflings-regular.ttf') format('truetype'),
+      url('/static/vendors/bootstrap/fonts/glyphicons-halflings-regular.svg#glyphicons_halflingsregular') format('svg');
+}
+
+.glyphicon,
+.icon-align-left,
+.icon-align-center,
+.icon-align-right,
+.icon-list-alt{
+  position: relative;
+  top: 1px;
+  display: inline-block;
+  font-family: 'Glyphicons Halflings' !important;
+  font-style: normal;
+  font-weight: normal;
+  line-height: 1;
+
+  /*-webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;*/
+}
+
+.icon-align-left:before,
+.glyphicon-align-left:before {
+  font-size: 20px;
+  content: "\e052" !important;
+  font-family: 'Glyphicons Halflings' !important;
+}
+.icon-align-center:before,
+.glyphicon-align-center:before {
+  font-size: 20px;
+  content: "\e053";
+  font-family: 'Glyphicons Halflings' !important;
+}
+.icon-align-right:before,
+.glyphicon-align-right:before {
+  font-size: 20px;
+  content: "\e054";
+  font-family: 'Glyphicons Halflings' !important;
+}
+.icon-align-justify:before,
+.glyphicon-align-justify:before {
+  font-size: 20px;
+  content: "\e055";
+  font-family: 'Glyphicons Halflings' !important;
+}
+.icon-list-alt:before,
+.glyphicon-list-alt:before{
+  font-size: 20px;
+  content: "\e032";
+  font-family: 'Glyphicons Halflings' !important;
+}
+
+*:before,
+*:after {
+  -webkit-box-sizing: border-box;
+     -moz-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+.wt-image-controls{
+    /*position: absolute;
+    right: 15px;
+    top: 0;*/
+}
+
+.wt-image-controls{
+
+}
+
+#image-results{
+    position: relative;
+}
+#image-results h2{
+    margin-bottom: 30px;
+}
+.wt-delete-cb{
+    position: absolute !important;
+    z-index: 10;
+    top: 10px;
+    right: -3px;
+}
+
+.pull-right{
+    float: right;
+}
+.pull-left{
+    float: left;
+}
+
+.ghost {
+  opacity: 0.4;
+}

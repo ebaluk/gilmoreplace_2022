@@ -1,0 +1,12 @@
+{% load wagtailcore_tags %}
+
+{% if menuitems %}
+<a id="content" class="anchor"></a>
+<div id="filterWrapper" class="filter-wrapper">
+	<ul id="filterGroup" class="filter-group">
+		{% for item in menuitems %}
+		<li class="filter {% if item.active %} active{% endif %}"><a href="{% pageurl item %}#content">{{item.title}}</a></li>
+		{% endfor %}
+	</ul>
+</div>
+{% endif %}

@@ -1,0 +1,219 @@
+.promo-dialog {
+  /* Center on screen; fade in/out */
+  position: fixed !important;
+  z-index: 10051 !important;
+  left: 50% !important;
+  top: 50% !important;
+  right: auto !important;
+  width: auto !important;
+  max-width: calc(100% - 30px);
+  margin: 0;
+  transform: translate(-50%, -50%);
+  opacity: 1;
+}
+
+.promo-box-backdrop {
+  cursor: pointer;
+}
+
+.promo-dialog[data-state="open"] {
+  animation: promo-dialog-in 0.3s ease-out forwards !important;
+}
+
+.promo-dialog[data-state="closed"] {
+  animation: promo-dialog-out 0.3s ease-out forwards !important;
+}
+
+@keyframes promo-dialog-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes promo-dialog-out {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  .promo-dialog {
+    width: 768px;
+  }
+}
+
+.promo-dialog .promo-dialog__panel.smaller {
+  width: 564px;
+}
+
+.promo-dialog .promo-dialog__panel {
+  background-color: #f0d7cd;
+}
+
+.promo-dialog .text {
+  color: #190e0f;
+  position: relative;
+  text-align: center;
+}
+
+.promo-dialog .text .rich-text {
+  padding-top: 40px;
+}
+
+.promo-dialog .text .related-links {
+  padding-top: 40px;
+}
+
+.promo-dialog .title {
+  text-transform: uppercase;
+}
+
+.promo-dialog.logo .title::before {
+  content: " ";
+  display: block;
+  height: 70px;
+  background-image: url("/images/logo.svg");
+  background-size: 35px 35px;
+  background-position: center top;
+  background-repeat: no-repeat;
+}
+
+.promo-dialog.mode-image .image {
+  display: block;
+  position: relative;
+}
+
+.promo-dialog.mode-image .image img {
+  display: block;
+  width: 100%;
+  height: auto;
+  vertical-align: top;
+}
+
+.promo-dialog.mode-image .related-links {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  opacity: 0 !important;
+}
+
+.promo-dialog.mode-image .related-links a,
+.promo-dialog.mode-image .related-links button {
+  display: block;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+}
+
+.promo-dialog.mode-text .text,
+.promo-dialog.mode-default .text {
+  padding: 60px 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.promo-dialog.mode-text .text > .content,
+.promo-dialog.mode-default .text > .content {
+  position: relative;
+  z-index: 2;
+}
+
+.promo-dialog.mode-default .image {
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+}
+
+.promo-dialog.mode-default .image::after {
+  content: " ";
+  display: block;
+  padding-top: 100%;
+  overflow: hidden;
+}
+
+@media (max-width: 991px) {
+  .promo-dialog.mode-default .image::after {
+    content: none;
+  }
+
+  .promo-dialog.mode-default .image {
+    height: 200px;
+  }
+}
+
+@media (min-width: 992px) {
+  .promo-dialog.mode-default .promo-dialog__panel {
+    display: flex;
+  }
+
+  .promo-dialog.mode-default .image,
+  .promo-dialog.mode-default .text {
+    width: 50%;
+  }
+}
+
+.promo-dialog .close,
+.promo-dialog button.close {
+  /* Unified close button theme (match floor plan overlay) */
+  background-color: #00D0E6;
+  border: none;
+  box-shadow: none;
+  outline: none;
+  top: 0;
+  right: 0;
+  position: absolute;
+  z-index: 10;
+  opacity: 1;
+  transition: transform 200ms ease, filter 200ms ease;
+  display: block;
+  width: 58px;
+  height: 58px;
+  border-radius: 0;
+  overflow: visible;
+  padding: 0;
+  cursor: pointer;
+}
+
+.promo-dialog .close:hover,
+.promo-dialog .close:focus,
+.promo-dialog button.close:hover,
+.promo-dialog button.close:focus {
+  filter: brightness(0.95);
+  transform: scale(1.03);
+  outline: none;
+}
+
+.promo-dialog .close:before,
+.promo-dialog .close:after,
+.promo-dialog button.close:before,
+.promo-dialog button.close:after {
+  content: " ";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 2px;
+  height: 60%;
+  background: #fff;
+}
+
+.promo-dialog .close:before,
+.promo-dialog button.close:before {
+  transform: translate(-50%, -50%) rotate(45deg);
+}
+
+.promo-dialog .close:after,
+.promo-dialog button.close:after {
+  transform: translate(-50%, -50%) rotate(-45deg);
+}

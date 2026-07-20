@@ -1,0 +1,2 @@
+10	1	1,15	*	*	django (. /home/django/envs/wagtail/bin/activate && cd /home/django/gilmoreplace_2022/ && ./manage.py refresh_instagram_token && deactivate ) > /dev/null 2>&1
+

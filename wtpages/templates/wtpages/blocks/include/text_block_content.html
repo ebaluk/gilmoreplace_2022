@@ -1,0 +1,27 @@
+{% load wagtailcore_tags %}
+
+{% if self.title or self.title_2 %}
+    <h2 class="{% if self.title_type == 'subhead' %}subhead{% else %}title h1{% endif %} {% if self.title_type == 'gold' %} gold{% endif %}">
+        {% if self.title  %}
+            {{ self.title }}
+            {% if self.title_2 %}
+                <br/>
+            {% endif %}
+        {% endif %}    
+        
+        {% if self.title_2 %}
+        <span>
+            {{ self.title_2|linebreaksbr }}
+        </span>
+        {% endif %}
+    </h2>                    
+{% endif %}
+
+<div class="body-text {% if self.text_align %} text-{{self.text_align}}{% endif %}
+     {% if self.larger %}larger{% endif %} {% if self.spacing %}spacing{% endif %}
+     {% if self.more_spacing %}more-spacing{% endif %} ">
+    {{ self.text|richtext }}
+    {% include_block self.new_links %}
+</div>
+
+

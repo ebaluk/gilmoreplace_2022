@@ -1,0 +1,5 @@
+#find ./*/migrations/0*_*_*.py -maxdepth 1 -type f -delete
+
+find ./*/migrations/0*.py -maxdepth 1 -type f -delete
+
+#find ./*/migration* -maxdepth 1 -type f -delete

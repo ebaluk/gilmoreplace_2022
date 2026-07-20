@@ -1,0 +1,153 @@
+.tower-select {
+    position: relative;
+
+    &--desktop {
+        display: none;
+
+        @include breakpoint(large) {
+            display: block;
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 100%;
+            z-index: 3;
+            pointer-events: none;
+        }
+    }
+
+    &--mobile {
+        display: block;
+
+        @include breakpoint(large) {
+            display: none;
+        }
+    }
+
+    // Legacy Wagtail markup: .tower-select.desktop wrapper
+    &.desktop {
+        @include breakpoint(large) {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 100%;
+            z-index: 3;
+            pointer-events: none;
+        }
+    }
+
+    &__list,
+    .desktop,
+    .mobile {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+    }
+
+    &__list--desktop,
+    .desktop {
+        position: absolute;
+        z-index: 2;
+        height: 60%;
+        width: 30%;
+        top: 53%;
+        left: 55%;
+        transform: translate(-50%, -50%);
+        pointer-events: auto;
+
+        @media only screen and (min-width: 1600px) {
+            width: 28%;
+            left: 55%;
+        }
+
+        li {
+            &:hover {
+                cursor: pointer;
+            }
+        }
+
+        .label {
+            position: absolute;
+            display: block;
+
+            a {
+                display: block;
+                line-height: 0;
+            }
+
+            &-1 {
+                top: 40%;
+                left: 90%;
+            }
+
+            &-2 {
+                top: 5%;
+                right: 80%;
+            }
+
+            &-3 {
+                bottom: 10%;
+                right: 100%;
+            }
+
+            img {
+                width: 157px;
+                max-width: none;
+                height: auto;
+                display: block;
+            }
+        }
+    }
+
+    &__list--mobile,
+    .mobile {
+        height: 100%;
+        width: 100%;
+        padding: 60px 27px 40px;
+        @include hide-show(large, flex);
+
+        width: 100%;
+        min-height: 420px;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: flex-start;
+
+        -webkit-flex-wrap: wrap;
+        -webkit-align-items: center;
+        -webkit-justify-content: flex-start;
+
+        li {
+            margin-right: 15px;
+            margin-bottom: 15px;
+            flex: 0 0 auto;
+        }
+
+        .label {
+            display: block;
+
+            a {
+                display: block;
+                line-height: 0;
+            }
+
+            img {
+                @include breakpoint(mediumdown) {
+                    width: 145px;
+                    height: 145px;
+                    max-width: none;
+                    display: block;
+                }
+            }
+        }
+    }
+
+    .empty-box {
+        height: 145px;
+        width: 145px;
+
+        @media only screen and (min-width: 549px) {
+            display: none;
+        }
+    }
+}

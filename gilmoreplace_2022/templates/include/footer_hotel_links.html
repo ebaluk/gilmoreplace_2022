@@ -1,0 +1,23 @@
+{% load  wagtailcore_tags wagtailimages_tags  wtpages_tags %}
+
+<div class="flat-menu footer_hotel_links no_heading">
+	<ul class="nav">
+		{% for related_link in related_links %}
+		    <li><a href="{{ related_link.link }}"    	
+     			class="{% if link_html_class %} {{link_html_class}}{% endif %}{% if related_link.form %} wtform-modal-link{% endif %} {% if related_link.image %} has-image-icon{% endif %}"
+    			{% if related_link.new_window %} target="_blank"{% endif %}
+    			{% if related_link.form %} data-wtform="{{ related_link.form.pk }}"{% endif %}
+    			{% if related_link.image %}
+		            {% image related_link.image max-40x40 as carouselimagedata %}
+		            style="background-image: url({{ carouselimagedata.url }})"
+		        {% endif %}    
+    		>
+		    	{% if related_link.fontawesome_icon %}
+		    		<i class="fa {{related_link.fontawesome_icon}}"></i>
+		    	{% endif %}
+		    	{{ related_link.title }}            
+		    </a></li>
+		{% endfor %}
+	
+	</ul>
+</div>

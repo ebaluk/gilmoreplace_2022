@@ -1,0 +1,22 @@
+{% extends "wagtailforms/index_submissions.html" %}
+{% load i18n %}
+
+{% block extra_js %}
+    {{ block.super }}  
+
+    <script>
+        $(function() {
+        	var exp = /(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/i;
+            $('table.listing td').each(function(){            	
+            	var s = $(this).text();
+            	var matches = exp.exec(s);
+            	if(matches){            		
+            		console.log(matches);
+            		$(this).html('<a target="_blank" href="'+matches[1]+'">download</a>');	
+            	}         	
+            	
+            });
+        });
+    </script>
+{% endblock %}
+

@@ -1,0 +1,31 @@
+{% extends "wagtailsettings/edit.html" %}
+{% load i18n %}
+
+{% block extra_js %}
+{{ block.super }}
+<script>
+$(function() {
+   var client_id = $("#id_insta_client_id").val();
+   var client_secret = $("#id_insta_client_secret").val();
+   var insta_status = $("#id_insta_status").val();
+   var access_url = $("#id_access_url").val();
+   if(client_id && client_secret && access_url && "awaiting" == insta_status )
+   {
+	   $.ajax({
+		   url: "/instagram_config/",
+		   data: {setstatus: "processing"},
+		   cache: false,
+		   success: function(data, textStatus, jqXHR){
+			   if("OK" == data)
+			   {
+				   location = access_url;		   
+			   }
+		   },
+		   error: function(jqXHR, textStatus, errorThrown ){
+			   alert(errorThrown);
+		   }
+	   });
+   }
+});   
+</script>
+{% endblock %}

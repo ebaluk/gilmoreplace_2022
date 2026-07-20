@@ -1,0 +1,10 @@
+{% load wagtailcore_tags  %}
+<div class="google-map-block embed-responsive google-api-map"
+    data-zoom="16" 
+    data-title="{{ request.root_page.address_name }}" 
+    data-info="{{ request.root_page.google_map_info }}"
+    data-styles="{{ request.root_page.map_style }}" 
+    data-latitude="{{ request.root_page.latitude }}" 
+    data-longitude="{{ request.root_page.longitude }}"                                
+> 
+</div>

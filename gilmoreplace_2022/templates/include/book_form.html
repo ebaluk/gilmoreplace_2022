@@ -1,0 +1,75 @@
+{% load wtpages_tags %}
+<form class="book-form" target="_blank" method="get" action="https://book-chicago.emilyhotel.com/">
+    
+    <input type="hidden" name="chain" value="18855" />
+    <input type="hidden" name="level" value="hotel" />
+    <input type="hidden" name="hotel" value="37742" />
+
+    <input type="hidden" name="child" value="0" />    
+    <input type="hidden" name="currency" value="USD" />
+    <input type="hidden" name="locale" value="en-US" />
+    <input type="hidden" name="rooms" value="1" />
+
+    <input type="hidden" name="arrive" class="book-form-checkinDate" id="{{uid}}checkinDate" value="" />
+    <input type="hidden" name="depart" class="book-form-checkoutDate" id="{{uid}}checkoutDate" value="" />
+    
+    
+    
+    {% if layout != 'horizontal' %}
+    <div class="row">
+        <div class="col-sm-12">
+    {% endif %}        
+    
+    <div class="form-group form-group-guests">
+        <label class="sr-only" for="{{uid}}adult">Guests</label>
+        <select class="form-control" name="adult" id="{{uid}}adult">
+            {% with '1 2 3 4' as list %}{% for i in list.split %}
+            <option {% if forloop.counter == 2 %}selected{% endif %} value="{{i}}">{{i}} Guest{% if forloop.counter == 1 %}{% else %}s{% endif %}</option>
+            {% endfor %}{% endwith %}
+        </select>
+    </div>
+
+    {% if layout != 'horizontal' %}
+        </div>
+        <div class="col-sm-12 ">
+    {% endif %}
+
+    <div class="form-group">
+        <label class="sr-only" for="{{uid}}_dates">Dates</label>
+        <input type="text" placeholder="MM/DD/YYYY - MM/DD/YYYY" class="form-control book-form-_dates" id="{{uid}}_dates" value="{% tomorrow 1 %} - {% tomorrow 2 %}">
+    </div>
+
+    {% if layout != 'horizontal' %}
+        </div>
+        <div class="col-sm-12 ">
+    {% endif %}                    
+    
+            
+        <div class="form-group">        
+
+            <div class="input-group">
+                <label class="sr-only" for="{{uid}}code-type">Code Type</label>
+                <select class="form-control book-form-code-type" id="{{uid}}code-type">
+                    <option value="promo">Promo</option>
+                    <option value="group">Group</option>
+                    <option value="corporate">Corp</option>
+                    <option value="agencyid">IATA</option>
+                </select>
+                <label class="sr-only" for="{{uid}}promo">Code</label>
+                <input type="text" placeholder="_________" class="form-control book-form-promo"  id="{{uid}}promo" >
+            </div>
+
+        </div>
+            
+    
+    {% if layout != 'horizontal' %}
+        </div>
+    </div>
+    {% endif %}        
+        
+
+    <div class="form-group form-group-submit text-center">
+        <button type="submit" class="btn btn-warning btn-book text-uppercase">{{button_caption|default:"Check Availability"}}</button>
+    </div>
+
+</form>

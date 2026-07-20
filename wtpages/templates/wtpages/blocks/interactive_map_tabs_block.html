@@ -1,0 +1,22 @@
+{% load wagtailcore_tags %}
+<article class="amenity-tabs-block">
+
+    <ul class="nav nav-tabs" role="tablist">
+        {% for block in self.maps %}
+        <li role="presentation" {% if forloop.first %}class="active"{% endif %}>
+            <a href="#map-{{block.interactive_map.id}}" aria-controls="map-{{block.interactive_map.id}}" role="tab" data-toggle="tab">{{block.tab_name|default:block.title}}</a>
+        </li>
+        {% endfor %}        
+    </ul>
+    
+      
+    <div class="tab-content">        
+        {% for block in self.maps %}
+        <div role="tabpanel" class="tab-pane{% if forloop.first %} active{% endif %}" id="map-{{block.interactive_map.id}}">
+            {% include_block block with calling_page=calling_page request=request only %}
+        </div>        
+        {% endfor %}
+    </div>
+
+</article>
+

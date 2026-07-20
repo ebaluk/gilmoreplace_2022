@@ -1,0 +1,128 @@
+/* Gallery tile grid (collections) and collage thumbnails */
+button.gallery-tile,
+button.block.modal-carousel {
+  appearance: none;
+  border: 0;
+  padding: 0;
+  margin: 0;
+  cursor: pointer;
+  font: inherit;
+  color: inherit;
+  text-align: inherit;
+  background-color: transparent;
+}
+
+article.gallery-type-flex,
+div.gallery-type-flex {
+  padding-bottom: 40px;
+}
+
+article.gallery-type-flex .view-all-wrapper,
+div.gallery-type-flex .view-all-wrapper {
+  padding-top: 20px;
+  width: 100%;
+}
+
+article.gallery-type-flex .grid .gallery-tile--square,
+div.gallery-type-flex .grid .gallery-tile--square {
+  position: relative;
+}
+
+article.gallery-type-flex .grid .gallery-tile--square > .gallery-tile__image,
+div.gallery-type-flex .grid .gallery-tile--square > .gallery-tile__image {
+  display: block;
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  right: 10px;
+  bottom: 10px;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  overflow: hidden;
+}
+
+article.gallery-type-flex .grid.mode-lt-6 .gallery-tile--square,
+div.gallery-type-flex .grid.mode-lt-6 .gallery-tile--square {
+  display: block;
+  float: left;
+  position: relative;
+  top: 0;
+  overflow: hidden;
+  width: 25%;
+  padding-bottom: 25%;
+}
+
+@media only screen and (max-width: 980px) {
+  article.gallery-type-flex .grid.mode-lt-6 .gallery-tile--square,
+  div.gallery-type-flex .grid.mode-lt-6 .gallery-tile--square {
+    width: 49.5%;
+    margin: 0 0.5% 0.5% 0;
+    padding-bottom: 49.5%;
+  }
+}
+
+@media only screen and (max-width: 40em) {
+  article.gallery-type-flex .grid.mode-lt-6 .gallery-tile--square,
+  div.gallery-type-flex .grid.mode-lt-6 .gallery-tile--square {
+    width: 100%;
+    margin: 0 0 0.3% 0;
+    padding-bottom: 100%;
+  }
+}
+
+article.gallery-type-flex .grid.mode-6 .gallery-tile--square,
+div.gallery-type-flex .grid.mode-6 .gallery-tile--square {
+  display: block;
+  float: left;
+  position: relative;
+  top: 0;
+  overflow: hidden;
+  width: 25%;
+  padding-bottom: 25%;
+  background-size: cover;
+  background-position: center;
+}
+
+@media only screen and (max-width: 980px) {
+  article.gallery-type-flex .grid.mode-6 .gallery-tile--square,
+  div.gallery-type-flex .grid.mode-6 .gallery-tile--square {
+    width: 49.5%;
+    margin: 0 0.5% 0.5% 0;
+    padding-bottom: 49.5%;
+  }
+}
+
+@media only screen and (max-width: 40em) {
+  article.gallery-type-flex .grid.mode-6 .gallery-tile--square,
+  div.gallery-type-flex .grid.mode-6 .gallery-tile--square {
+    width: 100%;
+    margin: 0 0 0.3% 0;
+    padding-bottom: 100%;
+  }
+}
+
+@media only screen and (min-width: 981px) {
+  article.gallery-type-flex .grid.mode-6 .gallery-tile--square:nth-child(6n + 2),
+  article.gallery-type-flex .grid.mode-6 .gallery-tile--square:nth-child(6n + 4),
+  div.gallery-type-flex .grid.mode-6 .gallery-tile--square:nth-child(6n + 2),
+  div.gallery-type-flex .grid.mode-6 .gallery-tile--square:nth-child(6n + 4) {
+    width: 50%;
+  }
+}
+
+@media only screen and (min-width: 981px) {
+  article.gallery-type-flex .grid.mode-6.remind-2 .gallery-tile--square:nth-last-child(1),
+  article.gallery-type-flex .grid.mode-6.remind-2 .gallery-tile--square:nth-last-child(2),
+  div.gallery-type-flex .grid.mode-6.remind-2 .gallery-tile--square:nth-last-child(1),
+  div.gallery-type-flex .grid.mode-6.remind-2 .gallery-tile--square:nth-last-child(2) {
+    width: 50% !important;
+  }
+}
+
+@media only screen and (min-width: 981px) {
+  article.gallery-type-flex .grid.mode-6.remind-1 .gallery-tile--square:nth-last-child(1),
+  div.gallery-type-flex .grid.mode-6.remind-1 .gallery-tile--square:nth-last-child(1) {
+    width: 100% !important;
+  }
+}

@@ -1,0 +1,9 @@
+{% load wagtailcore_tags wagtailimages_tags %}
+
+<div class="image-block info">
+    {% for item in self.items %}
+        {% include_block item with rel=rel image_block_css_class='full image' %}
+    {% endfor %}
+</div>
+
+

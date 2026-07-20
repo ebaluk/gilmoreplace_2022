@@ -1,0 +1,14 @@
+{% load wagtailimages_tags %}
+<div class="collage collage-10">
+{% for chunk in self.top_image_chunks_10 %}
+<div class="chunk{% if not forloop.first %} hidden{% endif %}">
+    {% for item in chunk %}
+        {% image item.image max-640x640 as thumb %}
+        {% image item.image max-1920x1920 as full %}
+        <div class="list-item">
+            <a href="{{ full.url }}" class="modal-carousel" rel="top-collage-{{self.pk}}" data-id="{{ item.id }}" data-title="{{ item.caption|linebreaks }}" style="background-image: url({{ thumb.url }});"></a>
+        </div>        
+    {% endfor %}
+</div>
+{% endfor %}
+</div>

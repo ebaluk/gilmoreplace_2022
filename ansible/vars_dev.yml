@@ -1,0 +1,24 @@
+ansible_user: appuser
+ansible_hosts: dev_hosts
+ansible_ssh_private_key_file: ~/.ssh/id_beget_ebaluksf
+
+deploy_src: "{{ playbook_dir }}/.."
+deploy_dest: /home/appuser/gilmoreplace_2022
+
+compose_file: docker-compose.yaml
+
+rsync_excludes:
+  - "--exclude=.git"
+  - "--exclude=.venv"
+  - "--exclude=node_modules"
+  - "--exclude=design"
+  - "--exclude=gilmoreplace-next/node_modules"
+  - "--exclude=gilmoreplace-next/.next"
+  - "--exclude=ansible"
+  - "--exclude=media_files"
+  - "--exclude=static"
+  - "--exclude=prod_server.env"
+  - "--exclude=.env.local"
+  - "--exclude=.env.production"
+  - "--exclude=ansible/logs"
+  - "--exclude=__pycache__"

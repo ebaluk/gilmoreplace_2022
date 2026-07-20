@@ -1,0 +1,7 @@
+{% load wagtailcore_tags wagtailimages_tags %}
+
+<div class="block-section">
+    {% for box in self.boxes %}
+        {% include_block box with rel=rel image_block_css_class='fullBlock' %}
+    {% endfor %}
+</div>

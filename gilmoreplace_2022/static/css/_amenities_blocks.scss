@@ -1,0 +1,203 @@
+.amenities-blocks {    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;    
+    height: 100%;
+    width: 100%;
+
+    margin-top: 50px;
+
+    .block-section {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-wrap: wrap;        
+        height: 100%;
+        width: 100%;
+    }
+
+    .image-block {
+        display: flex;
+        flex-wrap: wrap;
+        flex: 0 1 100%;
+        display: -webkit-flex;        
+        height: 400px;
+
+        @include breakpoint(medium) {
+            min-height: 500px;
+        }
+
+        @include breakpoint(large) {
+            min-height: 600px;
+            height: 70vh;
+            flex: 0 1 50%;
+        }
+
+        @include breakpoint(xxlarge) {
+            height: 90vh;
+        }
+
+        &.info {
+            @include breakpoint(smalldown) {
+                height: 500px;
+                order: 2;
+            }
+        }
+    }
+
+    .block {
+        height: 50%;
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center center;
+        cursor: pointer;
+        position: relative;
+        display: block;
+
+        &.fullBlock {
+            width: 100%;
+            height: 100%;
+        }
+
+        &.full {
+            width: 100%;
+
+            @include breakpoint(mediumdown) {
+                order: 1;
+            }
+
+            // @include breakpoint(smalldown) {
+            //     width: 50%;
+            // }
+        }
+
+        &.half {
+            width: 50%;
+
+            @include breakpoint(mediumdown) {
+                order: 2;
+            }
+        }
+
+        &.image {
+            // @include breakpoint(smalldown) {
+            //     height: 40%;
+            // }
+        }
+
+        &.text {
+            background: #263746;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;            
+            padding: 0 40px;
+            cursor: default;
+
+            @include breakpoint(smalldown) {
+                padding: 0 20px;
+                width: 100%;
+                order: 3;
+                height: 60%;
+            }
+
+            p {
+                max-width: 300px;
+                width: 100%;
+            }
+        }
+
+        .corner {
+            position: absolute;
+            max-width: 100%;
+            @include hide-show(mediumdown, block);
+
+            &.top-right {
+                top: 0;
+                right: 0;
+            }
+
+            &.top-left {
+                top: 0;
+                left: 0;
+            }
+
+            &.bottom-left {
+                bottom: 0;
+                left: 0;
+            }
+        }
+    }
+
+}
+
+
+.amenity-tabs-block{
+
+
+
+  .nav-tabs {
+    display: flex;
+    justify-content: center;
+    border: none;
+    padding-left: 0;
+    margin: 0 0 20px;
+    list-style: none;
+  }
+  li{
+    list-style: none;
+
+    a {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-decoration: none;
+        background-color: transparent;
+        text-transform: uppercase;
+        font-family: 'Gotham';
+        font-weight: Bold;
+        font-size: 11px;
+        color: #ffffff;
+        letter-spacing: 0;
+        text-align: center;
+        transition: 300ms ease;
+        height: 40px;
+        width: 120px;
+        margin: 0;
+        border: 1px solid #fff;
+        position: relative;
+        &:before {
+          content: '';
+          position: absolute;
+          bottom: -9px;
+          left: 50%;
+          transform: translateX(-50%) rotate(45deg);
+          background-color: #fff;
+          height: 15px;
+          width: 15px;
+          transition: 50ms ease;
+          opacity: 0;
+        }
+        
+        
+      }
+
+      &.active > a, & > a:hover{
+        color: $color_aqua-light;
+          background-color: #fff;
+          &:before {
+            opacity: 1;
+            transition: 300ms 100ms ease;
+          }
+      }
+  }
+
+  .tab-content > .tab-pane {
+    display: none;
+
+    &.active {
+      display: block;
+    }
+  }
+
+}

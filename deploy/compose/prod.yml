@@ -1,0 +1,72 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: gilmoreplace-postgres
+    restart: unless-stopped
+    env_file:
+      - ../../.env.production
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ../db/initdb.d:/docker-entrypoint-initdb.d:ro
+      - ../db:/deploy-db:ro
+    networks:
+      - gilmoreplace
+
+  backend:
+    build:
+      context: ../../
+      dockerfile: Dockerfile
+    container_name: gilmoreplace-backend
+    restart: unless-stopped
+    env_file:
+      - ../../.env.production
+    environment:
+      - DJANGO_SETTINGS_MODULE=gilmoreplace_2022.settings.production
+      - DB_HOST=${DB_HOST:-postgres}
+    depends_on:
+      - postgres
+    volumes:
+      - ../../media_files:/app/media_files
+      - ../../static:/app/static
+    networks:
+      - gilmoreplace
+
+  frontend:
+    build:
+      context: ../../gilmoreplace-next
+      dockerfile: Dockerfile
+      args:
+        WAGTAIL_API_URL: http://backend:8000/api/v2
+        NEXT_PUBLIC_API_URL: http://backend:8000
+    container_name: gilmoreplace-frontend
+    restart: unless-stopped
+    env_file:
+      - ../../.env.production
+    environment:
+      - WAGTAIL_API_URL=http://backend:8000/api/v2
+    networks:
+      - gilmoreplace
+
+  nginx:
+    image: nginx:alpine
+    container_name: gilmoreplace-nginx
+    restart: unless-stopped
+    ports:
+      - "80:80"
+    volumes:
+      - ../nginx/default.conf:/etc/nginx/conf.d/default.conf:ro
+      - ../../static:/app/static:ro
+      - ../../media_files:/app/media_files:ro
+    depends_on:
+      - backend
+      - frontend
+    networks:
+      - gilmoreplace
+
+networks:
+  gilmoreplace:
+    driver: bridge
+
+volumes:
+  postgres_data:
+

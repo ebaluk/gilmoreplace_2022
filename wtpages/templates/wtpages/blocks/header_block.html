@@ -1,0 +1,54 @@
+{% load wagtailcore_tags wagtailimages_tags wtpages_tags %}
+
+<article class="page-header {% if self.show_navigation %}outside{% else %}inside{% endif %} text-center">
+    
+    <div class="title-wrapper">
+        <{{self.header_type}} class="title">{{ self.title }}</{{self.header_type}}>
+    </div>
+
+    {% if self.show_navigation %}
+        
+        {% get_page_navbar active_page=calling_page as navbar %}
+
+        {% if navbar.menuitems %}
+            <div class="page-navbar-wrapper">
+                <div class="container">
+                    <ul class="nav navbar-nav page-navbar page-navbar-1 {% if navbar.top_page.sub_navigation_buttons %} buttons {% endif %} cnt-{{navbar.menuitems|length}}">
+                    {% for menuitem in navbar.menuitems %}<li class="{% if menuitem.active %}active{% endif %} first-{{forloop.first}} last-{{forloop.last}}">
+                        {% if menuitem.specific.link %}
+                            <a {% if navbar.top_page.sub_navigation_buttons %} class="btn btn-primary text-uppercase"{% endif %} {% if menuitem.specific.external %}target="_blank"{% endif %} href="{{ menuitem.specific.link }}">{{ menuitem.title }}</a>
+                        {% elif menuitem.specific.form.pk %}	
+                            <a {% if navbar.top_page.sub_navigation_buttons %} class="btn btn-primary text-uppercase"{% endif %} data-wtform="{{ menuitem.specific.form.pk }}" class="wtform-modal-link" href="#">{{ menuitem.title }}</a>
+                        {% else %}
+                            <a {% if navbar.top_page.sub_navigation_buttons %} class="btn btn-primary text-uppercase"{% endif %} href="{% pageurl menuitem %}">{{ menuitem.title }}</a>
+                        {% endif %}
+                        </li>{% endfor %}
+                    </ul>
+                </div>
+            </div>
+        {% endif %}		
+
+
+        {% if navbar.menuitems2 %}
+            <div class="page-navbar-wrapper">
+                <div class="container">
+                    <ul class="nav navbar-nav page-navbar page-navbar-2 cnt-{{navbar.menuitems|length}}">
+                    {% for menuitem in navbar.menuitems2 %}<li class="{% if menuitem.active %}active{% endif %} first-{{forloop.first}} last-{{forloop.last}}">
+                        {% if menuitem.specific.link %}
+                            <a {% if menuitem.specific.external %}target="_blank"{% endif %} href="{{ menuitem.specific.link }}">{{ menuitem.title }}</a>
+                        {% elif menuitem.specific.form.pk %}	
+                            <a data-wtform="{{ menuitem.specific.form.pk }}" class="wtform-modal-link" href="#">{{ menuitem.title }}</a>
+                        {% else %}
+                            <a href="{% pageurl menuitem %}">{{ menuitem.title }}</a>
+                        {% endif %}
+                        </li>{% endfor %}
+                    </ul>
+                </div>
+            </div>
+        {% endif %}	            
+
+        
+    {% endif %}
+
+</article>             
+

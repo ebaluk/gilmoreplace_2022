@@ -1,0 +1,16 @@
+{% load wagtailcore_tags %}
+
+<article class="raw-html-block text-block themed-{{self.theme.id}} {{self.theme.css_class}} page-layout-whole">
+    <div class="container page-text-wrapper">
+        <div class="row">
+
+            <div class="txt col-xs-12">
+                <div>                                
+                    <div class="body-text">
+                        {{ self.text|safe }}                                         
+                    </div>
+                </div>	        
+            </div>
+        </div>
+    </div>    
+</article>

@@ -1,0 +1,23 @@
+{% extends "wagtailimages/images/index.html" %}
+
+{% block extra_js %}
+    {{ block.super }}    
+<script>
+    $(function(){
+        var $ir = $('#image-results');
+        if( ! $ir.length )
+            return;                  
+        $(
+            '<div class="wt-image-controls clearfix">'
+            +'<a class="button btn-ordering pull-left" href="/admin/images/sort/">Ordering</a>'            
+            +'</div>'
+        ).insertBefore('h2', $ir);
+            
+        
+    });
+
+    
+</script>
+
+{% endblock %}
+

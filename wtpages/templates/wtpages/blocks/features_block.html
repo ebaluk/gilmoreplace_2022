@@ -1,0 +1,28 @@
+{% load i18n wtpages_tags static wagtailcore_tags wagtailimages_tags %}
+
+<article class="features-block">
+    <div class="flexbox container">
+        
+        <div class="flex-item">
+            {% if self.title %}                    
+            <h2 class="title h1">
+                {{ self.title }}
+                {% if self.title_2 %}
+                <br/>
+                <span>
+                    {{ self.title_2|linebreaksbr }}
+                </span>
+                {% endif %}
+            </h2>                    
+            {% endif %}                    
+            {% include_block self.new_links with btn_class='reverse' %}                        
+        </div>
+
+        <div class="accordion-container flex-item">
+            {% for item in self.features %}
+                {% include_block item %}                        
+            {% endfor %}                
+        </div>
+
+    </div>
+</article>

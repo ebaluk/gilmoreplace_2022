@@ -1,0 +1,10 @@
+{% load wagtailcore_tags %}
+
+{% if self %}
+<div class="related-links">
+    {% for link in self %}
+        {% include_block link %}
+    {% endfor %}    
+</div>    
+{% endif %}
+

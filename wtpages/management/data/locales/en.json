@@ -1,0 +1,557 @@
+{
+  "locale": {
+    "english": "EN",
+    "chinese": "繁"
+  },
+
+  "nav": {
+    "menu": "Menu",
+    "register": "Register",
+    "lunar": "Lunar New Year"
+  },
+
+  "footer": {
+    "disclaimer": "Rendering is artist's interpretation only. Please speak with an Onni Representative for more details. E.&O.E.",
+    "privacy": "Privacy Policy"
+  },
+
+  "menu": [
+    {
+      "title": "Discover",
+      "submenu": [
+        {
+          "title": "Vision",
+          "box": "<span>The</span> Vision"
+        },
+        {
+          "title": "Location",
+          "box": "<span>The</span> Location"
+        },
+        {
+          "title": "Transit",
+          "box": "<span>The</span> Transit"
+        },
+        {
+          "title": "Amenities",
+          "box": "<span>The</span> Amenities"
+        }
+      ]
+    },
+    {
+      "title": "Homes",
+      "submenu": [
+        {
+          "title": "Plans"
+        },
+        {
+          "title": "Views"
+        },
+        {
+          "title": "Features"
+        },
+        {
+          "title": "Amenities"
+        }
+      ]
+    },
+    {
+      "title": "Commercial",
+      "submenu": [
+        {
+          "title": "Shop",
+          "box": "Shop"
+        },
+        {
+          "title": "Dine",
+          "box": "Dine"
+        },
+        {
+          "title": "Play",
+          "box": "Play"
+        },
+        {
+          "title": "Work",
+          "box": "Work"
+        }
+      ]
+    },
+    {
+      "title": "Gallery",
+      "submenu": [
+        {
+          "title": "Interior",
+          "box": "Interior"
+        },
+        {
+          "title": "Amenities",
+          "box": "Amenities"
+        },
+        {
+          "title": "Exterior",
+          "box": "Exterior"
+        },
+        {
+          "title": "Location",
+          "box": "Location"
+        }
+      ]
+    },
+    {
+      "title": "About Onni"
+    },
+    {
+      "title": "Contact Us"
+    }
+  ],
+
+  "home": {
+    "banner": {
+      "title": "Now Selling",
+      "subtitle": "The most anticipated masterplanned <br/> community in Burnaby",
+      "button": "Book an Appointment"
+    }
+  },
+
+  "amenities": {
+    "title": "More <br> <span>Amenities</span>",
+    "copy": "With over 75,000 square feet of life-enriching amenities, it’s not hard to imagine what a day at Gilmore Place might entail. Watch a beautiful sunset from the private Sky Lounge, take a stroll through elevated private green spaces, or melt your worries away in the steam room or sauna. Practice for your next 18 holes with friends at the golf simulator, or play fetch with your puppy at the rooftop dog park. Satisfy your mind, body and soul each day with the state-of-the-art fitness centre, indoor and outdoor pools, multi-sport court and more.",
+    "sitemaps": [
+      {
+        "tab": "Wellness",
+        "title": "Private Wellness Centre",
+        "list": [
+          "Party Room",
+          "Study Room",
+          "Games Room",
+          "Main Gym",
+          "Golf Simulator",
+          "Cardio Gym",
+          "Change Rooms",
+          "Main Lounge",
+          "Bowling Lanes",
+          "Outdoor Terrace",
+          "Movie Theatre",
+          "Steam Room + Sauna",
+          "Indoor Pool + Hydrotherapy Pools",
+          "Hot Tub",
+          "Sports Court",
+          "Workshop",
+          "Guest Suites",
+          "Party Room",
+          "Children's Indoor Play Area",
+          "Dog Park"
+        ]
+      },
+      {
+        "tab": "Outdoor",
+        "title": "Unrivaled <br> Outdoor Spaces",
+        "list": [
+          "Hot Tub",
+          "Outdoor Pool",
+          "Outdoor Fireplace + Lounge",
+          "Children's Play Area",
+          "Urban Garden Plots",
+          "Bocce Lawn",
+          "Fire Pit",
+          "BBQ Area",
+          "BBQ Area",
+          "BBQ Area",
+          "BBQ Area"
+        ]
+      }
+    ],
+    "featured": [
+      {
+        "title": "More Wellness",
+        "copy": "With a professionally equipped gym, spin studio, steam room, hydrotherapy pools, and so much more, Gilmore Place makes it easy to stay in shape – both body and mind."
+      },
+      {
+        "title": "More Fun",
+        "copy": "Whether you’re looking to have a game of bocce, sing karaoke, or watch a movie in the theatre, there’s always fun to be found, no matter what night of the week."
+      },
+      {
+        "title": "More Social",
+        "copy": "Host large gatherings in one of three party rooms, or cater a special event in the main lounge. BBQ with friends on the expansive outdoor terrace, or book a guest suite and invite your family from out of town."
+      }
+    ]
+  },
+
+  "discover": {
+    "title": "Discover",
+    "vision": {
+      "title": "More <br> <span>Of Everything <br> You Can Imagine</span>",
+      "copy": "Imagine your every need integrated into one truly magnificent location. Gilmore Place offers the effortless convergence of luxuriously appointed homes with modern shops, dining, and office space. Situated in the accessible and thriving Brentwood community, Gilmore Place is a masterpiece of lifestyle, commerce, recreation, and much more.",
+      "sitemap": {
+        "title": "<span class='desktop'>Select a Hotspot to learn more </span> about Gilmore Place",
+        "future-phase": "Future Phase",
+        "hotspots": [
+          {
+            "title": "Gilmore Skytrain Station",
+            "copy": "Integrated at the heart of Gilmore Place, seamlessly connecting you to the rest of the Lower Mainland"
+          },
+          {
+            "title": "Unrivaled Amenities",
+            "copy": "Over 75,000 sq ft. of unparalleled private indoor and outdoor spaces"
+          },
+          {
+            "title": "Vibrant Urban Hub",
+            "copy": "An impressive mix of retail shops, restaurants, and services right outside your door"
+          },
+          {
+            "title": "Lively Open-Air Plazas",
+            "copy": "Stroll through inviting plazas and pedestrian mews, interconnected throughout the community"
+          },
+          {
+            "title": "Convenient Connectivity",
+            "copy": "Connect to the extensive bike path network, including the Central Valley Greenway"
+          },
+          {
+            "title": "Dynamic Office Spaces",
+            "copy": "A vibrant urban energy will radiate from new creative talent, from small businesses to corporate headquarters"
+          }
+        ]
+      }
+    },
+    "location": {
+      "content": [
+        {
+          "title": "More <br> <span>to Discover</span>",
+          "copy": "Experience the cultural and personal enrichment of living in an energetic urban centre. With incredible pedestrian-oriented shopping and retail located at Gilmore Place, you’ll never run out of things to do. In addition to your daily conveniences, a diverse mix of restaurants, grocery, fashion and entertainment await you, and important resources like schools and healthcare are all within arm’s reach."
+        },
+        {
+          "title": "More to <br> <span>Explore</span>",
+          "copy": "Stroll through pedestrian mews and shopping areas, pick up fresh groceries, or dine out with friends. Make yourself at home in the neighbourhood or easily transit to new and exciting locations."
+        }
+      ],
+      "slides": [
+        "Gilmore Station",
+        "Central Valley Greenway",
+        "BCIT",
+        "Biking Lanes",
+        "Cactus Club",
+        "Burnaby Lake",
+        "SFU",
+        "Soccer Fields",
+        "Save-On-Foods",
+        "The Keg",
+        "Whole Foods"
+      ],
+      "map": {
+        "food": "Food + Drink",
+        "grocery": "Grocery",
+        "shop": "Shop",
+        "recreation": "Recreation + Outdoor",
+        "financials": "Financials",
+        "schools": "Schools",
+        "entertainment": "Entertainment + Essentials"
+      }
+    },
+    "transit": {
+      "title": "More <br> <span>Places to go</span>",
+      "copy": "A major stop on the Millennium SkyTrain Line and just minutes from Highway 1, Gilmore Place is seamlessly connected with the rest of the Lower Mainland. Whether you’re working in downtown Vancouver, visiting family in Coquitlam, or hiking the North Shore Mountains, a direct line to all of your premier destinations is just steps outside your front door.",
+      "map-title": "More Connectivity"
+    }
+  },
+
+  "homes": {
+    "banner": {
+      "title": "Homes",
+      "subtitle": "Please Select a Tower"
+    },
+    "towers": ["Now Selling", "Now Selling", "Now Selling"],
+    "plans": {
+      "filters": [
+        "1 Bed",
+        "Jr. 2 Bed + 1 Bath",
+        "Jr. 2 Bed + 2 Bath",
+        "2 Bed",
+        "2 Bed + Den",
+        "3 Bed",
+        "3 Bed + Den",
+        "Penthouse"
+      ],
+      "sqft": "SF",
+      "int": "INT",
+      "ext": "EXT",
+      "interiors": "Interiors",
+      "exteriors": "Exteriors",
+      "bed": "Bedroom",
+      "bath": "Bath",
+      "jr": "JR.",
+      "den": "Den",
+      "family": "Family",
+      "flex": "Flex",
+      "ph": "Penthouse"
+    },
+    "views": {
+      "title": "More <br> <span>To Admire</span>",
+      "label": "See the view from",
+      "level": "Level"
+    },
+    "features": {
+      "content": [
+        {
+          "title": "The Finest <br> <span>of Residences</span>",
+          "copy": "Expect a new level of living at Gilmore Place. Open floorplans gracefully balance contemporary interiors and elegant outdoor spaces. Come home to European-inspired kitchens and spa-like bathrooms – a luxuriously appointed destination with extensive, modern features."
+        },
+        {
+          "title": "Features <br> <span>&amp; Finishes</span>",
+          "button": "Download Feature Sheet"
+        }
+      ],
+      "features": [
+        {
+          "title": "Welcome Home",
+          "list": [
+            "Arrive home to luxuriously appointed towers designed by award-winning IBI Architects, featuring a double height, elegantly appointed lobby with the added convenience of a 24-hour concierge",
+            "Have peace of mind with solid reinforced concrete construction, offering superior durability, ease of maintenance, and quiet living",
+            "Enjoy large outdoor balconies and/or terraces, for relaxed living, or entertaining friends and family",
+            "Elegant, modern homes with expansive windows that maximize natural light and sweeping views",
+            "Connection to district energy system provides high-efficiency in-suite heating and cooling, while substantially reducing greenhouse gas emissions and optimizing energy use",
+            "Comprehensive 2-5-10 year home warranty protection: 2-year coverage on labour and materials; 5-year coverage on building envelope; 10-year coverage on major structural items"
+          ]
+        },
+        {
+          "title": "Premium Suite Finishes",
+          "list": [
+            "Choose from three professionally designed colour palettes to personalize your home: Gilmore, Dawson, or Lougheed",
+            "Contemporary wide plank laminate flooring throughout kitchen, living, and dining areas creates a seamless transition between spaces",
+            "Premium wool blend bedroom carpet throughout bedrooms and walk-in closets",
+            "Master bedroom closets outfitted with built-in millwork to keep clothes organized",
+            "Whirlpool full-size high-efficiency front-loading stacked washer and dryer, with 12x24” porcelain tile flooring in laundry closets",
+            "Expansive, over-height 9’ flat-painted ceilings throughout living spaces (in most homes)",
+            "Over-height 7’ interior doors create a grand and open feeling",
+            "Comfort and privacy provided by UV blocking white roller blinds on all exterior windows, in addition to a high performance and acoustically engineered window system designed to reduce noise transfer while increasing UV protection and insulation"
+          ]
+        },
+        {
+          "title": "Gourmet Kitchens",
+          "sections": [
+            {
+              "title": "One & Jr. Two Bedroom Homes",
+              "list": [
+                {
+                  "title": "Integrated European Appliance Package featuring:",
+                  "items": [
+                    "24” Blomberg paneled refrigerator with bottom mount freezer",
+                    "24” Fulgor Milano stainless steel 4-burner gas cooktop",
+                    "24” Fulgor Milano convection wall oven",
+                    "Blomberg EnergyStar-rated paneled dishwasher",
+                    "24” slim profile Faber pullout hood fan",
+                    "Under-counter 1.6 cu ft Panasonic microwave with stainless steel trim kit"
+                  ]
+                },
+                "Sophisticated 3cm composite stone countertops and matching waterfall gable ends on multi-functional kitchen islands, with open shelves and cabinets for storage, as well as an extended kitchen work surface or dining space for four guests (refer to plan)",
+                "Extra deep single-bowl stainless steel undermount sink featuring garburator with countertop push-button control allows food preparation and cleaning with ease"
+              ]
+            },
+            {
+              "title": "Two & Three Bedroom Homes",
+              "list": [
+                {
+                  "title": "Integrated European Appliance Package featuring:",
+                  "items": [
+                    "Two side-by-side 24” Blomberg paneled refrigerators with bottom mount freezer",
+                    "30” Fulgor Milano stainless steel 5-burner gas cooktop",
+                    "30” Fulgor Milano convection wall oven",
+                    "Blomberg EnergyStar - rated paneled dishwasher",
+                    "30” slim profile Faber pullout hood fan"
+                  ]
+                },
+                "3cm composite stone countertops and matching waterfall gable ends on kitchen islands, with breakfast bar overhang",
+                "Extra deep double-bowl stainless steel undermount sink featuring garburator with countertop push-button control allows food preparation and cleaning with ease"
+              ]
+            },
+            {
+              "title": "All Homes",
+              "list": [
+                "Built-in nook with composite stone countertop to be used as a functional desk or computer area (in most homes), complete with plug-in USB outlet for convenient charging of your smartphone or other electronic devices",
+                "Built-in pantry with adjustable interior shelving for optimal organization",
+                "Premium marble tile over-height backsplash impressively frames the kitchen",
+                "Custom cabinets with soft-close mechanism, integrated finger pulls on all doors and drawers for sleek flush cabinetry, and premium drawer sides and slides",
+                "Contemporary polished chrome kitchen faucet with extractable spray for convenient clean up",
+                "Energy-efficient under-cabinet LED puck lights and overhead pot lighting in kitchen area to illuminate entire workspace"
+              ]
+            }
+          ]
+        },
+        {
+          "title": "Luxurious Bathrooms",
+          "list": [
+            "Refined bathrooms feature 12” x 24” premium marble tile flooring",
+            "NuHeat heated floors in master or primary bathroom",
+            "3cm composite stone countertops with 8” high backsplash create spa-like serenity",
+            "Custom cabinetry with sleek integrated finger pulls and soft-close mechanism",
+            "Medicine cabinet included in all bathrooms provides additional storage",
+            "Sleek single lever faucet with undermount sink",
+            "Inviting soaker tubs feature premium marble tile apron front",
+            "Frameless glass enclosed shower with slim profile acrylic base, equipped with a convenient slide bar and handheld shower arm, and single lever, pressure-balanced control",
+            "Shower walls feature ceramic tile with convenient recessed tile niche for storage",
+            "Water-conscious low flow toilet with soft-close seat",
+            "Contemporary and functional mirror complement designer-chosen wall sconces, and pot lighting"
+          ]
+        },
+        {
+          "title": "Safety and Security",
+          "list": [
+            "State-of-the-art security systems, including closed circuit cameras, electronic keyless lobby entry phone, access controls to each floor, and amply-lit gated keyless underground parking for residents and visitors",
+            "Controlled, well-lit storage and bike rooms with motion sensors",
+            "Solid core wood entry door with peephole and deadbolt",
+            "Continuous fire protection, including sprinklers and smoke detectors in all homes and common areas"
+          ]
+        }
+      ]
+    }
+  },
+
+  "commercial": {
+    "title": "Commercial",
+    "cta": {
+      "title": "Commercial Leasing Inquires",
+      "copy": "Be part of Gilmore Place’s vibrant office & retail community.",
+      "button": "Learn More"
+    },
+    "shop": {
+      "title": "More Places <br> <span>To Shop</span>",
+      "copy": "At Gilmore Place, enjoy a diverse mix of retail shops and services. Try on the newest fashion styles from global brands, or find an eclectic piece from a local favourite. The retailers at Gilmore Place will offer something for every style and occasion.",
+      "stats": {
+        "title": "500,000+",
+        "subtitle": "Square feet of new transit- <br>oriented retail space",
+        "list": [
+          {
+            "title": "The Shops",
+            "copy": "Gilmore Place is poised to be an exciting new shopping destination for all of Metro Vancouver."
+          },
+          {
+            "title": "The Flexibility",
+            "copy": "Stroll through open-air plazas and pedestrian mews while checking out the latest fashion and accessories."
+          },
+          {
+            "title": "The Accessibility",
+            "copy": "A prime, transit-oriented location and design means Gilmore Place will become a central urban hub for residents and visitors alike."
+          }
+        ]
+      }
+    },
+    "dine": {
+      "title": "More Places <br> <span>To Dine</span>",
+      "copy": "Head downstairs to pick up a dozen eggs, meet a friend for coffee, or experience culinary perfection at a local restaurant. Celebrate the region’s best right outside your front door.",
+      "stats": {
+        "title": "20+",
+        "subtitle": "Square feet of new transit- <br>oriented retail space",
+        "list": [
+          {
+            "title": "Gourmet Experiences",
+            "copy": "Celebrate the region’s best with exciting new places to dine, including specialty restaurants and eateries."
+          },
+          {
+            "title": "Casual Dining",
+            "copy": "Enjoy your favourite comfort foods just steps from your front door."
+          },
+          {
+            "title": "On-The-Go",
+            "copy": "Browse an array of quick, delightful foods for those in a hurry."
+          }
+        ]
+      }
+    },
+    "play": {
+      "title": "More Places <br> <span>To Play</span>",
+      "copy": "Spacious parks, expansive plazas, and inviting pedestrian mews surround Gilmore Place, offering an abundance of green and urban spaces to socialize and have fun.",
+      "stats": {
+        "title": "20+",
+        "subtitle": "Parks within 5km",
+        "list": [
+          {
+            "title": "Parks Close By",
+            "copy": "You’ll find parks and cycling trails in every direction, with nature beckoning you to go even further."
+          },
+          {
+            "title": "Open-air Plazas",
+            "copy": "Get a breath of fresh air and catch up with a friend in one of Gilmore Place’s several public gathering spaces."
+          },
+          {
+            "title": "Pedestrian Mews",
+            "copy": "Feel the urban energy, whether you are window shopping or strolling with a friend, as bustling patios spill onto lively boardwalks throughout Gilmore Place."
+          }
+        ]
+      }
+    },
+    "work": {
+      "title": "More Places <br> <span>To Work</span>",
+      "copy": "Office spaces abound at Gilmore Place, allowing you to truly live, work, and play in one locale. With the added convenience of the Millennium SkyTrain integrated into the heart of Gilmore Place, working in the area has never been easier.",
+      "stats": {
+        "title": "Up to 1 <br> Million",
+        "subtitle": "Square feet of sustainable <br> office space",
+        "list": [
+          {
+            "title": "The Convenience",
+            "copy": "With a myriad of stores, shops, and retail services right downstairs, Gilmore Place is an enjoyable community for employees and employers alike."
+          },
+          {
+            "title": "The Flexibility",
+            "copy": "Customize your space: Gilmore Place has the flexibility to welcome businesses of all sizes."
+          },
+          {
+            "title": "The Accessibility",
+            "copy": "A prime, transit-oriented location and design means Gilmore Place will become a central urban hub for residents and visitors alike."
+          }
+        ]
+      }
+    }
+  },
+
+  "gallery": {
+    "title": "Gallery",
+    "tabs": ["Interior", "Amenities", "Exterior", "Location", "All"],
+    "instruction": "Select an Image to Enlarge"
+  },
+
+  "about": {
+    "banner": {
+      "title": "About Onni"
+    },
+    "title": "More <br> <span>Experience</span>",
+    "copy": "The Onni Group is one of North America’s leading private real estate developers, with extensive experience designing, developing, building and managing innovative projects. As a fully integrated company that directly oversees every step in the development process, Onni has built over 12,000 homes. In addition, the company owns and manages more than 11.5 million square feet of commercial property, over 6,200 rental apartment units, and has an additional 10 million square feet in various stages of development. With offices in Vancouver, Toronto, Chicago, Los Angeles, Seattle, Phoenix and Mexico, Onni continues to expand and diversify into new markets throughout North America.",
+    "cta": {
+      "copy": "For more information about Onni, visit our website"
+    }
+  },
+
+  "contact": {
+    "title": "Contact Us",
+    "inquiries": "General Inquiries",
+    "presentation-centre": "Gilmore Place Presentation Centre",
+    "address": "101-4190 Lougheed Highway, Burnaby.",
+    "hours": "Open by Appointment 12PM-6PM daily",
+    "hours-except": "(Except Friday).",
+    "hours2": "Please contact us to set up yours.",
+    "register": "Register for Updates",
+    "form": {
+      "first-name": "First Name *",
+      "last-name": "Last Name *",
+      "email": "Email *",
+      "phone": "Phone *",
+      "city": "City",
+      "country": "Country",
+      "realtor": {
+        "label": "Are you a realtor? *",
+        "options": ["Yes", "No"]
+      },
+      "hear": {
+        "label": "How did you hear about us?",
+        "options": [
+          "Globe & Mail",
+          "Google Search",
+          "Ming Pao",
+          "Sing Tao",
+          "Social Media",
+          "Vancouver Sun",
+          "Other"
+        ]
+      },
+      "consent": " I consent to receiving commercial electronic messages, including messages about upcoming developments, special incentives, events, and market updates from Onni Marketing Inc. on behalf of the current and future members of the Onni Group. I acknowledge I can withdraw my consent at any time by unsubscribing as set out below.",
+      "button": "Submit"
+    }
+  }
+}

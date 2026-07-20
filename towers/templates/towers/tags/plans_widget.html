@@ -1,0 +1,60 @@
+{% load i18n wagtailcore_tags wagtailimages_tags wtpages_tags %}  
+
+<div class="section-plans">
+    
+    <div class="plans">
+        <section>
+            
+            <span class="select-container select-box">
+                <select required="required" class="light">
+                    {% for id, item in apartment_types.items %}
+                    <option value="{{id}}">
+                        {% if request.LANGUAGE_CODE == 'zh-hans' %}
+                            {{item.title_zh_hans}}
+                        {% elif request.LANGUAGE_CODE == 'zh-hant' %}
+                            {{item.title_zh_hant}}
+                        {% else %}
+                            {{item.title}}
+                        {% endif %}
+                    </option>
+                    {% endfor %}
+                </select>
+            </span>
+
+            
+            {% for id, apartment_type in apartment_types.items %}            
+                <div class="appartment-type {% if forloop.first %} active{% endif %}" data-apartment-type="{{id}}">
+                    <div class="list-container">
+                    {% for item in apartment_type.apartments %}
+                        {% image item.floorplates_image max-640x640 as floorplates_image %}
+                        {% image item.floorplan_image crop_to_content max-1600x1600 as floorplan_image %}
+                        <div class="card{% if item.sold %} sold{% endif %}"
+                            style="animation-delay: {% animation_delay time=0.15 idx=forloop.counter %}s" 
+                            data-title="{{item.title}}"
+                            data-apartment-type="{{apartment_type.title}}"
+                            data-interiors="{{item.interiors}}"
+                            data-exteriors="{{item.exteriors}}"
+                            data-pdf="{{item.pdf.url}}"
+                            data-floorplates-image="{{floorplates_image.url}}"
+                            data-floorplates-images='[{% for img in item.floorplates_image_renditions %}{% if not forloop.first %}, {% endif %}"{{img.image.url}}"{% endfor %}]'
+                            data-floorplan-image="{{floorplan_image.url}}"
+                            data-preload-image="{{floorplan_image.url}}{% for img in item.floorplates_image_renditions %} {{img.image.url}}{% endfor %}"
+                            data-layout="{% if floorplan_image.width > floorplan_image.height %}horizontal{% else %}vertical{% endif %}"
+                        >
+                            <h2>{{item.title}}</h2>
+                            <div class="area">
+                                <p>{% trans 'INT' %} {{item.interiors}} {% trans 'SF' %}</p>
+                                <p>{% trans 'EXT' %} {{item.exteriors}} {% trans 'SF' %}</p>
+                            </div>
+                        </div>                    
+                    {% endfor %}                
+                    </div>
+                </div>
+            {% endfor %}
+            
+        </section>
+
+        {% include 'towers/tags/include/modal.html' %}
+
+    </div>
+</div>

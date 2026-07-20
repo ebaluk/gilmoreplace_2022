@@ -1,0 +1,14 @@
+{% load wagtailimages_tags %}
+<article class="gallery-block container themed-{{self.theme.id}} {{self.theme.css_class}}">
+    <div class="collage collage-10">    
+        <div class="chunk">
+            {% for item in self.images|slice:":10" %}
+                {% image item max-640x640 as thumb %}
+                {% image item max-1920x1920 as full %}
+                <div class="list-item">
+                    <a href="{{ full.url }}" class="modal-carousel" rel="{{uid}}" data-id="{{ item.id }}" data-title="{{ item.caption|linebreaks }}" style="background-image: url({{ thumb.url }});"></a>
+                </div>        
+            {% endfor %}
+        </div>
+    </div>
+</article>

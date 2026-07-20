@@ -1,0 +1,14 @@
+{% load wagtailcore_tags wagtailimages_tags %}
+<div class="icon" tabindex="1" {% if item.hover_over_text %} data-toggle="tooltip" data-placement="top" title="{{item.hover_over_text}}"{% endif %}>
+    {% if item.icon %}
+        {% image item.icon max-150x150 as img %}
+    {% else %}    
+        {% image item.image max-150x150 as img %}
+    {% endif %}            
+    <div class="image" style="background-image: url({{img.url}});">
+        <img class="sr-only" src="{{img.url}}" alt="{{img.alt}}">
+    </div>
+    {% if item.title %}
+        <div class="title">{{item.title}}</div>
+    {% endif %}
+</div>

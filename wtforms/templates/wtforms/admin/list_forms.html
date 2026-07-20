@@ -1,0 +1,20 @@
+{% load i18n %}
+<table class="listing">
+    <col width="50%"/>
+    <col width="50%"/>
+    <thead>
+        <tr>
+            <th class="title">{% trans "Title" %}</th>
+            <th class="type">{% trans "Origin" %}</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for fp in form_pages %}
+            <tr>
+                <td class="title">
+                    <h2><a href="{% url 'wtforms:list_submissions' fp.id %}">{{ fp|capfirst }}</a></h2>
+                </td>                
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>

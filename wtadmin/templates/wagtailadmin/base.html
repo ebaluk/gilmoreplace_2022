@@ -1,0 +1,15 @@
+{% extends "wagtailadmin/base.html" %}
+{% load compress static  wagtailimages_tags %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'wtadmin/css/admin.css' %}" type="text/css" />
+{% endblock %}
+
+{% block extra_js %}
+    <script src="{% static 'wagtailadmin/js/vendor/jquery-ui-1.13.2.min.js' %}"></script>
+{% endblock %}
+
+{% block branding_logo %}
+    {% image settings.wtadmin.WtSettings.logo width-150 as img %}
+    <img src="{{ img.url }}" alt="Admin" width="150" />
+{% endblock %}

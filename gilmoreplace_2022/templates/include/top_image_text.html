@@ -1,0 +1,14 @@
+{% load wagtailcore_tags  %}
+{% if title %}
+<div class="top-image-title text-center text-uppercase layout-bottom">	
+	<h1 class="title">			
+		{{ title }}			
+	</h1>	
+</div>
+{% elif text %}
+<div class="top-image-title text-center text-uppercase layout-middle">	
+	<h1 class="title">			
+		{{ text|richtext }}			
+	</h1>	
+</div>
+{% endif %}

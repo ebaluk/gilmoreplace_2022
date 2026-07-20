@@ -1,0 +1,13 @@
+{% load wagtailcore_tags %}
+{% if self.links %}
+<div class="related-links text-uppercase {{self.align}}">
+    {% if self.description %}                
+        <div class="links-description">
+            {{ self.description|linebreaksbr }}
+        </div>
+    {% endif %}
+    {% for link in self.links %}
+        {% include_block link %}
+    {% endfor %}    
+</div>    
+{% endif %}

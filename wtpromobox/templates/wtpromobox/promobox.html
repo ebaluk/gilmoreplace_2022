@@ -1,0 +1,62 @@
+{% load wagtailcore_tags wagtailimages_tags wtpages_tags %}
+{% if self %}
+<div class="modal fade promo-box vertical-centered mode-{{self.mode}}{% if self.show_logo %} logo{% endif %}" id="promo-box-{{id}}" tabindex="-1" role="dialog"
+  aria-title="Promo Box">
+  <div class="modal-dialog {% if self.smaller_popup %}smaller{% else %}modal-lg{% endif %}" role="document">
+    <div class="modal-content">
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" enable-background="new 0 0 20 20" stroke="#fff" stroke-width="2">
+            <line x1="0" y1="0" x2="20" y2="20" ></line>
+            <line x1="0" y1="20" x2="20" y2="0"></line>
+          </svg>          
+          <span class="sr-only">Close</span>
+        </button>
+
+      {% if self.mode == 'image' %}
+      <div class="image">
+        {% image self.image width-866 as image %}
+        <img src="{{image.url}}" alt="{{image.alt}}">
+        <div class="ratio" style="padding-top: {{self.image_ratio}}%"></div>
+        <div class="related-links text-center">
+          {% for related_link in self.links_stream_field %}
+            {% include_block related_link %}
+          {% endfor %}
+        </div>
+        <div class="fancy-corners"><span></span></div>
+      </div>
+      {% elif self.mode == 'text' %}
+      <div class="text">
+        <div class="content">
+          <h2 class="h2 title">{{ self.title }}</h2>
+          {{ self.body|richtext }}
+          <div class="related-links text-center">
+            {% for related_link in self.links_stream_field %}
+            {% include_block related_link %}
+            {% endfor %}
+          </div>
+        </div>
+        <div class="fancy-corners"><span></span></div>
+      </div>
+      {% else %}
+      {% image self.image fill-640x640-c100 as image %}
+      <div class="image" style="background-image: url({{image.url}})"></div>
+      <div class="text">
+        <div class="content">
+          <h2 class="title">{{ self.title }}</h2>
+          {{ self.body|richtext }}
+          <div class="related-links text-center">
+            {% for related_link in self.links_stream_field %}
+            {% include_block related_link %}
+            {% endfor %}
+          </div>
+        </div>
+        <div class="fancy-corners"><span></span></div>
+      </div>
+      {% endif %}
+
+      
+
+    </div>
+  </div>
+</div>
+{% endif %}

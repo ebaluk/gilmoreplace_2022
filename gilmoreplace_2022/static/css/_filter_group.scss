@@ -1,0 +1,148 @@
+.filter-wrapper {
+  position: relative;
+  z-index: 1000;
+  height: 45px;
+  width: 100%;
+
+  .filter-group {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    background: $color_bg;
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    @media only screen and (min-width: 768px) and (max-width: 1024px) {
+      padding: 25px 0 0 0;
+    }
+
+    @include breakpoint(smalldown) {
+      padding: 0 0 0 24px;
+      /* 20px 0 0 24px */
+      border-bottom: 2px solid rgba(#fff, 0.1);
+      justify-content: flex-start;
+    }
+
+    body.page-nav-fixed & {
+      position: fixed;
+      top: 0;
+      top: 80px;
+      left: 0;
+      z-index: 100;
+      padding: 0;
+
+      @include breakpoint(smalldown) {
+        padding: 0 0 0 28px;
+      }
+    }
+
+    body.pushDown & {
+      top: 0;
+      transition: top 300ms ease;
+    }
+
+    body.hide-nav & {
+      top: -50px !important;
+    }
+  }
+
+  .filter {
+    display: flex;
+    align-items: center;
+    text-transform: uppercase;
+    justify-content: center;
+    
+    position: relative;
+    transition: color 300ms ease;
+
+    // &:first-child {
+    //   display: none; // temp
+    // }
+
+    padding: 20px 5% 8px 0;
+    @media only screen and (min-width: 768px) and (max-width: 1024px) {
+      width: 100%;
+      padding: 20px 2% 8px 2%;
+    }
+        
+
+    a {
+      
+      font-size: 12px; 
+      // font-family: "Gotham";
+      // font-weight: 400;
+
+      font-family: "nunito-sans";
+      font-weight: 400;
+      
+      color: #ffffff;      
+      letter-spacing: 0.7px;
+      
+      cursor: pointer;
+      
+  
+      @include breakpoint(large) {
+        padding: 20px 30px 8px;
+      }
+    
+
+      &:before {
+        content: "";
+        position: absolute;
+        width: 25px;
+        height: 2px;
+        bottom: -2px;
+        left: 0px;
+  
+        @include breakpoint(medium) {
+          bottom: 0;
+          left: 50%;
+          transform: translateX(-50%);
+          height: 2px;
+          width: 100%;
+          background: rgba(#fff, 0.1);
+          transition: background 300ms ease, height 300ms ease;
+          background: rgba(#fff, 0.1);
+        }
+  
+        @include breakpoint(large) {
+          background: #fff;
+          height: 2px;
+        }
+      }
+
+      }
+
+    &.active {
+      
+      a{
+        font-weight: bold;
+        color: $color_aqua-light;  
+        &:before {
+          background: $color_aqua-light;
+  
+          @include breakpoint(large) {
+            bottom: -1px;
+            height: 4px;
+          }
+        }
+      }
+    }
+
+    &>a:hover {
+      @include breakpoint(large) {
+        font-weight: bold;
+        color: $color_aqua-light;
+
+        &:before {
+          background: $color_aqua-light;
+          bottom: -1px;
+          height: 4px;
+        }
+      }
+    }
+  }
+
+}

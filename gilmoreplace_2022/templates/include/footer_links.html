@@ -1,0 +1,7 @@
+{% load  wagtailcore_tags wagtailimages_tags  wtpages_tags %}
+
+<ul class="footer-links">
+	{% for related_link in related_links %}
+		<li>{% include_block related_link %}</li>
+	{% endfor %}		
+</ul>

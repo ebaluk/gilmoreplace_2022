@@ -1,0 +1,19 @@
+{% load wagtailcore_tags wagtailimages_tags  %}
+
+<article class="video-block-wrapper container themed-{{self.theme.id}} {{self.theme.css_class}}">
+    
+    {% if self.title %}
+        <h2 class="title h1 text-center">{{ self.title }}</h2>    
+    {% endif %}
+
+    {% if transcodes %}
+    <div class="video-block">        
+        <video {% if self.show_controls %} controls {% endif %} {% if self.poster %}{% image self.poster fill-1920x1080 as poster %} poster="{{poster.url}}"{% endif %}>
+            {% for transcode in transcodes %}
+                <source src="{{transcode.url}}" type="{{transcode.mime}}">                
+            {% endfor %}
+        </video>        
+    </div>
+    {% endif %}
+    
+</article>

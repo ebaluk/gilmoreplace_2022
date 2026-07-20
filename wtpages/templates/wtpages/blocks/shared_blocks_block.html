@@ -1,0 +1,7 @@
+{% load wagtailcore_tags %}
+
+{% if self.shared_blocks %}
+    {% for block in self.shared_blocks.stream_field %}
+        {% include_block block with calling_page=calling_page request=request only %}
+    {% endfor %}    
+{% endif %}

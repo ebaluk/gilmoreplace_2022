@@ -1,0 +1,6 @@
+{% load static wagtailcore_tags wtpages_tags %}
+<a href="https://www.onni.com/" {% if self.new_window %} target="_blank"{% endif %} class="onni-link" title="{{self.title}}">
+    <img src="{% static 'images/onni-logo.svg' %}" alt="{{self.title}}">
+</a>
+
+
