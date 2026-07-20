@@ -2,6 +2,15 @@
 
 This repo ships with Docker Compose configs under `deploy/compose/` for local reference, and a root **`docker-compose.yaml`** for server deploy (with `prod_server.env`).
 
+**Do not confuse env files:**
+
+| File | Role |
+|------|------|
+| `prod_server.env` | Server deploy (canonical). Not in git / not rsynced. |
+| `.env.production` | Local / `deploy/compose/prod.yml` only. Not used by Actions or `docker-compose.yaml`. |
+
+GitHub Actions deploy uses secret `DEV_SSH_PRIVATE_KEY` for SSH only; it does not manage app secrets or upload `.env.production`.
+
 ## Server deploy (DEV: gilmoreplace.ebaluk.store)
 
 The DEV server (`155.212.224.19`, user `appuser`) uses:

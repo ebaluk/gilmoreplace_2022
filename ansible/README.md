@@ -29,7 +29,7 @@ Required GitHub configuration:
 1. Repository secret **`DEV_SSH_PRIVATE_KEY`** — private key for `appuser@155.212.224.19` (same key as `~/.ssh/id_beget_ebaluksf` locally).
 2. Environment **`dev`** (optional protection rules / reviewers).
 
-`prod_server.env` is **not** synced; keep secrets on the server as today.
+App secrets stay on the server in **`prod_server.env`** (not synced by rsync; not written by Actions). Do **not** store `.env.production` or `SECRET_KEY` / DB passwords as GitHub Secrets for this workflow — only SSH is needed.
 
 ## Prerequisites
 

@@ -1,5 +1,7 @@
 # Gilmore Place
 
+**DEV:** [https://gilmoreplace.ebaluk.store/](https://gilmoreplace.ebaluk.store/)
+
 Real-estate marketing site for Gilmore Place (Onni). Content is managed in **Wagtail/Django** and served through a headless API; the public site is a **Next.js** App Router frontend.
 
 ## Stack
@@ -17,7 +19,7 @@ Real-estate marketing site for Gilmore Place (Onni). Content is managed in **Wag
 |------|---------|
 | `gilmoreplace_2022/` | Django settings, headless API (`api/`) |
 | `wtpages/`, `wthomepage/`, `towers/`, … | Wagtail apps, page models, stream-field blocks |
-| `gilmoreplace-next/` | Next.js frontend (`/api/v2/headless/`) |
+| `gilmoreplace-next/` | Next.js frontend (consumes `/api/v2/headless/`) |
 | `ansible/`, `deploy/` | Deploy playbooks and server notes |
 | `docker-compose.yaml` | Server stack (Postgres, backend, frontend, nginx) |
 
@@ -58,7 +60,7 @@ Default API base: `http://localhost:8000/api/v2`. Override with `WAGTAIL_API_URL
 
 ## Headless API
 
-Custom endpoints live under `/api/v2/headless/` (see `gilmoreplace_2022/api_router.py` and `api/views.py`). Wagtail’s built-in v2 API (`pages`, `images`, `documents`) is also registered.
+Custom endpoints live under `/api/v2/headless/` (see `gilmoreplace_2022/api_router.py` and `gilmoreplace_2022/api/views.py`). Wagtail’s built-in v2 API (`pages`, `images`, `documents`) is also registered under `/api/v2/`.
 
 Common routes:
 
@@ -69,14 +71,14 @@ Common routes:
 
 Locale query param defaults to `en-us`.
 
-OpenAPI / Swagger (drf-spectacular):
+OpenAPI / Swagger (drf-spectacular) — mounted at `/api/…`, **not** under `/api/v2/` (unknown `/api/v2/…` paths fall through to the Next.js redirect):
 
-- Schema: `/api/schema/`
-- UI: `/api/docs/`
+- Schema: https://gilmoreplace.ebaluk.store/api/schema/
+- UI: https://gilmoreplace.ebaluk.store/api/docs/
 
 Outbound payloads for settings, forms, and page detail are validated with Pydantic models in `gilmoreplace_2022/api/schemas/`.
 
-Admin page preview uses `wagtail-headless-preview` → Next.js Draft Mode (`/api/preview`) and `GET /api/v2/headless/pages/preview/`. There is no Django HTML frontend for public pages.
+Admin page preview uses `wagtail-headless-preview` → Next.js Draft Mode (`http://localhost:3000/api/preview`) and `GET /api/v2/headless/pages/preview/`. There is no Django HTML frontend for public pages.
 
 ## Internationalization
 
@@ -107,7 +109,7 @@ ansible-galaxy collection install -r requirements.yml
 ansible-playbook deploy.yml -e "filevar=dev" --tags=dev
 ```
 
-Copy `prod_server.env.example` → `prod_server.env` on the server (secrets are not rsync’d).
+**Env files:** server stack uses `prod_server.env` (from `prod_server.env.example`). It is gitignored and excluded from rsync — create/edit secrets on the host. `.env.production` is only for local/`deploy/compose/prod.yml` reference; do not put it (or app secrets) in GitHub Actions. The deploy workflow needs repository secret `DEV_SSH_PRIVATE_KEY` only.
 
 ## Agent / contributor notes
 
