@@ -1,1 +1,2 @@
 */11 *   *   *   *   django ( . /home/django/envs/wagtail/bin/activate && cd /home/django/gilmoreplace_2022/ && ./manage.py publish_scheduled_pages && deactivate ) > /dev/null 2>&1
+# LEGACY bare-metal — Docker uses compose service backend-cron (see etc/cron.d/README.md)

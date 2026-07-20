@@ -34,6 +34,25 @@ services:
     networks:
       - gilmoreplace
 
+  # Wagtail scheduled publish/unpublish (go_live_at / expire_at); no Celery.
+  backend-cron:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: gilmoreplace-backend-cron
+    restart: unless-stopped
+    env_file:
+      - ./prod_server.env
+    environment:
+      - DJANGO_SETTINGS_MODULE=gilmoreplace_2022.settings.production
+      - DB_HOST=${DB_HOST:-postgres}
+    depends_on:
+      - postgres
+      - backend
+    entrypoint: ["/bin/sh", "/app/deploy/cron/run-scheduled.sh"]
+    networks:
+      - gilmoreplace
+
   frontend:
     build:
       context: ./gilmoreplace-next

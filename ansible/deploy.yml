@@ -56,7 +56,7 @@
     # docker_compose_v2 then fails on `compose images` before it can rebuild.
     - name: Force-remove compose containers (handles broken image refs)
       ansible.builtin.shell: |
-        docker rm -f gilmoreplace-backend gilmoreplace-frontend gilmoreplace-nginx gilmoreplace-postgres 2>/dev/null || true
+        docker rm -f gilmoreplace-backend gilmoreplace-backend-cron gilmoreplace-frontend gilmoreplace-nginx gilmoreplace-postgres 2>/dev/null || true
       changed_when: false
       tags:
         - dev

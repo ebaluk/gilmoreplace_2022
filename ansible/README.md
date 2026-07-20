@@ -31,12 +31,15 @@ Required GitHub configuration:
 
 App secrets stay on the server in **`prod_server.env`** (not synced by rsync; not written by Actions). Do **not** store `.env.production` or `SECRET_KEY` / DB passwords as GitHub Secrets for this workflow — only SSH is needed.
 
+Compose brings up **`backend-cron`** with the stack (Wagtail `publish_scheduled` every 5 minutes). No host cron install required.
+
 ## Prerequisites
 
 - Ansible 2.14+ on your machine
 - SSH key matching `vars_dev.yml` / `hosts.ini` (`~/.ssh/id_beget_ebaluksf`)
 - Docker + Compose plugin on the remote host
-- External Docker network `nginx-proxy-network` on the server (nginx-proxy + acme-companion)
+- External Docker network `nginx-proxy-network` on the server ([`nginxproxy/nginx-proxy`](https://github.com/nginx-proxy/nginx-proxy) + [`nginxproxy/acme-companion`](https://github.com/nginx-proxy/acme-companion) already installed on DEV — see [deploy/README.md](../deploy/README.md#host-ssl-nginx-proxy--acme-companion-already-on-dev))
+- In `prod_server.env`: `VIRTUAL_HOST`, `VIRTUAL_PORT`, `LETSENCRYPT_HOST`, `LETSENCRYPT_EMAIL`
 
 Install collections once:
 

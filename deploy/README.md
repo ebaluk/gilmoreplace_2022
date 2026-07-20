@@ -18,6 +18,38 @@ The DEV server (`155.212.224.19`, user `appuser`) uses:
 - **`docker-compose.yaml`** at repo root
 - **`prod_server.env`** — secrets and nginx-proxy vars (not in git; copy manually)
 - Host **nginx-proxy** + acme-companion for HTTPS (`nginx-proxy-network`)
+- **`backend-cron`** — sidecar that runs `python manage.py publish_scheduled` every 5 minutes (`SCHEDULE_INTERVAL_SEC`, default 300) so Wagtail `go_live_at` / `expire_at` take effect. Manual run: `docker exec gilmoreplace-backend-cron python manage.py publish_scheduled`
+
+Legacy host crontabs under `etc/cron.d/` are for bare-metal only; see that directory’s README.
+
+### Host SSL: nginx-proxy + acme-companion (already on DEV)
+
+On the DEV VM these containers are installed **outside** this repo’s Compose stack (shared reverse proxy for multiple apps). Our `nginx` service only joins their Docker network and advertises env vars; it does **not** run Certbot itself.
+
+| Image | Role |
+|-------|------|
+| [`nginxproxy/nginx-proxy`](https://github.com/nginx-proxy/nginx-proxy) | Reverse proxy: reads `VIRTUAL_HOST` / `VIRTUAL_PORT` from containers on `nginx-proxy-network` and routes HTTPS/HTTP to them |
+| [`nginxproxy/acme-companion`](https://github.com/nginx-proxy/acme-companion) | Issues/renews Let’s Encrypt certs for hosts declared via `LETSENCRYPT_*` |
+
+Required network (must already exist; do not create inside this compose file as non-external):
+
+```bash
+docker network ls | grep nginx-proxy-network
+# expect: nginx-proxy-network
+```
+
+Env vars passed into our `nginx` service from `prod_server.env` (see `docker-compose.yaml`):
+
+| Variable | Purpose |
+|----------|---------|
+| `VIRTUAL_HOST` | Public hostname nginx-proxy should route to this stack (e.g. `gilmoreplace.ebaluk.store`) |
+| `VIRTUAL_PORT` | Container port nginx-proxy connects to (always `80` for our `nginx` service) |
+| `LETSENCRYPT_HOST` | Hostname(s) for the certificate — usually same as `VIRTUAL_HOST` |
+| `LETSENCRYPT_EMAIL` | Contact email for Let’s Encrypt registration / expiry notices |
+
+DNS for `VIRTUAL_HOST` / `LETSENCRYPT_HOST` must point at the DEV server before acme-companion can obtain a cert. After first successful issue, renewals are handled by acme-companion on the host — no certbot in this project’s compose.
+
+Do **not** use `deploy/compose/prod.ssl.yml` on this VM (built-in certbot overlay); SSL is already provided by the host proxy pair above.
 
 ### One-time server setup
 
@@ -34,7 +66,7 @@ The DEV server (`155.212.224.19`, user `appuser`) uses:
    ansible-playbook deploy.yml -e "filevar=dev" --tags=bootstrap
    ```
 
-   In `prod_server.env`, set **`NEXTJS_PUBLIC_URL=https://gilmoreplace.ebaluk.store`** (browser / Wagtail preview) and keep **`NEXTJS_BASE_URL=http://frontend:3000`** (Docker revalidate only). Do not put the Docker hostname in `NEXTJS_PUBLIC_URL`.
+   In `prod_server.env`, set **`NEXTJS_PUBLIC_URL=https://gilmoreplace.ebaluk.store`** (browser / Wagtail preview) and keep **`NEXTJS_BASE_URL=http://frontend:3000`** (Docker revalidate only). Do not put the Docker hostname in `NEXTJS_PUBLIC_URL`. Confirm `VIRTUAL_HOST`, `LETSENCRYPT_HOST`, and `LETSENCRYPT_EMAIL` match the public domain and a valid contact email.
 3. `mkdir -p media_files static` on server (Ansible deploy task also creates them)
 
 ### Ansible deploy (from repo `ansible/`)
