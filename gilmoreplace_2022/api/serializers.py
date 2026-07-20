@@ -11,7 +11,7 @@ Image = get_image_model()
 
 def resolve_image(image_id, rendition_spec="width-800"):
     """
-    Resolve a Wagtail image ID to a JSON-ready dict with rendition URL.
+    Resolve a Wagtail image ID (or Image instance) to a JSON-ready dict.
 
     Returns:
         dict with id, title, width, height, url, alt; or None if missing.
@@ -19,7 +19,10 @@ def resolve_image(image_id, rendition_spec="width-800"):
     if not image_id:
         return None
     try:
-        image = Image.objects.get(id=image_id)
+        if isinstance(image_id, Image):
+            image = image_id
+        else:
+            image = Image.objects.get(id=image_id)
         rendition = image.get_rendition(rendition_spec)
         return {
             "id": image.id,
@@ -29,7 +32,7 @@ def resolve_image(image_id, rendition_spec="width-800"):
             "url": rendition.url,
             "alt": image.title,
         }
-    except Image.DoesNotExist:
+    except (Image.DoesNotExist, TypeError, ValueError):
         return None
 
 

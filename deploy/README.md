@@ -24,6 +24,8 @@ The DEV server (`155.212.224.19`, user `appuser`) uses:
    ```bash
    ansible-playbook deploy.yml -e "filevar=dev" --tags=bootstrap
    ```
+
+   In `prod_server.env`, set **`NEXTJS_PUBLIC_URL=https://gilmoreplace.ebaluk.store`** (browser / Wagtail preview) and keep **`NEXTJS_BASE_URL=http://frontend:3000`** (Docker revalidate only). Do not put the Docker hostname in `NEXTJS_PUBLIC_URL`.
 3. `mkdir -p media_files static` on server (Ansible deploy task also creates them)
 
 ### Ansible deploy (from repo `ansible/`)

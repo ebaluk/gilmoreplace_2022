@@ -38,7 +38,6 @@ export function Hero({ hero, locale, towerChildren }: HeroProps) {
     video,
     images = [],
     links = [],
-    logos_banner = [],
     tower_detail,
     text_html,
   } = hero;
@@ -164,35 +163,6 @@ export function Hero({ hero, locale, towerChildren }: HeroProps) {
           className="scroll-down-icon"
         />
       ) : null}
-
-      {logos_banner.length > 0 && <LogosBanner logos={logos_banner} />}
-    </div>
-  );
-}
-
-function LogosBanner({ logos }: { logos: any[] }) {
-  if (!logos.length) return null;
-  return (
-    <div className="logos-banner">
-      <div className="logo-track">
-        {logos.map((logo, i) =>
-          logo.resolved_logo ? (
-            <span
-              key={i}
-              className="logo-block"
-              data-id={logo.resolved_logo.id}
-            >
-              {logo.link ? (
-                <a href={logo.link} target="_blank" rel="noopener noreferrer">
-                  <img src={formatImageUrl(logo.resolved_logo.url)} alt={logo.resolved_logo.alt} />
-                </a>
-              ) : (
-                <img src={formatImageUrl(logo.resolved_logo.url)} alt={logo.resolved_logo.alt} />
-              )}
-            </span>
-          ) : null
-        )}
-      </div>
     </div>
   );
 }

@@ -160,14 +160,33 @@ class PageDetailView(APIView):
             "text": getattr(specific, "hero_text", None),
             "text_align": getattr(specific, "hero_text_align", "left"),
             "mobile_half_height": getattr(specific, "hero_mobile_half_height", True),
-            "video": self._resolve_hero_video(specific),
-            "images": self._resolve_hero_images(specific),
-            "links": self._resolve_hero_links(specific),
-            "logos_banner": self._resolve_logos_banner(specific),
+            "video": None,
+            "images": [],
+            "links": [],
+            "logos_banner": [],
         }
-        tower_detail = self._get_tower_detail(page or specific)
-        if tower_detail:
-            data["tower_detail"] = tower_detail
+        try:
+            data["video"] = self._resolve_hero_video(specific)
+        except Exception:
+            pass
+        try:
+            data["images"] = self._resolve_hero_images(specific)
+        except Exception:
+            pass
+        try:
+            data["links"] = self._resolve_hero_links(specific)
+        except Exception:
+            pass
+        try:
+            data["logos_banner"] = self._resolve_logos_banner(specific)
+        except Exception:
+            pass
+        try:
+            tower_detail = self._get_tower_detail(page or specific)
+            if tower_detail:
+                data["tower_detail"] = tower_detail
+        except Exception:
+            pass
         return data
 
     def _get_tower_detail(self, page):
@@ -220,9 +239,13 @@ class PageDetailView(APIView):
         resolved = []
         for block in logos:
             value = block.value
+            logo = value.get("logo")
+            logo_id = getattr(logo, "pk", None) if logo is not None else None
+            if logo_id is None and isinstance(logo, int):
+                logo_id = logo
             resolved.append({
-                "logo": value.get("logo"),
-                "resolved_logo": resolve_image(value.get("logo")),
+                "logo": logo_id,
+                "resolved_logo": resolve_image(logo),
                 "link": value.get("link"),
             })
         return resolved

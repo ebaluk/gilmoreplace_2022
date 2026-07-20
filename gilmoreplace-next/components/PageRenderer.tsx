@@ -11,6 +11,7 @@ import { StreamFieldRenderer } from "@/components/StreamFieldRenderer";
 import { SiteMenu } from "@/components/layout/SiteMenu";
 import { SiteInteractions } from "@/components/layout/SiteInteractions";
 import { PageNavbar } from "@/components/layout/PageNavbar";
+import { LogosBanner } from "@/components/layout/LogosBanner";
 import { PromoBoxModal } from "@/components/layout/PromoBoxModal";
 import { PromoBoxProvider } from "@/components/layout/PromoBoxContext";
 import { TowerSelectMobile } from "@/components/layout/TowerSelect";
@@ -87,6 +88,9 @@ export function PageRenderer({
               : undefined
           }
         />
+        {(page.hero.logos_banner?.length ?? 0) > 0 ? (
+          <LogosBanner logos={page.hero.logos_banner} />
+        ) : null}
         <PageNavbar page={page} nav={nav} locale={locale} />
         {isTowersIndexPage(page) ? (
           <TowerSelectMobile

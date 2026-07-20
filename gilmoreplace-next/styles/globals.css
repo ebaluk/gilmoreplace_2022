@@ -97,6 +97,70 @@
     border-color: rgb(var(--color-red)) !important;
   }
 
+  .logos-banner {
+    touch-action: pan-y;
+    cursor: grab;
+    user-select: none;
+  }
+
+  .logos-banner.is-dragging {
+    cursor: grabbing;
+  }
+
+  .logos-banner img,
+  .logos-banner a {
+    -webkit-user-drag: none;
+    user-drag: none;
+    user-select: none;
+  }
+
+  .logos-banner .logo-track-manual {
+    display: flex;
+    width: max-content;
+    transform: translate3d(var(--logos-drag, 0px), 0, 0);
+    will-change: transform;
+  }
+
+  .logos-banner .logo-track {
+    /* Override legacy left-based step animation */
+    display: flex;
+    width: max-content;
+    left: auto !important;
+    transition: none !important;
+    will-change: transform;
+    animation: logos-marquee var(--logos-duration, 30s) linear infinite;
+  }
+
+  .logos-banner .logo-track-set {
+    display: flex;
+    flex-shrink: 0;
+  }
+
+  .logos-banner:hover .logo-track,
+  .logos-banner.is-dragging .logo-track,
+  .logos-banner.is-coasting .logo-track {
+    animation-play-state: paused;
+  }
+
+  @keyframes logos-marquee {
+    from {
+      transform: translate3d(0, 0, 0);
+    }
+    to {
+      transform: translate3d(-50%, 0, 0);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .logos-banner .logo-track {
+      animation: none;
+    }
+
+    .logos-banner .logo-track-set[aria-hidden="true"] {
+      display: none;
+    }
+  }
+
   .wtform .form-submit-error {
     color: rgb(var(--color-red));
     background: transparent;

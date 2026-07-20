@@ -232,11 +232,12 @@ WAGTAIL_HEADLESS_PREVIEW = {
 }
 
 
-def _validate_nextjs_urls():
+def _validate_nextjs_urls(public_url=None):
     """Warn when browser-facing preview URL looks like an internal Docker hostname."""
     import warnings
 
-    public = (NEXTJS_PUBLIC_URL or "").rstrip("/")
+    public = (public_url if public_url is not None else NEXTJS_PUBLIC_URL) or ""
+    public = public.rstrip("/")
     internal_markers = ("://frontend", "://backend", "://nginx")
     if any(m in public for m in internal_markers):
         warnings.warn(

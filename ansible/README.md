@@ -42,7 +42,20 @@ ansible-galaxy collection install -r requirements.yml
    ansible-playbook deploy.yml -e "filevar=dev" --tags=bootstrap
    ```
 
-3. Edit `prod_server.env` on the server: secrets, `VIRTUAL_HOST` / SSL vars, `PREVIEW_SECRET`, `REVALIDATION_SECRET`, `NEXTJS_PUBLIC_URL`, etc. See `../prod_server.env.example`.
+3. Edit `prod_server.env` on the server: secrets, `VIRTUAL_HOST` / SSL vars, `PREVIEW_SECRET`, `REVALIDATION_SECRET`, etc. See `../prod_server.env.example`.
+
+   **Preview URLs (important):** keep these distinct —
+
+   | Variable | Value on DEV | Used for |
+   |----------|--------------|----------|
+   | `NEXTJS_PUBLIC_URL` | `https://gilmoreplace.ebaluk.store` | Browser / Wagtail admin preview links |
+   | `NEXTJS_BASE_URL` | `http://frontend:3000` | Server→Next revalidate only |
+
+   Never set `NEXTJS_PUBLIC_URL` to `http://frontend:3000` — browsers cannot open that host. Ansible does not sync `prod_server.env`; after editing it, recreate backend/frontend:
+
+   ```bash
+   docker compose --env-file prod_server.env up -d --force-recreate backend frontend
+   ```
 
 ## Deploy
 

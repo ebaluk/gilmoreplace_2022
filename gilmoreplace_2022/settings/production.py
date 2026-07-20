@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
-from .base import *
+from .base import *  # noqa: F403
+from .base import _validate_nextjs_urls
 import os
 
 DEBUG = False
@@ -34,9 +35,33 @@ if _csrf_origins:
         origin.strip() for origin in _csrf_origins.split(",") if origin.strip()
     ]
 
-# Host for Next.js frontend (revalidation webhook / public preview URL)
-NEXTJS_BASE_URL = os.environ.get("NEXTJS_BASE_URL", "http://localhost:3000")
-NEXTJS_PUBLIC_URL = os.environ.get("NEXTJS_PUBLIC_URL", NEXTJS_BASE_URL)
+# Internal Docker hostname for server→Next revalidate (not for browsers).
+NEXTJS_BASE_URL = os.environ.get("NEXTJS_BASE_URL", "http://frontend:3000")
+
+
+def _resolve_nextjs_public_url():
+    """
+    Browser-facing origin for Wagtail preview / catch-all redirects.
+
+    Never fall back to NEXTJS_BASE_URL — that is often http://frontend:3000
+    inside Compose and breaks admin preview links in the browser.
+    """
+    explicit = (os.environ.get("NEXTJS_PUBLIC_URL") or "").strip().rstrip("/")
+    if explicit:
+        return explicit
+
+    virtual_host = (os.environ.get("VIRTUAL_HOST") or "").strip().split(",")[0].strip()
+    if virtual_host:
+        return f"https://{virtual_host}"
+
+    csrf = globals().get("CSRF_TRUSTED_ORIGINS") or []
+    if csrf:
+        return str(csrf[0]).rstrip("/")
+
+    return "http://localhost:3000"
+
+
+NEXTJS_PUBLIC_URL = _resolve_nextjs_public_url()
 REVALIDATION_SECRET = os.environ.get("REVALIDATION_SECRET", "change-me-in-production")
 PREVIEW_SECRET = os.environ.get("PREVIEW_SECRET", "") or REVALIDATION_SECRET
 
@@ -48,6 +73,8 @@ WAGTAIL_HEADLESS_PREVIEW = {
     "REDIRECT_ON_PREVIEW": True,
     "ENFORCE_TRAILING_SLASH": False,
 }
+
+_validate_nextjs_urls(NEXTJS_PUBLIC_URL)
 
 REDIS_URL = os.environ.get("REDIS_URL", "")
 if REDIS_URL:
