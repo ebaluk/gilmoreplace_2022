@@ -19,6 +19,8 @@ Run all commands from this directory (`ansible/`).
 
 Workflow: [`.github/workflows/deploy-dev.yml`](../.github/workflows/deploy-dev.yml)
 
+**CI ≠ deploy:** [`ci.yml`](../.github/workflows/ci.yml) only runs tests. This workflow SSHs to DEV and runs Ansible.
+
 Triggers:
 
 - **workflow_dispatch** — choose tags (`dev` / `sync` / `compose` / `bootstrap`)
@@ -26,17 +28,33 @@ Triggers:
 
 Required GitHub configuration:
 
-1. Repository secret **`DEV_SSH_PRIVATE_KEY`** — private key for `appuser@155.212.224.19` (same key as `~/.ssh/id_beget_ebaluksf` locally).
-2. Environment **`dev`** (optional protection rules / reviewers).
+1. Repository secret **`DEV_SSH_PRIVATE_KEY`** — full PEM for `appuser@155.212.224.19` (same key as `~/.ssh/id_beget_ebaluksf` locally). Repository secrets are enough; no need to duplicate under Environment secrets.
+2. Environment **`dev`** — used by the job (optional protection / reviewers).
 
-App secrets stay on the server in **`prod_server.env`** (not synced by rsync; not written by Actions). Do **not** store `.env.production` or `SECRET_KEY` / DB passwords as GitHub Secrets for this workflow — only SSH is needed.
+App secrets stay on the server in **`prod_server.env`** (not synced by rsync; not written by Actions). Do **not** store `.env.production` or `SECRET_KEY` / DB passwords as GitHub Secrets — only SSH is needed.
 
 Compose brings up **`backend-cron`** with the stack (Wagtail `publish_scheduled` every 5 minutes). No host cron install required.
+
+### Diagnosing a failed Actions deploy
+
+| Failed step | Likely cause |
+|-------------|--------------|
+| Configure SSH key / Missing secret | Secret name typo (should be `DEV_SSH_PRIVATE_KEY`) |
+| SSH smoke-test — `Permission denied (publickey)` | Wrong key contents / newlines in the secret |
+| SSH smoke-test — timeout / no route | Firewall: allow SSH from GitHub Actions IPs to `155.212.224.19:22` |
+| Deploy with Ansible (after green smoke-test) | Compose/build on server — check Ansible task output |
+
+Local deploy still works without Actions:
+
+```bash
+cd ansible
+ansible-playbook deploy.yml -e "filevar=dev" --tags=dev
+```
 
 ## Prerequisites
 
 - Ansible 2.14+ on your machine
-- SSH key matching `vars_dev.yml` / `hosts.ini` (`~/.ssh/id_beget_ebaluksf`)
+- SSH key: set `ANSIBLE_PRIVATE_KEY_FILE` or use default `~/.ssh/id_beget_ebaluksf` (see `vars_dev.yml`)
 - Docker + Compose plugin on the remote host
 - External Docker network `nginx-proxy-network` on the server ([`nginxproxy/nginx-proxy`](https://github.com/nginx-proxy/nginx-proxy) + [`nginxproxy/acme-companion`](https://github.com/nginx-proxy/acme-companion) already installed on DEV — see [deploy/README.md](../deploy/README.md#host-ssl-nginx-proxy--acme-companion-already-on-dev))
 - In `prod_server.env`: `VIRTUAL_HOST`, `VIRTUAL_PORT`, `LETSENCRYPT_HOST`, `LETSENCRYPT_EMAIL`

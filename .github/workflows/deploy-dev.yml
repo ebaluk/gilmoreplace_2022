@@ -33,12 +33,17 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Install rsync
+        working-directory: .
+        run: sudo apt-get update -qq && sudo apt-get install -y rsync
+
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
           python-version: "3.12"
 
       - name: Install Ansible
+        working-directory: .
         run: |
           python -m pip install --upgrade pip
           pip install "ansible-core>=2.16,<2.18"
@@ -47,6 +52,7 @@ jobs:
         run: ansible-galaxy collection install -r requirements.yml
 
       - name: Configure SSH key
+        working-directory: .
         env:
           DEV_SSH_PRIVATE_KEY: ${{ secrets.DEV_SSH_PRIVATE_KEY }}
         run: |
@@ -57,17 +63,36 @@ jobs:
           fi
           mkdir -p ~/.ssh
           chmod 700 ~/.ssh
-          printf '%s\n' "$DEV_SSH_PRIVATE_KEY" > ~/.ssh/deploy_key
+          # Strip CR; ensure trailing newline (GitHub secrets sometimes omit it)
+          printf '%s\n' "$DEV_SSH_PRIVATE_KEY" | tr -d '\r' > ~/.ssh/deploy_key
           chmod 600 ~/.ssh/deploy_key
           ssh-keyscan -H 155.212.224.19 >> ~/.ssh/known_hosts
           chmod 644 ~/.ssh/known_hosts
+
+      - name: SSH smoke-test
+        working-directory: .
+        run: |
+          set -euo pipefail
+          ssh -i "$HOME/.ssh/deploy_key" \
+            -o BatchMode=yes \
+            -o IdentitiesOnly=yes \
+            -o ConnectTimeout=15 \
+            -o StrictHostKeyChecking=yes \
+            appuser@155.212.224.19 'echo ok'
 
       - name: Deploy with Ansible
         env:
           ANSIBLE_HOST_KEY_CHECKING: "True"
         run: |
-          TAGS="${{ github.event.inputs.tags || 'dev' }}"
+          set -euo pipefail
+          export ANSIBLE_PRIVATE_KEY_FILE="${HOME}/.ssh/deploy_key"
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            TAGS="${{ inputs.tags }}"
+          else
+            TAGS="dev"
+          fi
           ansible-playbook deploy.yml \
             -e "filevar=dev" \
-            -e "ansible_ssh_private_key_file=$HOME/.ssh/deploy_key" \
+            -e "ansible_user=appuser" \
+            -e "ansible_ssh_private_key_file=${ANSIBLE_PRIVATE_KEY_FILE}" \
             --tags="$TAGS"
