@@ -1,0 +1,104 @@
+name: CI
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+    branches: [main, master]
+
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  backend:
+    name: Backend (Django)
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: .
+
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env:
+          POSTGRES_DB: gilmoreplace_2022
+          POSTGRES_USER: django
+          POSTGRES_PASSWORD: ci
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U django -d gilmoreplace_2022"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 10
+
+    env:
+      DJANGO_SETTINGS_MODULE: gilmoreplace_2022.settings.dev
+      DISABLE_LOCAL_SETTINGS: "1"
+      SECRET_KEY: ci-secret-key-not-for-production
+      DB_NAME: gilmoreplace_2022
+      DB_USER: django
+      DB_PASSWORD: ci
+      DB_HOST: 127.0.0.1
+      DB_PORT: "5432"
+      REVALIDATION_SECRET: ci-revalidation
+      PREVIEW_SECRET: ci-preview
+      NEXTJS_PUBLIC_URL: http://localhost:3000
+      NEXTJS_BASE_URL: http://localhost:3000
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v5
+        with:
+          version: "0.11.26"
+          enable-cache: true
+
+      - name: Set up Python
+        run: uv python install 3.12
+
+      - name: Install dependencies
+        run: uv sync --frozen --no-dev
+
+      - name: Run migrations
+        run: uv run python manage.py migrate --noinput
+
+      - name: Run API tests
+        run: uv run python manage.py test gilmoreplace_2022.api.tests --verbosity=1
+
+  frontend:
+    name: Frontend (Next.js)
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: gilmoreplace-next
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: npm
+          cache-dependency-path: gilmoreplace-next/package-lock.json
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Test
+        run: npm run test
+
+      - name: Build
+        run: npm run build
+        env:
+          WAGTAIL_API_URL: http://localhost:8000/api/v2
+          REVALIDATION_SECRET: ci-revalidation
+          PREVIEW_SECRET: ci-preview

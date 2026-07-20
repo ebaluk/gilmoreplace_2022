@@ -15,6 +15,22 @@ Run all commands from this directory (`ansible/`).
 | `requirements.yml` | Galaxy collections (`community.docker`) |
 | `logs/` | Ansible run log (gitignored except `.gitkeep`) |
 
+## GitHub Actions deploy
+
+Workflow: [`.github/workflows/deploy-dev.yml`](../.github/workflows/deploy-dev.yml)
+
+Triggers:
+
+- **workflow_dispatch** — choose tags (`dev` / `sync` / `compose` / `bootstrap`)
+- **push** to `main` / `master` — full `--tags=dev`
+
+Required GitHub configuration:
+
+1. Repository secret **`DEV_SSH_PRIVATE_KEY`** — private key for `appuser@155.212.224.19` (same key as `~/.ssh/id_beget_ebaluksf` locally).
+2. Environment **`dev`** (optional protection rules / reviewers).
+
+`prod_server.env` is **not** synced; keep secrets on the server as today.
+
 ## Prerequisites
 
 - Ansible 2.14+ on your machine
