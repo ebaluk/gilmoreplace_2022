@@ -13,7 +13,7 @@ GitHub Actions ([`.github/workflows/ci.yml`](../.github/workflows/ci.yml) — **
 
 ## Server deploy (DEV: gilmoreplace.ebaluk.store)
 
-The DEV server (`155.212.224.19`, user `appuser`) uses:
+The DEV server (`159.194.210.95`, user `root`) uses:
 
 - **`docker-compose.yaml`** at repo root
 - **`prod_server.env`** — secrets and nginx-proxy vars (not in git; copy manually)
@@ -59,7 +59,7 @@ Do **not** use `deploy/compose/prod.ssl.yml` on this VM (built-in certbot overla
    ```
 2. Copy env with secrets (rsync/Ansible **do not** sync `prod_server.env`):
    ```bash
-   scp -i ~/.ssh/id_beget_ebaluksf prod_server.env appuser@155.212.224.19:/home/appuser/gilmoreplace_2022/
+   scp -i ~/.ssh/id_beget_ebaluksf prod_server.env root@159.194.210.95:/root/gilmoreplace_2022/
    ```
    Or bootstrap placeholder from example (then edit secrets on server):
    ```bash

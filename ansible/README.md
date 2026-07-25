@@ -28,7 +28,7 @@ Manual run: Actions → **CI / CD** → Run workflow → choose Ansible tags (`d
 
 Required GitHub configuration:
 
-1. Repository secret **`DEV_SSH_PRIVATE_KEY`** — full PEM for `appuser@155.212.224.19` (same key as `~/.ssh/id_beget_ebaluksf` locally). Repository secrets are enough; no need to duplicate under Environment secrets.
+1. Repository secret **`DEV_SSH_PRIVATE_KEY`** — full PEM for `root@159.194.210.95` (same key as `~/.ssh/id_beget_ebaluksf` locally). Repository secrets are enough; no need to duplicate under Environment secrets.
 2. Environment **`dev`** — used by the deploy job (optional protection / reviewers).
 
 App secrets stay on the server in **`prod_server.env`** (not synced by rsync; not written by Actions). Do **not** store `.env.production` or `SECRET_KEY` / DB passwords as GitHub Secrets — only SSH is needed.
@@ -41,7 +41,7 @@ Compose brings up **`backend-cron`** with the stack (Wagtail `publish_scheduled`
 |-------------|--------------|
 | Configure SSH key / Missing secret | Secret name typo (should be `DEV_SSH_PRIVATE_KEY`) |
 | SSH smoke-test — `Permission denied (publickey)` | Wrong key contents / newlines in the secret |
-| SSH smoke-test — timeout / no route | Firewall: allow SSH from GitHub Actions IPs to `155.212.224.19:22` |
+| SSH smoke-test — timeout / no route | Firewall: allow SSH from GitHub Actions IPs to `159.194.210.95:22` |
 | Deploy with Ansible (after green smoke-test) | Compose/build on server — check Ansible task output |
 | `couldn't resolve module ... synchronize` | Collections not installed — workflow runs `ansible-galaxy collection install -r requirements.yml` (`ansible.posix`) |
 
@@ -68,13 +68,13 @@ ansible-galaxy collection install -r requirements.yml
 
 ## First-time server setup
 
-1. Ensure the remote path exists (`deploy_dest` in `vars_dev.yml`, default `/home/appuser/gilmoreplace_2022`).
+1. Ensure the remote path exists (`deploy_dest` in `vars_dev.yml`, default `/root/gilmoreplace_2022`).
 2. Create secrets file on the server (rsync **never** copies it):
 
    ```bash
    # Option A: copy a filled env from your machine
    scp -i ~/.ssh/id_beget_ebaluksf ../prod_server.env \
-     appuser@155.212.224.19:/home/appuser/gilmoreplace_2022/
+     root@159.194.210.95:/root/gilmoreplace_2022/
 
    # Option B: bootstrap empty file from example, then edit on server
    ansible-playbook deploy.yml -e "filevar=dev" --tags=bootstrap
