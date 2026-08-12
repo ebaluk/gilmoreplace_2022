@@ -21,13 +21,16 @@ RUN uv sync --frozen --no-dev
 
 COPY . .
 
-RUN mkdir -p /app/log /app/media_files /app/static
+RUN mkdir -p /app/log /app/media_files /app/static \
+    && useradd --create-home --uid 10001 --shell /usr/sbin/nologin app \
+    && chown -R app:app /app
 
 EXPOSE 8000
 
 COPY entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
 
+# Entrypoint runs as root for migrate/chown/collectstatic, then drops to `app`.
 ENTRYPOINT ["/entrypoint.sh"]
 CMD ["gunicorn", "gilmoreplace_2022.wsgi:application", \
      "--bind", "0.0.0.0:8000", \

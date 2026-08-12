@@ -6,6 +6,8 @@ Most GETs accept ``locale`` (default ``en-us``) to select a ``LanguageRootPage``
 
 from django.conf import settings
 from django.http import Http404
+from django.utils.decorators import method_decorator
+from django.views.decorators.csrf import csrf_exempt
 
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -56,10 +58,11 @@ class PageDetailView(APIView):
     permission_classes = [AllowAny]
 
     def get(self, request, page_id=None):
-        """Resolve page by id or by slug+locale, then serialize."""
+        """Resolve live page by id or by slug+locale, then serialize."""
+        live_pages = Page.objects.live()
         if page_id:
             try:
-                page = Page.objects.get(id=page_id)
+                page = live_pages.get(id=page_id)
             except Page.DoesNotExist:
                 raise Http404
         else:
@@ -67,7 +70,7 @@ class PageDetailView(APIView):
             locale = request.query_params.get("locale", "en-us")
             from wthomepage.models import LanguageRootPage
             try:
-                root = LanguageRootPage.objects.get(language_code=locale)
+                root = LanguageRootPage.objects.live().get(language_code=locale)
             except LanguageRootPage.DoesNotExist:
                 raise Http404
             if not slug:
@@ -76,9 +79,9 @@ class PageDetailView(APIView):
                 try:
                     if '/' in slug:
                         url_path = root.url_path.rstrip('/') + '/' + slug + '/'
-                        page = Page.objects.get(url_path=url_path)
+                        page = live_pages.get(url_path=url_path)
                     else:
-                        page = Page.objects.get(slug=slug, path__startswith=root.path)
+                        page = live_pages.get(slug=slug, path__startswith=root.path)
                 except Page.DoesNotExist:
                     raise Http404
 
@@ -342,7 +345,7 @@ class PagePreviewView(PageDetailView):
 
     GET /api/v2/headless/pages/preview/?content_type=<app.model>&token=<token>
 
-    Requires header ``X-Preview-Secret`` (or ``?secret=``) matching ``PREVIEW_SECRET``.
+    Requires header ``X-Preview-Secret`` matching ``PREVIEW_SECRET``.
     """
 
     def get(self, request, page_id=None):
@@ -353,11 +356,7 @@ class PagePreviewView(PageDetailView):
         from wtpages.headless import NextHeadlessPreviewMixin
 
         expected = getattr(settings, "PREVIEW_SECRET", "") or ""
-        provided = (
-            request.headers.get("X-Preview-Secret")
-            or request.query_params.get("secret")
-            or ""
-        )
+        provided = request.headers.get("X-Preview-Secret") or ""
         if not expected or provided != expected:
             raise Http404
 
@@ -775,6 +774,7 @@ class FormDetailView(APIView):
         return Response(dump_model(FormDetailResponse, form_data))
 
 
+@method_decorator(csrf_exempt, name="dispatch")
 class FormSubmitView(APIView):
     """
     Accept multipart form POST, validate, store submission, optional thank-you URL.
@@ -889,6 +889,7 @@ class PromoBoxView(APIView):
         return Response({"promo_box": get_promo_box_for_page(page)})
 
 
+@method_decorator(csrf_exempt, name="dispatch")
 class RebuildWebhookView(APIView):
     """
     Ack webhook for CMS publish → Next.js ISR revalidation (secret-gated).
@@ -904,6 +905,7 @@ class RebuildWebhookView(APIView):
     """
 
     permission_classes = [AllowAny]
+    authentication_classes = []
 
     def post(self, request):
         """Validate secret and acknowledge revalidation request."""

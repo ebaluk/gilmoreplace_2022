@@ -6,7 +6,7 @@ import { type WagtailPage } from "@/types/page";
 import { type NavItem, type SettingsResponse } from "@/lib/api/client";
 import { Header } from "@/components/layout/Header";
 import { Hero } from "@/components/layout/Hero";
-import { MetaTags } from "@/components/seo/MetaTags";
+import { PageJsonLd } from "@/components/seo/MetaTags";
 import { StreamFieldRenderer } from "@/components/StreamFieldRenderer";
 import { SiteMenu } from "@/components/layout/SiteMenu";
 import { SiteInteractions } from "@/components/layout/SiteInteractions";
@@ -60,12 +60,10 @@ export function PageRenderer({
   <PromoBoxProvider autoShow={Boolean(pagePromo) && isHomePage(page)}>
     <SiteInteractions />
     <PageBodyClasses className={bodyClassName} />
-
-    <MetaTags
+    <PageJsonLd
       meta={page.meta}
       url={page.url}
       ogImage={page.meta?.og_image}
-      fbAppId={page.meta?.fb_app_id}
     />
 
     <div id="app" className={appClassName}>

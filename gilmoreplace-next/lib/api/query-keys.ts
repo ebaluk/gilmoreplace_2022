@@ -11,6 +11,4 @@ export const queryKeys = {
   navigation: (locale: string) => ["navigation", locale] as const,
   settings: (locale: string) => ["settings", locale] as const,
   form: (formId: number) => ["form", formId] as const,
-  themes: () => ["themes"] as const,
-  towerData: () => ["towerData"] as const,
 };

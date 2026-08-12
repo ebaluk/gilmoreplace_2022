@@ -49,22 +49,21 @@ Supported locales (keep in sync across backend and frontend):
 **When adding or changing a locale**, update all of:
 
 - `gilmoreplace_2022/settings/base.py` — `LANGUAGES`, `LANGUAGES_TRANSLATIONS`
-- `gilmoreplace-next/lib/i18n/config.ts` — `locales`, `localeLabels`
+- `gilmoreplace-next/lib/i18n/config.ts` — `locales`, `localeLabels`, `isLocale`, `apiLocaleFromRoute`
 - `gilmoreplace-next/lib/urls.ts` — `WAGTAIL_PREFIX_TO_LOCALE`
-- `gilmoreplace-next/lib/api/client.ts` — `LOCALE_MAP`
 - `gilmoreplace-next/next.config.js` — redirects for legacy Wagtail prefixes (if any)
 - `wthomepage` migration for `LanguageRootPage.language_code` choices (when adding a new language)
 
-Wagtail content is localized via `LanguageRootPage` instances (one per language). The Next.js app maps Wagtail URL prefixes to Next locale segments via `wagtailUrlToNextPath()`.
+Wagtail content is localized via `LanguageRootPage` instances (one per language). The Next.js app maps Wagtail URL prefixes to Next locale segments via `wagtailUrlToNextPath()`. API locale codes are derived with `apiLocaleFromRoute()` (not a separate `LOCALE_MAP` in `client.ts`).
 
 Tower/penthouse type titles only have Chinese overrides (`title_zh_hans`, `title_zh_hant`); other locales fall back to the English `title`.
 
 ## Data fetching (TanStack Query)
 
-- **Transport layer**: [`gilmoreplace-next/lib/api/client.ts`](gilmoreplace-next/lib/api/client.ts) — raw `fetch` functions and types.
+- **Transport layer**: [`gilmoreplace-next/lib/api/client.ts`](gilmoreplace-next/lib/api/client.ts) — raw `fetch` functions, `ApiError`, and types.
 - **Query keys**: [`gilmoreplace-next/lib/api/query-keys.ts`](gilmoreplace-next/lib/api/query-keys.ts)
 - **Query options**: [`gilmoreplace-next/lib/api/queries.ts`](gilmoreplace-next/lib/api/queries.ts) — use `queryOptions()` factories; `staleTime: 60_000` matches ISR.
-- **SSR pattern**: Server page calls `prefetchPageData()` → `dehydrate()` → `HydrationBoundary` → client `PageContent` uses `useQuery` with the same options.
+- **SSR pattern**: Server page calls `prefetchPageData()` → `dehydrate()` → `HydrationBoundary` → server `PageRenderer` (SEO/`generateMetadata`) with client islands; soft-nav may still use `PageContent` + `useQuery`.
 - **Client mutations**: form submit via `useMutation` in `FormBlock`; see [`lib/api/form-submit.ts`](gilmoreplace-next/lib/api/form-submit.ts).
 - **Tests**: wrap client components with `renderWithQuery()` from [`lib/test-utils.tsx`](gilmoreplace-next/lib/test-utils.tsx).
 

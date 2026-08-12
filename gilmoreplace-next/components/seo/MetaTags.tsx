@@ -1,61 +1,82 @@
 /**
- * SEO MetaTags from page.meta / settings.
+ * SEO helpers for App Router `generateMetadata` + optional JSON-LD in the page body.
  */
 
-import Head from "next/head";
+import type { Metadata } from "next";
 import { type PageMeta, type ImageData } from "@/types/page";
 
-interface MetaTagsProps {
+function absoluteImageUrl(ogImage?: ImageData | null): string | undefined {
+  if (!ogImage?.url) return undefined;
+  if (ogImage.url.startsWith("http")) return ogImage.url;
+  const origin =
+    process.env.NEXT_PUBLIC_API_URL ||
+    process.env.WAGTAIL_API_URL?.replace(/\/api\/v2\/?$/, "") ||
+    "";
+  return `${origin.replace(/\/$/, "")}${ogImage.url}`;
+}
+
+/** Build Next.js Metadata from Wagtail page.meta. */
+export function buildPageMetadata(opts: {
   meta?: PageMeta | null;
   url: string;
   ogImage?: ImageData | null;
   fbAppId?: string | null;
+}): Metadata {
+  const siteName = opts.meta?.site_name || "Gilmore Place";
+  const title = opts.meta?.title || siteName;
+  const description = opts.meta?.description || "";
+  const keywords = opts.meta?.keywords || "";
+  const imageUrl = absoluteImageUrl(opts.ogImage ?? opts.meta?.og_image);
+
+  return {
+    title,
+    description: description || undefined,
+    keywords: keywords || undefined,
+    openGraph: {
+      title,
+      description: description || undefined,
+      url: opts.url,
+      siteName,
+      images: imageUrl ? [{ url: imageUrl }] : undefined,
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description: description || undefined,
+      images: imageUrl ? [imageUrl] : undefined,
+    },
+    other: opts.fbAppId ? { "fb:app_id": opts.fbAppId } : undefined,
+  };
 }
 
-/** Emit title/description/OG tags for the current page. */
-export function MetaTags({ meta, url, ogImage, fbAppId }: MetaTagsProps) {
+/** JSON-LD WebPage snippet for the document body. */
+export function PageJsonLd({
+  meta,
+  url,
+  ogImage,
+}: {
+  meta?: PageMeta | null;
+  url: string;
+  ogImage?: ImageData | null;
+}) {
   const siteName = meta?.site_name || "Gilmore Place";
   const title = meta?.title || siteName;
   const description = meta?.description || "";
-  const keywords = meta?.keywords || "";
-
-  const imageUrl = ogImage?.url
-    ? ogImage.url.startsWith("http")
-      ? ogImage.url
-      : `${process.env.WAGTAIL_API_URL?.replace("/api/v2", "") || ""}${ogImage.url}`
-    : undefined;
+  const imageUrl = absoluteImageUrl(ogImage ?? meta?.og_image);
 
   return (
-    <Head>
-      <title>{title}</title>
-      {description && <meta name="description" content={description} />}
-      {keywords && <meta name="keywords" content={keywords} />}
-
-      <meta property="og:title" content={title} />
-      {description && <meta property="og:description" content={description} />}
-      <meta property="og:url" content={url} />
-      <meta property="og:site_name" content={siteName} />
-      {imageUrl && <meta property="og:image" content={imageUrl} />}
-      {fbAppId && <meta property="fb:app_id" content={fbAppId} />}
-
-      <meta name="twitter:card" content="summary_large_image" />
-      <meta name="twitter:title" content={title} />
-      {description && <meta name="twitter:description" content={description} />}
-      {imageUrl && <meta name="twitter:image" content={imageUrl} />}
-
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "WebPage",
-            name: title,
-            description,
-            url,
-            ...(imageUrl ? { image: imageUrl } : {}),
-          }),
-        }}
-      />
-    </Head>
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{
+        __html: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "WebPage",
+          name: title,
+          description,
+          url,
+          ...(imageUrl ? { image: imageUrl } : {}),
+        }),
+      }}
+    />
   );
 }

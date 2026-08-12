@@ -2,10 +2,13 @@
 
 /**
  * Client page shell: useQuery page/settings/nav and render PageRenderer or 404.
+ * Prefer server-rendered PageRenderer from App Router pages when data is prefetched;
+ * this shell supports client soft-nav / refetch after hydration.
  */
 import { useQuery } from "@tanstack/react-query";
 import { notFound } from "next/navigation";
 import { PageRenderer } from "@/components/PageRenderer";
+import { ApiError } from "@/lib/api/client";
 import {
   navigationQuery,
   pageBySlugQuery,
@@ -17,15 +20,17 @@ interface PageContentProps {
   slug: string;
 }
 
+function isNotFoundError(error: unknown): boolean {
+  return error instanceof ApiError && error.isNotFound;
+}
+
 /** Fetches page by locale+slug and renders the marketing page. */
 export function PageContent({ locale, slug }: PageContentProps) {
   const pageQuery = useQuery(pageBySlugQuery(locale, slug));
   const navQuery = useQuery(navigationQuery(locale));
   const settingsQueryResult = useQuery(settingsQuery(locale));
 
-  const isNotFound = pageQuery.isError && pageQuery.error?.message?.includes("404");
-
-  if (isNotFound) {
+  if (isNotFoundError(pageQuery.error)) {
     notFound();
   }
 

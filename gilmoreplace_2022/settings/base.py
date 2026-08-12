@@ -77,10 +77,7 @@ MIDDLEWARE = (
     'corsheaders.middleware.CorsMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
-
-    # 'django.middleware.csrf.CsrfViewMiddleware',
-    'wtforms.models.DisableCSRF',
-
+    'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
@@ -260,23 +257,23 @@ CORS_ALLOW_CREDENTIALS = True
 
 
 
-SOC_TW_CONSUMER_KEY = os.environ.get('SOC_TW_CONSUMER_KEY', '0hnCvg3OiWXhcOSPVA2w3w')
-SOC_TW_CONSUMER_SECRET = os.environ.get('SOC_TW_CONSUMER_SECRET', 'fa4T3DtK70yx5kGd3wNIG4djQP0z3UbieGQq7f83Sc')
-SOC_TW_USER_TOKEN = os.environ.get('SOC_TW_USER_TOKEN', '976477442-CyPrigfUPlJo92awxeghit3UlTDlSLeS9UcVmnGr')
-SOC_TW_USER_SECRET = os.environ.get('SOC_TW_USER_SECRET', 'PlDV5gvY01BlI1BnuJC8iAdztJdXNwxE51lLs2y44')
+SOC_TW_CONSUMER_KEY = os.environ.get('SOC_TW_CONSUMER_KEY', '')
+SOC_TW_CONSUMER_SECRET = os.environ.get('SOC_TW_CONSUMER_SECRET', '')
+SOC_TW_USER_TOKEN = os.environ.get('SOC_TW_USER_TOKEN', '')
+SOC_TW_USER_SECRET = os.environ.get('SOC_TW_USER_SECRET', '')
 
-SOC_IN_ACCESS_TOKEN = os.environ.get('SOC_IN_ACCESS_TOKEN', '294023234.ab103e5.b74cadadb1554917a679de870fdf1f44')
+SOC_IN_ACCESS_TOKEN = os.environ.get('SOC_IN_ACCESS_TOKEN', '')
 
-SOC_FB_APP_ID = os.environ.get('SOC_FB_APP_ID', "158866010930199")
-SOC_FB_APP_SECRET = os.environ.get('SOC_FB_APP_SECRET', '0f4f51403cd6cbdcae2590c36059267c')
+SOC_FB_APP_ID = os.environ.get('SOC_FB_APP_ID', '')
+SOC_FB_APP_SECRET = os.environ.get('SOC_FB_APP_SECRET', '')
 
 MAIN_MENU_TYPE = 'logo-left'
 MAIN_MENU_AFFIX = True
 
-RECAPTCHA_SITEKEY = os.environ.get('RECAPTCHA_SITEKEY', '6LcTW10UAAAAAODX0vJJkPy7ijRn3LqkE0rvo1FI')
-RECAPTCHA_SECRET = os.environ.get('RECAPTCHA_SECRET', '6LcTW10UAAAAACXRP1P0FdOZrDMCevNdF6hlyjCd')
+RECAPTCHA_SITEKEY = os.environ.get('RECAPTCHA_SITEKEY', '')
+RECAPTCHA_SECRET = os.environ.get('RECAPTCHA_SECRET', '')
 
-GOOGLE_MAP_API_KEY = os.environ.get('GOOGLE_MAP_API_KEY', 'AIzaSyBT3agucwzH4RQvZ0QQEOCzY44P4t9uAFM')
+GOOGLE_MAP_API_KEY = os.environ.get('GOOGLE_MAP_API_KEY', '')
 
 
 # WAGTAILIMAGES_IMAGE_MODEL = 'images.CustomImage'

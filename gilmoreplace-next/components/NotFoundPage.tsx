@@ -10,7 +10,7 @@ import { Hero } from "@/components/layout/Hero";
 import { SiteInteractions } from "@/components/layout/SiteInteractions";
 import { PageBodyClasses } from "@/components/layout/PageBodyClasses";
 import { SiteMenu } from "@/components/layout/SiteMenu";
-import { MetaTags } from "@/components/seo/MetaTags";
+import { PageJsonLd } from "@/components/seo/MetaTags";
 import {
   type NavItem,
   type RootPageSettings,
@@ -114,7 +114,7 @@ function NotFoundPageShell({ locale, nav, settings }: NotFoundPageShellProps) {
       <SiteInteractions />
       <PageBodyClasses className="color-theme-default" />
 
-      <MetaTags
+      <PageJsonLd
         meta={{
           site_name: settings.page_meta.site_name,
           title: rootPage?.page_404_title || "Page Not Found",
@@ -125,7 +125,6 @@ function NotFoundPageShell({ locale, nav, settings }: NotFoundPageShellProps) {
         }}
         url={stubPage.url}
         ogImage={rootPage?.page_404_image ?? settings.page_meta.default_image}
-        fbAppId={settings.page_meta.fb_app_id}
       />
 
       <div id="app" className="page-404 color-theme-default">

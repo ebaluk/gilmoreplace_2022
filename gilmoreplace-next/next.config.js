@@ -3,7 +3,12 @@
 const apiUrl = process.env.WAGTAIL_API_URL || "http://localhost:8000/api/v2";
 // Derive base URL by stripping /api/v2 suffix
 const apiBase = apiUrl.replace(/\/api\/v2\/?$/, "");
-const apiHost = new URL(apiBase).hostname;
+let apiHost = "localhost";
+try {
+  apiHost = new URL(apiBase).hostname;
+} catch {
+  // keep localhost
+}
 
 const nextConfig = {
   output: "standalone",
@@ -12,17 +17,18 @@ const nextConfig = {
       {
         protocol: "http",
         hostname: apiHost,
-        port: "8000",
+        pathname: "/media_files/**",
+      },
+      {
+        protocol: "https",
+        hostname: apiHost,
         pathname: "/media_files/**",
       },
     ],
   },
-  env: {
-    WAGTAIL_API_URL: apiUrl,
-    REVALIDATION_SECRET: process.env.REVALIDATION_SECRET || "change-me-in-production",
-    NEXT_PUBLIC_GOOGLE_MAPS_KEY: process.env.NEXT_PUBLIC_GOOGLE_MAPS_KEY || "AIzaSyBT3agucwzH4RQvZ0QQEOCzY44P4t9uAFM",
-    NEXT_PUBLIC_RECAPTCHA_SITE_KEY: process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY || "6LcTW10UAAAAAODX0vJJkPy7ijRn3LqkE0rvo1FI",
-  },
+  // Do NOT put secrets in `env` — that inlines them into the client bundle.
+  // Server code reads process.env.REVALIDATION_SECRET / PREVIEW_SECRET / WAGTAIL_API_URL at runtime.
+  // Browser-only values must use NEXT_PUBLIC_* (set in the environment, not hardcoded here).
   async redirects() {
     return [
       { source: "/en-us", destination: "/en", permanent: true },

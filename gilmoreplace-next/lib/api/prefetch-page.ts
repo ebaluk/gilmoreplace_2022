@@ -3,6 +3,7 @@
  */
 
 import type { QueryClient } from "@tanstack/react-query";
+import { ApiError } from "@/lib/api/client";
 import {
   navigationQuery,
   pageBySlugQuery,
@@ -22,7 +23,7 @@ export async function prefetchNotFoundData(
 
 /**
  * Prefetch navigation, settings, and page-by-slug for a locale/slug.
- * @returns `{ found: false }` when the page fetch fails (404 path).
+ * @returns `{ found: false }` when the page fetch fails with HTTP 404.
  */
 export async function prefetchPageData(
   queryClient: QueryClient,
@@ -34,7 +35,10 @@ export async function prefetchPageData(
   try {
     await queryClient.fetchQuery(pageBySlugQuery(locale, slug));
     return { found: true };
-  } catch {
-    return { found: false };
+  } catch (err) {
+    if (err instanceof ApiError && err.isNotFound) {
+      return { found: false };
+    }
+    throw err;
   }
 }

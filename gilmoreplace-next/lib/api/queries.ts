@@ -6,13 +6,10 @@
 
 import { queryOptions } from "@tanstack/react-query";
 import {
-  getAllPages,
   getForm,
   getNavigation,
   getPageBySlug,
   getSettings,
-  getThemes,
-  getTowerData,
 } from "@/lib/api/client";
 import { queryKeys } from "@/lib/api/query-keys";
 
@@ -45,15 +42,6 @@ export function settingsQuery(locale: string) {
   });
 }
 
-/** Full page list under a language root. */
-export function allPagesQuery(locale: string) {
-  return queryOptions({
-    queryKey: queryKeys.pages.all(locale),
-    queryFn: () => getAllPages(locale),
-    staleTime: STALE_TIME_MS,
-  });
-}
-
 /** WtForm schema; disabled when `formId <= 0`. */
 export function formQuery(formId: number) {
   return queryOptions({
@@ -61,23 +49,5 @@ export function formQuery(formId: number) {
     queryFn: () => getForm(formId),
     staleTime: STALE_TIME_MS,
     enabled: formId > 0,
-  });
-}
-
-/** CMS CSS themes. */
-export function themesQuery() {
-  return queryOptions({
-    queryKey: queryKeys.themes(),
-    queryFn: () => getThemes(),
-    staleTime: STALE_TIME_MS,
-  });
-}
-
-/** Tower bedroom/penthouse types and shared blocks. */
-export function towerDataQuery() {
-  return queryOptions({
-    queryKey: queryKeys.towerData(),
-    queryFn: () => getTowerData(),
-    staleTime: STALE_TIME_MS,
   });
 }

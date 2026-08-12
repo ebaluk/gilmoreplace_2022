@@ -28,19 +28,43 @@ export function normalizeLocale(locale: string): string {
 /**
  * GET JSON from the headless API (ISR `revalidate: 60` for Next fetch cache).
  * Pass `{ cache: "no-store" }` for draft preview (no ISR).
- * @throws Error when the response is not OK
+ * @throws {ApiError} when the response is not OK
  */
-async function fetchAPI<T>(path: string, options?: RequestInit): Promise<T> {
+export class ApiError extends Error {
+  constructor(
+    public status: number,
+    message: string,
+    public url?: string,
+  ) {
+    super(message);
+    this.name = "ApiError";
+  }
+
+  get isNotFound(): boolean {
+    return this.status === 404;
+  }
+}
+
+async function fetchAPI<T>(
+  path: string,
+  options?: RequestInit & { nextTags?: string[] },
+): Promise<T> {
   const url = `${resolveApiUrl()}${path}`;
   const cache = options?.cache;
+  const nextTags = options?.nextTags ?? ["pages"];
+  const { nextTags: _drop, ...fetchOptions } = options ?? {};
   const res = await fetch(url, {
-    ...options,
+    ...fetchOptions,
     ...(cache === "no-store"
       ? { cache: "no-store" }
-      : { next: { revalidate: 60 } }),
+      : { next: { revalidate: 60, tags: nextTags } }),
   });
   if (!res.ok) {
-    throw new Error(`API error: ${res.status} ${res.statusText} for ${url}`);
+    throw new ApiError(
+      res.status,
+      `API error: ${res.status} ${res.statusText} for ${url}`,
+      url,
+    );
   }
   return res.json();
 }
@@ -129,29 +153,6 @@ export interface ThemesResponse {
   themes: (import("@/types/page").CssTheme & { rendered_css?: string })[];
 }
 
-/** Response of `GET /headless/towers/`. */
-export interface TowerDataResponse {
-  bedroom_types: {
-    id: number;
-    title: string;
-    title_zh_hans: string;
-    title_zh_hant: string;
-    sort_order: number;
-  }[];
-  penthouse_types: {
-    id: number;
-    title: string;
-    title_zh_hans: string;
-    title_zh_hant: string;
-    sort_order: number;
-  }[];
-  shared_blocks: {
-    id: number;
-    title: string;
-    stream_field: import("@/types/page").StreamFieldBlock[];
-  }[];
-}
-
 /**
  * Fetch a page by Wagtail slug for the given Next.js locale segment.
  * GET /headless/pages/by-slug/?slug=&locale=
@@ -160,7 +161,17 @@ export function getPageBySlug(
   slug: string,
   locale: string
 ): Promise<import("@/types/page").WagtailPage> {
-  return fetchAPI(`/headless/pages/by-slug/?slug=${encodeURIComponent(slug)}&locale=${normalizeLocale(locale)}`);
+  const apiLocale = normalizeLocale(locale);
+  return fetchAPI(
+    `/headless/pages/by-slug/?slug=${encodeURIComponent(slug)}&locale=${apiLocale}`,
+    {
+      nextTags: [
+        "pages",
+        `locale-${locale}`,
+        `slug-${slug || "home"}`,
+      ],
+    },
+  );
 }
 
 /**
@@ -173,49 +184,47 @@ export function getPagePreview(
   token: string
 ): Promise<import("@/types/page").WagtailPage> {
   const qs = new URLSearchParams({ content_type: contentType, token });
-  const secret =
-    process.env.PREVIEW_SECRET || process.env.REVALIDATION_SECRET || "";
+  const secret = process.env.PREVIEW_SECRET || "";
+  if (!secret && typeof window === "undefined") {
+    throw new ApiError(500, "PREVIEW_SECRET is not configured");
+  }
   return fetchAPI(`/headless/pages/preview/?${qs.toString()}`, {
     cache: "no-store",
     headers: secret ? { "X-Preview-Secret": secret } : {},
   });
 }
 
-/** Fetch a page by numeric Wagtail id. GET /headless/pages/<id>/ */
-export function getPageById(
-  id: number
-): Promise<import("@/types/page").WagtailPage> {
-  return fetchAPI(`/headless/pages/${id}/`);
-}
-
 /** List live pages under a language root. GET /headless/pages/?locale= */
 export function getAllPages(locale: string): Promise<PageListResponse> {
-  return fetchAPI(`/headless/pages/?locale=${normalizeLocale(locale)}`);
+  return fetchAPI(`/headless/pages/?locale=${normalizeLocale(locale)}`, {
+    nextTags: ["pages", `locale-${locale}`],
+  });
 }
 
 /** Menu tree for a locale. GET /headless/navigation/?locale= */
 export function getNavigation(locale: string): Promise<NavigationResponse> {
-  return fetchAPI(`/headless/navigation/?locale=${normalizeLocale(locale)}`);
+  return fetchAPI(`/headless/navigation/?locale=${normalizeLocale(locale)}`, {
+    nextTags: ["pages", `locale-${locale}`, "navigation"],
+  });
 }
 
 /** Site + language-root settings. GET /headless/settings/?locale= */
 export function getSettings(locale: string): Promise<SettingsResponse> {
-  return fetchAPI(`/headless/settings/?locale=${normalizeLocale(locale)}`);
+  return fetchAPI(`/headless/settings/?locale=${normalizeLocale(locale)}`, {
+    nextTags: ["pages", `locale-${locale}`, "settings"],
+  });
 }
 
 /** All CSS themes. GET /headless/themes/ */
 export function getThemes(): Promise<ThemesResponse> {
-  return fetchAPI("/headless/themes/");
-}
-
-/** Bedroom/penthouse types and shared blocks. GET /headless/towers/ */
-export function getTowerData(): Promise<TowerDataResponse> {
-  return fetchAPI("/headless/towers/");
+  return fetchAPI("/headless/themes/", { nextTags: ["pages", "themes"] });
 }
 
 /** Form schema for a WtForm id. GET /headless/forms/<id>/ */
 export function getForm(formId: number): Promise<FormResponse> {
-  return fetchAPI(`/headless/forms/${formId}/`);
+  return fetchAPI(`/headless/forms/${formId}/`, {
+    nextTags: ["pages", `form-${formId}`],
+  });
 }
 
 /** WtForm detail payload including fields and reCAPTCHA. */

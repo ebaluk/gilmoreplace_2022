@@ -5,9 +5,18 @@ import os
 
 DEBUG = False
 TEMPLATES[0]['OPTIONS']['debug'] = False
-ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS", "*").split(",")
 
-SECRET_KEY = os.environ.get("SECRET_KEY", "change-me-in-production")
+_allowed = os.environ.get("ALLOWED_HOSTS", "").strip()
+if not _allowed or _allowed == "*":
+    raise ValueError(
+        "ALLOWED_HOSTS must be set to an explicit comma-separated list "
+        "(do not use '*' in production)."
+    )
+ALLOWED_HOSTS = [h.strip() for h in _allowed.split(",") if h.strip()]
+
+SECRET_KEY = os.environ.get("SECRET_KEY", "").strip()
+if not SECRET_KEY or SECRET_KEY in ("change-me-in-production", "change-me"):
+    raise ValueError("SECRET_KEY must be set to a strong random value in production.")
 
 DATABASES = {
     "default": {
@@ -29,6 +38,14 @@ CORS_ALLOWED_ORIGINS = (
 # Behind nginx-proxy (HTTPS termination on host)
 SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
 USE_X_FORWARDED_HOST = True
+# HTTPS is terminated at host nginx-proxy; containers talk HTTP internally.
+SECURE_SSL_REDIRECT = os.environ.get("SECURE_SSL_REDIRECT", "0") in ("1", "true", "True")
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
+SECURE_HSTS_SECONDS = int(os.environ.get("SECURE_HSTS_SECONDS", "31536000"))
+SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+SECURE_HSTS_PRELOAD = True
+
 _csrf_origins = os.environ.get("CSRF_TRUSTED_ORIGINS", "")
 if _csrf_origins:
     CSRF_TRUSTED_ORIGINS = [
@@ -58,12 +75,31 @@ def _resolve_nextjs_public_url():
     if csrf:
         return str(csrf[0]).rstrip("/")
 
-    return "http://localhost:3000"
+    raise ValueError(
+        "NEXTJS_PUBLIC_URL (or VIRTUAL_HOST / CSRF_TRUSTED_ORIGINS) must be set "
+        "for production preview and redirects."
+    )
 
 
 NEXTJS_PUBLIC_URL = _resolve_nextjs_public_url()
-REVALIDATION_SECRET = os.environ.get("REVALIDATION_SECRET", "change-me-in-production")
-PREVIEW_SECRET = os.environ.get("PREVIEW_SECRET", "") or REVALIDATION_SECRET
+REVALIDATION_SECRET = os.environ.get("REVALIDATION_SECRET", "").strip()
+_weak_secrets = (
+    "change-me-in-production",
+    "change-me",
+    "replace-with-long-random",
+    "replace-with-other-long-random",
+)
+if not REVALIDATION_SECRET or REVALIDATION_SECRET in _weak_secrets:
+    raise ValueError("REVALIDATION_SECRET must be set to a strong random value in production.")
+
+PREVIEW_SECRET = os.environ.get("PREVIEW_SECRET", "").strip()
+if not PREVIEW_SECRET or PREVIEW_SECRET in _weak_secrets or PREVIEW_SECRET == "change-me-preview":
+    raise ValueError(
+        "PREVIEW_SECRET must be set to a strong random value in production "
+        "(do not reuse REVALIDATION_SECRET)."
+    )
+if PREVIEW_SECRET == REVALIDATION_SECRET:
+    raise ValueError("PREVIEW_SECRET must be distinct from REVALIDATION_SECRET.")
 
 WAGTAIL_HEADLESS_PREVIEW = {
     "CLIENT_URLS": {

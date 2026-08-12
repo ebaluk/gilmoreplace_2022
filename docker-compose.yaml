@@ -12,6 +12,11 @@ services:
       - postgres_data:/var/lib/postgresql/data
       - ./deploy/db/initdb.d:/docker-entrypoint-initdb.d:ro
       - ./deploy/db:/deploy-db:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER:-django} -d $${POSTGRES_DB:-gilmoreplace_2022}"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
     networks:
       - gilmoreplace
 
@@ -26,11 +31,20 @@ services:
     environment:
       - DJANGO_SETTINGS_MODULE=gilmoreplace_2022.settings.production
       - DB_HOST=${DB_HOST:-postgres}
+      # Set RUN_MIGRATIONS=0 on extra backend replicas; advisory lock still serializes when =1.
+      - RUN_MIGRATIONS=${RUN_MIGRATIONS:-1}
     depends_on:
-      - postgres
+      postgres:
+        condition: service_healthy
     volumes:
       - ./media_files:/app/media_files
       - ./static:/app/static
+    healthcheck:
+      test: ["CMD-SHELL", "python -c \"import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/admin/login/', timeout=5)\""]
+      interval: 15s
+      timeout: 5s
+      retries: 10
+      start_period: 60s
     networks:
       - gilmoreplace
 
@@ -46,9 +60,12 @@ services:
     environment:
       - DJANGO_SETTINGS_MODULE=gilmoreplace_2022.settings.production
       - DB_HOST=${DB_HOST:-postgres}
+      - RUN_MIGRATIONS=0
     depends_on:
-      - postgres
-      - backend
+      postgres:
+        condition: service_healthy
+      backend:
+        condition: service_healthy
     entrypoint: ["/bin/sh", "/app/deploy/cron/run-scheduled.sh"]
     networks:
       - gilmoreplace

@@ -42,16 +42,22 @@ def wagtail_serve_redirect(request, path):
     return redirect_to_nextjs(request, path)
 
 
-urlpatterns = (
-    wtadmin_urls.urlpatterns
-    + wtsitemap_urls.urlpatterns
-    + interactivemaps_urls.urlpatterns
-    + [
-        re_path(r'^admin/', include(wagtailadmin_urls)),
-        re_path(r'^documents/(\d+)/(.*\.pdf)$', pdf_document_serve, name='pdf_document_serve'),
-        re_path(r'^documents/(\d+)/(.*\.PDF)$', pdf_document_serve, name='pdf_document_serve'),
-        re_path(r'^documents/', include(wagtaildocs_urls)),
+_api_urlpatterns = [
+    re_path(r'^admin/', include(wagtailadmin_urls)),
+    re_path(r'^documents/(\d+)/(.*\.pdf)$', pdf_document_serve, name='pdf_document_serve'),
+    re_path(r'^documents/(\d+)/(.*\.PDF)$', pdf_document_serve, name='pdf_document_serve'),
+    re_path(r'^documents/', include(wagtaildocs_urls)),
+]
+
+# Stock Wagtail API v2 (pages/images/documents) only in DEBUG — public site uses headless.
+if settings.DEBUG:
+    _api_urlpatterns.append(
         re_path(r'^api/v2/', include((api_patterns, api_app_name), namespace=api_namespace)),
+    )
+
+# OpenAPI schema/docs only in DEBUG (avoid public API surface in production).
+if settings.DEBUG:
+    _api_urlpatterns += [
         re_path(r'^api/schema/$', SpectacularAPIView.as_view(), name='api_schema'),
         re_path(
             r'^api/docs/$',
@@ -59,6 +65,12 @@ urlpatterns = (
             name='api_docs',
         ),
     ]
+
+urlpatterns = (
+    wtadmin_urls.urlpatterns
+    + wtsitemap_urls.urlpatterns
+    + interactivemaps_urls.urlpatterns
+    + _api_urlpatterns
     + headless_urls_patterns
 )
 
