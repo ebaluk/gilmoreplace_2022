@@ -11,8 +11,8 @@ Run all commands from this directory (`ansible/`).
 | `deploy.yml` | Sync code + rebuild Docker Compose stack |
 | `vars_dev.yml` | DEV host, paths, rsync excludes, compose file |
 | `hosts.ini` | Inventory (`dev_hosts`) |
-| `ansible.cfg` | Inventory + log path |
-| `requirements.yml` | Galaxy collections (`community.docker`, `ansible.posix`) |
+| `ansible.cfg` | Inventory, log path, SSH timeout / keepalive |
+| `requirements.yml` | Galaxy collections (`ansible.posix`; compose via `docker compose` CLI) |
 | `logs/` | Ansible run log (gitignored except `.gitkeep`) |
 
 ## GitHub Actions (CI / CD)
@@ -43,6 +43,8 @@ Compose brings up **`backend-cron`** with the stack (Wagtail `publish_scheduled`
 | SSH smoke-test — `Permission denied (publickey)` | Wrong key contents / newlines in the secret |
 | SSH smoke-test — timeout / no route | Firewall: allow SSH from GitHub Actions IPs to `159.194.210.95:22` |
 | Deploy with Ansible (after green smoke-test) | Compose/build on server — check Ansible task output |
+| Compose build timeout / SSH drop mid-build | Slow VPS + long image build. Playbook uses `async: 3600` + SSH `ServerAliveInterval`; layer cache is kept (no `--rmi local`). Re-run deploy or check disk/`docker system df` on the host |
+| Broken image refs / compose cannot start | On the server: `docker compose --env-file prod_server.env down --rmi local` then re-run `--tags=compose` |
 | `couldn't resolve module ... synchronize` | Collections not installed — workflow runs `ansible-galaxy collection install -r requirements.yml` (`ansible.posix`) |
 
 Local deploy still works without Actions:
@@ -97,7 +99,7 @@ ansible-galaxy collection install -r requirements.yml
 
 ## Deploy
 
-Full deploy (rsync + compose down/up --build):
+Full deploy (rsync + `docker compose up -d --build`, async up to 60 min):
 
 ```bash
 ansible-playbook deploy.yml -e "filevar=dev" --tags=dev
@@ -109,7 +111,7 @@ ansible-playbook deploy.yml -e "filevar=dev" --tags=dev
 |-----|----------------|
 | `dev` | Full path used by the examples below (includes sync + compose) |
 | `sync` | Rsync project to the server only |
-| `compose` | Tear down stale containers/images, then `docker compose` build/up |
+| `compose` | Force-remove known containers, then `docker compose up -d --build` (keeps image layer cache) |
 | `bootstrap` | Copy `prod_server.env.example` → `prod_server.env` if missing |
 | `deploy` | Shared by sync / compose / bootstrap tasks |
 
@@ -142,7 +144,10 @@ Source: repo root (`deploy_src`). Destination: `deploy_dest` on the server.
 - Env file: `prod_server.env` (must exist on the server)
 - Persistent dirs created by the playbook: `media_files/`, `static/`
 
-The compose task force-removes known container names, runs `compose down --rmi local`, then builds and recreates the stack.
+The compose task force-removes known container names, then runs
+`docker compose up -d --build --remove-orphans --force-recreate` with
+`async: 3600` / `poll: 30` so slow builds do not time out SSH. Image layers
+are kept (no automatic `--rmi local`).
 
 ## Verify
 
