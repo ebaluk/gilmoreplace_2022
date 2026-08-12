@@ -40,11 +40,16 @@ services:
       - ./media_files:/app/media_files
       - ./static:/app/static
     healthcheck:
-      test: ["CMD-SHELL", "python -c \"import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/admin/login/', timeout=5)\""]
+      # Host must be in ALLOWED_HOSTS (not bare 127.0.0.1 — Django DisallowedHost → 400).
+      test:
+        [
+          "CMD-SHELL",
+          "python -c \"import urllib.request; urllib.request.urlopen(urllib.request.Request('http://127.0.0.1:8000/admin/login/', headers={'Host': 'localhost'}), timeout=5)\"",
+        ]
       interval: 15s
       timeout: 5s
       retries: 10
-      start_period: 60s
+      start_period: 90s
     networks:
       - gilmoreplace
 
@@ -65,7 +70,8 @@ services:
       postgres:
         condition: service_healthy
       backend:
-        condition: service_healthy
+        # Cron only needs DB; do not block compose up on backend HTTP health.
+        condition: service_started
     entrypoint: ["/bin/sh", "/app/deploy/cron/run-scheduled.sh"]
     networks:
       - gilmoreplace

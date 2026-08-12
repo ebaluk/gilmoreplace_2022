@@ -44,6 +44,7 @@ Compose brings up **`backend-cron`** with the stack (Wagtail `publish_scheduled`
 | SSH smoke-test — timeout / no route | Firewall: allow SSH from GitHub Actions IPs to `159.194.210.95:22` |
 | Deploy with Ansible (after green smoke-test) | Compose/build on server — check Ansible task output |
 | Compose build timeout / SSH drop mid-build | Slow VPS + long image build. Playbook uses `async: 3600` + SSH `ServerAliveInterval`; layer cache is kept (no `--rmi local`). Re-run deploy or check disk/`docker system df` on the host |
+| `backend is unhealthy` / cron dependency failed | Healthcheck must use `Host: localhost` (or a name in `ALLOWED_HOSTS`). Ensure `prod_server.env` has strong secrets and `localhost`/`127.0.0.1` in `ALLOWED_HOSTS`. Check `docker logs gilmoreplace-backend` |
 | Broken image refs / compose cannot start | On the server: `docker compose --env-file prod_server.env down --rmi local` then re-run `--tags=compose` |
 | `couldn't resolve module ... synchronize` | Collections not installed — workflow runs `ansible-galaxy collection install -r requirements.yml` (`ansible.posix`) |
 

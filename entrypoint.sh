@@ -49,6 +49,7 @@ python manage.py collectstatic --noinput --ignore='*.scss'
 
 echo "==> Starting server..."
 if [ "$(id -u)" = "0" ]; then
-  exec runuser -u app -- "$@"
+  # Preserve PATH / VIRTUAL_ENV / Django env so gunicorn finds the venv.
+  exec runuser -u app --preserve-environment -- "$@"
 fi
 exec "$@"
